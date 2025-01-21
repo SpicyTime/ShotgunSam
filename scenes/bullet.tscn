@@ -1,0 +1,34 @@
+[gd_scene load_steps=6 format=3 uid="uid://wescey8lwnks"]
+
+[ext_resource type="Texture2D" uid="uid://ckbjf8hvxphwk" path="res://icon.svg" id="1_gti0a"]
+[ext_resource type="Script" path="res://scripts/bullet.gd" id="1_uimkk"]
+[ext_resource type="PackedScene" uid="uid://n5n5bff0e5y8" path="res://scenes/kill_zone.tscn" id="3_xa3a2"]
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_s8yy4"]
+radius = 13.0384
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_5ow6i"]
+
+[node name="Bullet" type="CharacterBody2D"]
+script = ExtResource("1_uimkk")
+SPEED = 500
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+shape = SubResource("CircleShape2D_s8yy4")
+disabled = true
+
+[node name="Sprite2D" type="Sprite2D" parent="."]
+position = Vector2(2.38419e-07, 5.96046e-08)
+scale = Vector2(0.15625, 0.15625)
+texture = ExtResource("1_gti0a")
+
+[node name="kill_zone" parent="." instance=ExtResource("3_xa3a2")]
+
+[node name="kill_zone_coll" type="CollisionShape2D" parent="kill_zone"]
+shape = SubResource("CircleShape2D_5ow6i")
+
+[node name="despawn_timer" type="Timer" parent="."]
+wait_time = 2.5
+one_shot = true
+
+[connection signal="timeout" from="despawn_timer" to="." method="_on_despawn_timer_timeout"]

@@ -1,0 +1,11 @@
+[gd_scene load_steps=3 format=3 uid="uid://b1ng7jf4jymll"]
+
+[ext_resource type="Texture2D" uid="uid://ckbjf8hvxphwk" path="res://icon.svg" id="1_4tdm6"]
+[ext_resource type="Script" path="res://scripts/gun.gd" id="2_ocxjr"]
+
+[node name="Gun" type="Sprite2D"]
+position = Vector2(-4.76837e-07, -4.76837e-07)
+scale = Vector2(0.326172, 0.326172)
+texture = ExtResource("1_4tdm6")
+script = ExtResource("2_ocxjr")
+gun_power = 650

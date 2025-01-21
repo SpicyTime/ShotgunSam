@@ -1,0 +1,68 @@
+[gd_scene load_steps=10 format=3 uid="uid://bfaaj7vkg65bt"]
+
+[ext_resource type="Script" path="res://scripts/game_manager.gd" id="1_a6aoq"]
+[ext_resource type="PackedScene" uid="uid://c2wa1ek2hr3xe" path="res://scenes/player.tscn" id="1_no7uu"]
+[ext_resource type="PackedScene" uid="uid://b53qsi8rbcsrf" path="res://scenes/platform.tscn" id="2_1yptp"]
+[ext_resource type="PackedScene" uid="uid://cfc30wcm4wluh" path="res://scenes/pickups.tscn" id="3_dkr2k"]
+[ext_resource type="PackedScene" uid="uid://c4ps67fhoww3f" path="res://scenes/enemy.tscn" id="5_n6iij"]
+[ext_resource type="PackedScene" uid="uid://c4m3jux0rnkhw" path="res://scenes/obstacle.tscn" id="6_ivjpc"]
+[ext_resource type="Texture2D" uid="uid://ckbjf8hvxphwk" path="res://icon.svg" id="7_wn1hw"]
+
+[sub_resource type="WorldBoundaryShape2D" id="WorldBoundaryShape2D_g37if"]
+distance = -301.0
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_vhf80"]
+size = Vector2(126, 378)
+
+[node name="Game" type="Node2D"]
+
+[node name="Pickups" type="Node" parent="."]
+
+[node name="Pickups2" parent="Pickups" instance=ExtResource("3_dkr2k")]
+position = Vector2(-3, 48)
+
+[node name="Platforms" type="Node" parent="."]
+
+[node name="platform" parent="Platforms" instance=ExtResource("2_1yptp")]
+position = Vector2(388, 91)
+
+[node name="platform2" parent="Platforms" instance=ExtResource("2_1yptp")]
+position = Vector2(-354, -192)
+
+[node name="GameManager" type="Node" parent="."]
+script = ExtResource("1_a6aoq")
+
+[node name="Label" type="Label" parent="GameManager"]
+offset_left = -574.0
+offset_top = -317.0
+offset_right = -534.0
+offset_bottom = -294.0
+
+[node name="Camera2D" type="Camera2D" parent="."]
+unique_name_in_owner = true
+position_smoothing_enabled = true
+
+[node name="Player" parent="." instance=ExtResource("1_no7uu")]
+unique_name_in_owner = true
+position = Vector2(-504, 229)
+
+[node name="StaticBody2D" type="StaticBody2D" parent="."]
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="StaticBody2D"]
+position = Vector2(-10, 17)
+shape = SubResource("WorldBoundaryShape2D_g37if")
+
+[node name="Enemy" parent="." instance=ExtResource("5_n6iij")]
+position = Vector2(366, -123)
+
+[node name="Obstacle" parent="." instance=ExtResource("6_ivjpc")]
+position = Vector2(-231, 242)
+
+[node name="Sprite2D" type="Sprite2D" parent="Obstacle"]
+position = Vector2(0, -125)
+scale = Vector2(1, 2.95312)
+texture = ExtResource("7_wn1hw")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Obstacle"]
+position = Vector2(0, -127)
+shape = SubResource("RectangleShape2D_vhf80")
