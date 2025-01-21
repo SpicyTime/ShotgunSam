@@ -1,5 +1,5 @@
 extends CharacterBody2D
-@onready var camera: Camera2D = %Camera2D
+@onready var camera: Camera2D = %Camera
 @onready var gun: Sprite2D = $Gun
 @onready var screen_size = get_viewport().size
 @onready var CAMERA_SIZE = camera.get_viewport_rect().size
@@ -54,6 +54,6 @@ func _physics_process(delta: float) -> void:
 		velocity.x = move_toward(velocity.x, 0, SPEED)
 	 
 	move_and_slide()
-	screen_wrap()
+	#screen_wrap()
 func screen_wrap() ->void:
 	position.x = wrapf(position.x, 0 - CAMERA_SIZE.x / 2, screen_size.x  - CAMERA_SIZE.x / 2)
