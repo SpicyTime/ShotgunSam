@@ -26,7 +26,6 @@ func handle_input():
 	# Handle jump.
 	if Input.is_action_just_pressed("jump") and is_on_floor():
 		velocity.y = JUMP_VELOCITY
-	direction = Input.get_axis("move_left", "move_right")
 	if Input.is_action_just_pressed("shoot"):
 		if current_shot_count <= 0:
 			current_shot_count = MAX_SHOT_COUNT
@@ -47,10 +46,7 @@ func _physics_process(delta: float) -> void:
 	 
 	handle_input()
 	 
-	 
-	if direction:
-		velocity.x = direction * SPEED
-	elif is_on_floor():
+	if is_on_floor():
 		velocity.x = move_toward(velocity.x, 0, SPEED)
 	 
 	move_and_slide()
