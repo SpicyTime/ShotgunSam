@@ -32,7 +32,10 @@ func handle_input():
 			 
 		var gun_position = gun.global_position
 		var direction_to_mouse = (get_global_mouse_position()  - gun_position).normalized()
-		velocity = - (direction_to_mouse * gun.gun_power)
+		if gun.distance <= gun_radius:
+			velocity = (direction_to_mouse * gun.gun_power)
+		else:
+			velocity = - (direction_to_mouse * gun.gun_power)
 		gun.shoot()
 		current_shot_count -= 1
 func rotate_gun():
