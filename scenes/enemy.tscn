@@ -1,10 +1,15 @@
-[gd_scene load_steps=4 format=3 uid="uid://c4ps67fhoww3f"]
+[gd_scene load_steps=6 format=3 uid="uid://c4ps67fhoww3f"]
 
 [ext_resource type="Script" path="res://scripts/enemy.gd" id="1_1al7b"]
-[ext_resource type="Texture2D" uid="uid://ckbjf8hvxphwk" path="res://icon.svg" id="2_7rp46"]
+[ext_resource type="Texture2D" uid="uid://cqf6wxphynndx" path="res://assets/Enemy.png" id="2_jb76s"]
+[ext_resource type="PackedScene" uid="uid://n5n5bff0e5y8" path="res://scenes/kill_zone.tscn" id="3_tsy2c"]
 
-[sub_resource type="CircleShape2D" id="CircleShape2D_l6hfl"]
-radius = 48.0104
+[sub_resource type="CapsuleShape2D" id="CapsuleShape2D_4an86"]
+radius = 17.0
+height = 80.0
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_44ore"]
+size = Vector2(39, 81)
 
 [node name="Enemy" type="CharacterBody2D"]
 script = ExtResource("1_1al7b")
@@ -12,15 +17,24 @@ script = ExtResource("1_1al7b")
 [node name="Sprite2D" type="Sprite2D" parent="."]
 position = Vector2(5.96046e-08, 1.35525e-20)
 scale = Vector2(0.6875, 0.6875)
-texture = ExtResource("2_7rp46")
+texture = ExtResource("2_jb76s")
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
-shape = SubResource("CircleShape2D_l6hfl")
+position = Vector2(-2, 2)
+shape = SubResource("CapsuleShape2D_4an86")
 
 [node name="Left" type="RayCast2D" parent="."]
-position = Vector2(-40, 40)
+position = Vector2(-19, 41)
+target_position = Vector2(0, 22)
 
 [node name="Right" type="RayCast2D" parent="."]
-position = Vector2(40, 40)
+position = Vector2(18, 41)
+target_position = Vector2(0, 21)
+
+[node name="kill_zone" parent="." instance=ExtResource("3_tsy2c")]
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="kill_zone"]
+position = Vector2(-1.5, 1.5)
+shape = SubResource("RectangleShape2D_44ore")
 
 [connection signal="child_exiting_tree" from="." to="." method="_on_child_exiting_tree"]

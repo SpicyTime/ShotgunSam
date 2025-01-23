@@ -3,11 +3,13 @@ extends Area2D
 @onready var kill_zone: Area2D = $"."
 
 
-
+func reset():
+	get_tree().reload_current_scene()
 func _on_body_entered(body: Node2D) -> void:
-	print(body)
+	if body == get_parent():
+		return
 	if body == player:
-		get_tree().reload_current_scene()
+		call_deferred("reset") 
 	elif body is CharacterBody2D and body != kill_zone:
 		body.queue_free()
 	elif body.has_method("is_obstacle"):

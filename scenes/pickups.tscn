@@ -1,19 +1,19 @@
 [gd_scene load_steps=4 format=3 uid="uid://cfc30wcm4wluh"]
 
 [ext_resource type="Script" path="res://scripts/pickups.gd" id="1_o2gub"]
-[ext_resource type="Texture2D" uid="uid://ckbjf8hvxphwk" path="res://icon.svg" id="2_7dfvh"]
+[ext_resource type="Texture2D" uid="uid://bd3e5q11l88bc" path="res://assets/AmmoBox.png" id="2_g52v5"]
 
-[sub_resource type="CircleShape2D" id="CircleShape2D_vr60y"]
-radius = 42.0119
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_7xpbi"]
+size = Vector2(43, 28)
 
 [node name="Pickups" type="Area2D"]
 script = ExtResource("1_o2gub")
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
-shape = SubResource("CircleShape2D_vr60y")
+position = Vector2(0.5, 0)
+shape = SubResource("RectangleShape2D_7xpbi")
 
 [node name="Sprite2D" type="Sprite2D" parent="."]
-scale = Vector2(0.476562, 0.476562)
-texture = ExtResource("2_7dfvh")
+texture = ExtResource("2_g52v5")
 
 [connection signal="body_entered" from="." to="." method="_on_body_entered"]

@@ -26,6 +26,6 @@ func rotate_around(radius):
 func shoot():
 	var instance = bullet.instantiate()
 	instance.dir = direction.normalized()
-	instance.spawn_pos = global_position
+	instance.spawn_pos = $Marker2D.global_position
 	instance.spawn_rot = rotation 
 	game.add_child.call_deferred(instance)
