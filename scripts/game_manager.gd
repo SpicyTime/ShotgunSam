@@ -1,5 +1,6 @@
 extends Node
-@onready var label: Label = $Label
+@onready var bullet_count_label: Label = %BulletCountLabel
+
 @onready var player: CharacterBody2D = %Player
 
 # Called when the node enters the scene tree for the first time.
@@ -12,4 +13,4 @@ func _process(_delta: float) -> void:
 	pass
 
 func _on_player_shots_changed(new_value: int):
-	label.text = str("Shot count: ", new_value)
+	bullet_count_label.text = str("Shot count: ", new_value)

@@ -3,6 +3,7 @@ extends CharacterBody2D
 @onready var gun: Sprite2D = $Gun
 @onready var screen_size = get_viewport().size
 @onready var CAMERA_SIZE = camera.get_viewport_rect().size
+@onready var player_sprite: Sprite2D = $PlayerSprite
 @export var gun_radius := 100
 const SPEED = 300.0
 const JUMP_VELOCITY = -400.0
@@ -21,7 +22,11 @@ func add_bullets(amount: int):
 func _on_shots_set(new_value: int) ->void:
 	current_shot_count = new_value
 	shots_changed.emit(current_shot_count)
-	
+func handle_flip():
+	if direction == 1:
+		player_sprite.flip_h = false
+	elif direction == -1:
+		player_sprite.flip_h = true
 func handle_input():
 	# Handle jump.
 	if Input.is_action_just_pressed("jump") and is_on_floor():
@@ -34,6 +39,7 @@ func handle_input():
 		var direction_to_mouse = (get_global_mouse_position()  - gun_position).normalized()
 		if gun.distance <= gun_radius:
 			velocity = (direction_to_mouse * gun.gun_power)
+			
 		else:
 			velocity = - (direction_to_mouse * gun.gun_power)
 		gun.shoot()
