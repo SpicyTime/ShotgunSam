@@ -6,7 +6,7 @@ extends Camera2D
 func get_camera_screen_rect() -> Rect2:
 	var half_size = get_viewport().get_visible_rect().size * 0.5 * zoom
 	var top_left = global_position - half_size
-	return Rect2(top_left, half_size * 2)
+	return Rect2(top_left, half_size * 2) 
 func is_player_in_view(player_position):
 	var camera_rect = get_camera_screen_rect()
 	return camera_rect.has_point(player_position)
