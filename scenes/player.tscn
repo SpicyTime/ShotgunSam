@@ -11,7 +11,6 @@ height = 78.0
 [node name="Player" type="CharacterBody2D"]
 z_index = 10
 script = ExtResource("1_tcq6q")
-gun_radius = 75
 
 [node name="PlayerCollider" type="CollisionShape2D" parent="."]
 shape = SubResource("CapsuleShape2D_hatjo")

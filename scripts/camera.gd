@@ -1,6 +1,6 @@
 extends Camera2D
 @onready var player: CharacterBody2D = %Player
-
+const TILE_SIZE = 48
 
 # Called when the node enters the scene tree for the first time.
 func get_camera_screen_rect() -> Rect2:
@@ -20,10 +20,11 @@ func move_camera():
 		dir = "right"
 		global_position += Vector2(camera_rect.size.x, 0)
 	elif player.global_position.y > camera_rect.position.y + camera_rect.size.y:
-		global_position += Vector2(0, camera_rect.size.y)
+		global_position += Vector2(0, camera_rect.size.y - TILE_SIZE)
 		dir = "bottom"
 	elif player.global_position	.y < camera_rect.position.y:
-		global_position -= Vector2(0, camera_rect.size.y)
+		print(camera_rect.size.y)
+		global_position -= Vector2(0, camera_rect.size.y - TILE_SIZE) 
 		dir = "top"
 	print(dir)
 func _ready() -> void:

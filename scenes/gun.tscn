@@ -1,6 +1,6 @@
 [gd_scene load_steps=3 format=3 uid="uid://b1ng7jf4jymll"]
 
-[ext_resource type="Texture2D" uid="uid://da5bobvjhs774" path="res://assets/ShotGun.png" id="1_6yswn"]
+[ext_resource type="Texture2D" uid="uid://btjfdcmoca3io" path="res://assets/ShotGun.png" id="1_6yswn"]
 [ext_resource type="Script" path="res://scripts/gun.gd" id="2_ocxjr"]
 
 [node name="Gun" type="Sprite2D"]
@@ -11,3 +11,7 @@ gun_power = 650
 
 [node name="Marker2D" type="Marker2D" parent="."]
 position = Vector2(55, -16)
+
+[node name="ShootCoolDown" type="Timer" parent="."]
+
+[connection signal="timeout" from="ShootCoolDown" to="." method="_on_shoot_cool_down_timeout"]
