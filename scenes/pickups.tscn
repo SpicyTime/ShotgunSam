@@ -1,54 +1,56 @@
 [gd_scene load_steps=11 format=3 uid="uid://cfc30wcm4wluh"]
 
 [ext_resource type="Script" path="res://scripts/pickups.gd" id="1_o2gub"]
-[ext_resource type="Texture2D" uid="uid://b2lrlhac1dvq2" path="res://assets/art/ThinGoldCoin.png" id="2_62diu"]
+[ext_resource type="Texture2D" uid="uid://bnjxpwo45usfd" path="res://assets/art/ThinGoldCoin.png" id="2_62diu"]
 
 [sub_resource type="CapsuleShape2D" id="CapsuleShape2D_vljhm"]
+radius = 19.0
+height = 48.0
 
-[sub_resource type="AtlasTexture" id="AtlasTexture_b2uqp"]
+[sub_resource type="AtlasTexture" id="AtlasTexture_43gr1"]
 atlas = ExtResource("2_62diu")
-region = Rect2(0, 0, 96, 96)
+region = Rect2(0, 0, 48, 48)
 
-[sub_resource type="AtlasTexture" id="AtlasTexture_7cj3f"]
+[sub_resource type="AtlasTexture" id="AtlasTexture_vh5rm"]
 atlas = ExtResource("2_62diu")
-region = Rect2(96, 0, 96, 96)
+region = Rect2(48, 0, 48, 48)
 
-[sub_resource type="AtlasTexture" id="AtlasTexture_l0jqv"]
+[sub_resource type="AtlasTexture" id="AtlasTexture_vwyj4"]
 atlas = ExtResource("2_62diu")
-region = Rect2(0, 96, 96, 96)
+region = Rect2(0, 48, 48, 48)
 
-[sub_resource type="AtlasTexture" id="AtlasTexture_2o8ww"]
+[sub_resource type="AtlasTexture" id="AtlasTexture_8ir2o"]
 atlas = ExtResource("2_62diu")
-region = Rect2(96, 96, 96, 96)
+region = Rect2(48, 48, 48, 48)
 
-[sub_resource type="AtlasTexture" id="AtlasTexture_mvx0e"]
+[sub_resource type="AtlasTexture" id="AtlasTexture_keivn"]
 atlas = ExtResource("2_62diu")
-region = Rect2(0, 192, 96, 96)
+region = Rect2(0, 96, 48, 48)
 
-[sub_resource type="AtlasTexture" id="AtlasTexture_ep3l5"]
+[sub_resource type="AtlasTexture" id="AtlasTexture_lga46"]
 atlas = ExtResource("2_62diu")
-region = Rect2(96, 192, 96, 96)
+region = Rect2(48, 96, 48, 48)
 
 [sub_resource type="SpriteFrames" id="SpriteFrames_5055c"]
 animations = [{
 "frames": [{
 "duration": 1.0,
-"texture": SubResource("AtlasTexture_b2uqp")
+"texture": SubResource("AtlasTexture_43gr1")
 }, {
 "duration": 1.0,
-"texture": SubResource("AtlasTexture_7cj3f")
+"texture": SubResource("AtlasTexture_vh5rm")
 }, {
 "duration": 1.0,
-"texture": SubResource("AtlasTexture_l0jqv")
+"texture": SubResource("AtlasTexture_vwyj4")
 }, {
 "duration": 1.0,
-"texture": SubResource("AtlasTexture_2o8ww")
+"texture": SubResource("AtlasTexture_8ir2o")
 }, {
 "duration": 1.0,
-"texture": SubResource("AtlasTexture_mvx0e")
+"texture": SubResource("AtlasTexture_keivn")
 }, {
 "duration": 1.0,
-"texture": SubResource("AtlasTexture_ep3l5")
+"texture": SubResource("AtlasTexture_lga46")
 }],
 "loop": true,
 "name": &"spin",
@@ -65,6 +67,6 @@ shape = SubResource("CapsuleShape2D_vljhm")
 sprite_frames = SubResource("SpriteFrames_5055c")
 animation = &"spin"
 autoplay = "spin"
-frame_progress = 0.463233
+frame_progress = 0.301172
 
 [connection signal="body_entered" from="." to="." method="_on_body_entered"]

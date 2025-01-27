@@ -8,21 +8,15 @@ extends CharacterBody2D
 
 const SPEED = 300.0
 const JUMP_VELOCITY = -400.0
-const MAX_SHOT_COUNT: int = 10
-@export var current_shot_count: int  = MAX_SHOT_COUNT: set = _on_shots_set
-var d:int
 var gun_rotate_speed = 4
 var direction: float
-signal shots_changed(new_value: int)
-func add_bullets(amount: int):
-	current_shot_count += amount
-	if current_shot_count > MAX_SHOT_COUNT:
-		current_shot_count = MAX_SHOT_COUNT
-		
-		
-func _on_shots_set(new_value: int) ->void:
-	current_shot_count = new_value
-	shots_changed.emit(current_shot_count)
+var coin_count: int = 0: set = _on_coins_set
+signal coin_count_changed(new_value: int)
+func add_coins(amount: int):
+	coin_count += amount
+func _on_coins_set(new_value: int):
+	coin_count = new_value
+	coin_count_changed.emit(coin_count)
 func handle_flip():
 	if direction == 1:
 		player_sprite.flip_h = false
@@ -33,9 +27,6 @@ func handle_input():
 	if Input.is_action_just_pressed("jump") and is_on_floor():
 		velocity.y = JUMP_VELOCITY
 	if Input.is_action_just_pressed("shoot"):
-		
-		if current_shot_count <= 0:
-			current_shot_count = MAX_SHOT_COUNT
 		if gun.can_shoot:
 			var gun_position = gun.global_position
 			var direction_to_mouse = (get_global_mouse_position()  - gun_position).normalized()
@@ -45,7 +36,7 @@ func handle_input():
 			else:
 				velocity = - (direction_to_mouse * gun.gun_power)
 			gun.shoot()
-			current_shot_count -= 1
+			 
 func rotate_gun():
 	gun.rotate_around(gun_radius)
 func _physics_process(delta: float) -> void:

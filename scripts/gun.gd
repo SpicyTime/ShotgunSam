@@ -2,11 +2,10 @@ extends Sprite2D
 @export var gun_power = 10
 @export var cooldown: float = 0.75
 @export var shake_power = 0.3
-
+@onready var shoot_sound: AudioStreamPlayer2D = $ShootSound
 @onready var bullet = load("res://scenes/bullet.tscn")
 @onready var game = get_tree().get_root().get_node("Game")
 @onready var shoot_cool_down: Timer = $ShootCoolDown
-@onready var shoot_sound: AudioStreamPlayer2D = $ShootSound
 @onready var parent = get_parent()
 @onready var game_camera = get_node("/root/Game/Camera")
 
@@ -40,6 +39,8 @@ func rotate_around(radius):
 
 func shoot():
 	if can_shoot:
+		 
+		print("Shooting")
 		var instance = bullet.instantiate()
 		instance.dir = direction.normalized()
 		instance.spawn_pos = $Marker2D.global_position
@@ -47,7 +48,6 @@ func shoot():
 		game.add_child.call_deferred(instance)
 		shoot_cool_down.start()
 		can_shoot = false
-		shoot_sound.play()
 		game_camera.add_trauma(shake_power)
 
 
