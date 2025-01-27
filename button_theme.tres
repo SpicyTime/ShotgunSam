@@ -1,9 +1,0 @@
-[gd_resource type="Theme" load_steps=2 format=3 uid="uid://53goncgv0k5o"]
-
-[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_6pimg"]
-border_width_left = 10
-border_width_top = 10
-
-[resource]
-default_font_size = 100
-/styles/test = SubResource("StyleBoxFlat_6pimg")
