@@ -1,7 +1,7 @@
 [gd_scene load_steps=4 format=3 uid="uid://cfc30wcm4wluh"]
 
 [ext_resource type="Script" path="res://scripts/pickups.gd" id="1_o2gub"]
-[ext_resource type="Texture2D" uid="uid://cda0k7x0yoaji" path="res://assets/AmmoBox.png" id="2_g52v5"]
+[ext_resource type="Texture2D" uid="uid://cda0k7x0yoaji" path="res://assets/art/AmmoBox.png" id="2_g52v5"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_7xpbi"]
 size = Vector2(43, 28)

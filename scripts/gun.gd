@@ -1,13 +1,20 @@
 extends Sprite2D
 @export var gun_power = 10
+@export var cooldown: float = 0.75
+@export var shake_power = 0.3
+
 @onready var bullet = load("res://scenes/bullet.tscn")
 @onready var game = get_tree().get_root().get_node("Game")
 @onready var shoot_cool_down: Timer = $ShootCoolDown
+@onready var shoot_sound: AudioStreamPlayer2D = $ShootSound
 @onready var parent = get_parent()
+@onready var game_camera = get_node("/root/Game/Camera")
+
 var direction
 var distance: float
 var can_shoot: bool = true
-var cooldown: float = 0.75
+func _process(_delta: float):
+	shoot_cool_down.wait_time = cooldown
 func _ready():
 	shoot_cool_down.wait_time = cooldown
 func rotate_around(radius):
@@ -40,7 +47,8 @@ func shoot():
 		game.add_child.call_deferred(instance)
 		shoot_cool_down.start()
 		can_shoot = false
-	
+		shoot_sound.play()
+		game_camera.add_trauma(shake_power)
 
 
 func _on_shoot_cool_down_timeout() -> void:

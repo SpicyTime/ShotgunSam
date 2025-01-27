@@ -6,8 +6,9 @@ extends Area2D
 
 func reset():
 	if game:
-		if game.get_tree():
-			game.get_tree().reload_current_scene()
+		var tree = game.get_tree()
+		if tree:
+			tree.reload_current_scene() 
 func _on_body_entered(body: Node2D) -> void:
 	if body == get_parent():
 		return

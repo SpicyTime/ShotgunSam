@@ -3,7 +3,7 @@
 [ext_resource type="PackedScene" uid="uid://n5n5bff0e5y8" path="res://scenes/kill_zone.tscn" id="1_3fcwm"]
 [ext_resource type="Script" path="res://scripts/game_manager.gd" id="1_a6aoq"]
 [ext_resource type="PackedScene" uid="uid://c2wa1ek2hr3xe" path="res://scenes/player.tscn" id="1_no7uu"]
-[ext_resource type="Texture2D" uid="uid://d0tr6s6ytata4" path="res://assets/Tileset.png" id="4_ihh3j"]
+[ext_resource type="Texture2D" uid="uid://d0tr6s6ytata4" path="res://assets/art/Tileset.png" id="4_ihh3j"]
 [ext_resource type="Script" path="res://scripts/camera.gd" id="4_kgiod"]
 [ext_resource type="PackedScene" uid="uid://l5enih3umcew" path="res://scenes/spikes.tscn" id="5_o0smu"]
 [ext_resource type="PackedScene" uid="uid://b53qsi8rbcsrf" path="res://scenes/platform.tscn" id="6_b07g8"]

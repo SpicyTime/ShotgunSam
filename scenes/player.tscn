@@ -1,7 +1,7 @@
 [gd_scene load_steps=5 format=3 uid="uid://c2wa1ek2hr3xe"]
 
 [ext_resource type="Script" path="res://scripts/player.gd" id="1_tcq6q"]
-[ext_resource type="Texture2D" uid="uid://cqrr4878gpy3n" path="res://assets/Player.png" id="2_cn3vu"]
+[ext_resource type="Texture2D" uid="uid://cqrr4878gpy3n" path="res://assets/art/Player.png" id="2_cn3vu"]
 [ext_resource type="PackedScene" uid="uid://b1ng7jf4jymll" path="res://scenes/gun.tscn" id="3_tsfjt"]
 
 [sub_resource type="CapsuleShape2D" id="CapsuleShape2D_hatjo"]

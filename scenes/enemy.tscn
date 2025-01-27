@@ -1,7 +1,7 @@
 [gd_scene load_steps=6 format=3 uid="uid://c4ps67fhoww3f"]
 
 [ext_resource type="Script" path="res://scripts/enemy.gd" id="1_1al7b"]
-[ext_resource type="Texture2D" uid="uid://iswvakcxsryc" path="res://assets/Enemy.png" id="2_jb76s"]
+[ext_resource type="Texture2D" uid="uid://iswvakcxsryc" path="res://assets/art/Enemy.png" id="2_jb76s"]
 [ext_resource type="PackedScene" uid="uid://n5n5bff0e5y8" path="res://scenes/kill_zone.tscn" id="3_tsy2c"]
 
 [sub_resource type="CapsuleShape2D" id="CapsuleShape2D_4an86"]
