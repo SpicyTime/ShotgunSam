@@ -48,6 +48,7 @@ func shoot():
 		game.add_child.call_deferred(instance)
 		shoot_cool_down.start()
 		can_shoot = false
+		shoot_sound.play()
 		game_camera.add_trauma(shake_power)
 
 
