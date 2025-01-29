@@ -7,6 +7,7 @@ extends Area2D
 func reset():
 	if game:
 		var tree = game.get_tree()
+		
 		if tree:
 			tree.reload_current_scene() 
 func _on_body_entered(body: Node2D) -> void:
@@ -22,3 +23,9 @@ func _on_body_entered(body: Node2D) -> void:
 func _on_area_shape_entered(_area_rid: RID, area: Area2D, _area_shape_index: int, _local_shape_index: int) -> void:
 	if area.has_signal("target_hit"):
 		area.queue_free()
+
+
+ 
+
+
+ 

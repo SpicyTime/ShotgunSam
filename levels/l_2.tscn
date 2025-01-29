@@ -125,5 +125,5 @@ tile_set = SubResource("TileSet_qus1v")
 position = Vector2(-545, 192)
 shape = SubResource("RectangleShape2D_bykhl")
 
-[node name="PlayerSpawn" type="Marker2D" parent="."]
-position = Vector2(-494, 243)
+[node name="LevSpawnPos" type="Marker2D" parent="."]
+position = Vector2(-469, 209)

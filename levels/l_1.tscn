@@ -1,7 +1,16 @@
-[gd_scene load_steps=6 format=4 uid="uid://bmhljl4g2v83n"]
+[gd_scene load_steps=9 format=4 uid="uid://bmhljl4g2v83n"]
 
+[ext_resource type="PackedScene" uid="uid://l5enih3umcew" path="res://scenes/spikes.tscn" id="1_efu4k"]
 [ext_resource type="PackedScene" uid="uid://bfsw1vy5loxmt" path="res://scenes/next_level.tscn" id="2_pm0tr"]
 [ext_resource type="Texture2D" uid="uid://bn0fbmdljiav8" path="res://assets/art/Tileset.png" id="3_3qp7x"]
+
+[sub_resource type="TileSetScenesCollectionSource" id="TileSetScenesCollectionSource_44ns2"]
+resource_name = "Spikes"
+scenes/1/scene = ExtResource("1_efu4k")
+
+[sub_resource type="TileSet" id="TileSet_p224m"]
+tile_size = Vector2i(48, 48)
+sources/0 = SubResource("TileSetScenesCollectionSource_44ns2")
 
 [sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_543t3"]
 resource_name = "Tiles"
@@ -115,7 +124,8 @@ size = Vector2(29, 194)
 [node name="SpikesLayer" type="Node" parent="."]
 
 [node name="BottomSpikes" type="TileMapLayer" parent="SpikesLayer"]
-tile_map_data = PackedByteArray("AAAXAAUAAAAAAAAAAQAYAAUAAAAAAAAAAQAZAAUAAAAAAAAAAQAbAAUAAAAAAAAAAQAcAAUAAAAAAAAAAQAyAAUAAAAAAAAAAQAzAAUAAAAAAAAAAQA0AAUAAAAAAAAAAQA1AAUAAAAAAAAAAQA2AAUAAAAAAAAAAQBKAPr/AAAAAAAAAQBLAPr/AAAAAAAAAQBMAPr/AAAAAAAAAQAaAAUAAAAAAAAAAQA=")
+tile_map_data = PackedByteArray("AAAXAAUAAAAAAAAAAQAYAAUAAAAAAAAAAQAZAAUAAAAAAAAAAQAbAAUAAAAAAAAAAQAcAAUAAAAAAAAAAQAyAAUAAAAAAAAAAQAzAAUAAAAAAAAAAQA0AAUAAAAAAAAAAQA1AAUAAAAAAAAAAQA2AAUAAAAAAAAAAQBKAPr/AAAAAAAAAQBLAPr/AAAAAAAAAQBMAPr/AAAAAAAAAQAaAAUAAAAAAAAAAQD//wUAAAAAAAAAAQA=")
+tile_set = SubResource("TileSet_p224m")
 
 [node name="TopSpikes" type="TileMapLayer" parent="SpikesLayer"]
 rotation = -3.14159
@@ -141,3 +151,6 @@ tile_set = SubResource("TileSet_fk4qk")
 [node name="CollisionShape2D" type="CollisionShape2D" parent="NextLevel"]
 position = Vector2(560.5, 194)
 shape = SubResource("RectangleShape2D_ya7om")
+
+[node name="LevSpawnPos" type="Marker2D" parent="."]
+position = Vector2(-469, 204)
