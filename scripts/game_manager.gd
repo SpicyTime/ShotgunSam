@@ -1,16 +1,26 @@
 extends Node
 @onready var player: CharacterBody2D = %Player
 @onready var coin_label: Label = get_node("GameUI/Coin/CanvasLayer/Label")
-
+func remove_level(level_root):
+	get_tree().get_root().remove_child(level_root)
+func connect_change_scene_signal(node):
+	var next_level_node = node.find_child("NextLevel")
+	if not next_level_node :
+		return
+	if next_level_node.has_signal("change_scene"):
+		next_level_node.change_scene.connect(_on_change_scene)
+		print("Connected")
 func load_level(path : String):
 	var packed_level = load(path)
 	var level_root = packed_level.instantiate()
-	print(level_root)
+	level_root.add_to_group("Level")
 	get_tree().get_root().add_child(level_root)
+	call_deferred("connect_change_scene_signal", level_root)
+	
 func unload_level(path : String):
-	var packed_level = load(path)
-	var level_root = packed_level.instantiate()
-	get_tree().get_root().remove_child(level_root)
+	var level_root = get_node(path)
+	level_root.remove_from_group("Level")
+	call_deferred("remove_level", level_root)
 # Called when the node enters the scene tree for the first time.
 func _ready() -> void:
 	load_level("res://levels/l_1.tscn")
@@ -24,3 +34,6 @@ func _process(_delta: float) -> void:
 func _on_player_coins_changed(new_value: int):
 	if coin_label:
 		coin_label.text = str(new_value)
+func _on_change_scene(next_level_scene_path):
+	unload_level(get_tree().get_first_node_in_group("Level").get_path())
+	load_level(next_level_scene_path)
