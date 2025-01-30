@@ -1,21 +1,23 @@
 extends Sprite2D
-@export var gun_power = 10
-@export var cooldown: float = 0.75
+@export var gun_power = 500
 @export var shake_power = 0.3
+@export var power_up_cap: int = 300
 @onready var shoot_sound: AudioStreamPlayer2D = $ShootSound
+@onready var power_up_timer: Timer = $PowerUpTimer
 @onready var bullet = load("res://scenes/bullet.tscn")
 @onready var game = get_tree().get_root().get_node("Game")
-@onready var shoot_cool_down: Timer = $ShootCoolDown
 @onready var parent = get_parent()
 @onready var game_camera = get_node("/root/Game/Camera")
 
+var base_power = gun_power
 var direction
 var distance: float
-var can_shoot: bool = true
+var power_up_amount = 0
+var is_powered = false
 func _process(_delta: float):
-	shoot_cool_down.wait_time = cooldown
+	pass
 func _ready():
-	shoot_cool_down.wait_time = cooldown
+	pass
 func rotate_around(radius):
 	# Get the global position of the mouse
 	var mouse_global_pos = get_global_mouse_position()
@@ -36,22 +38,28 @@ func rotate_around(radius):
 	
 	# Set the child's position relative to the parent
 	position = new_position
-
+func power_up():
+	power_up_timer.start()
+	is_powered = true
 func shoot():
-	if can_shoot:
-		 
-		print("Shooting")
-		var instance = bullet.instantiate()
-		instance.dir = direction.normalized()
-		instance.spawn_pos = $Marker2D.global_position
-		instance.spawn_rot = rotation 
-		game.add_child.call_deferred(instance)
-		shoot_cool_down.start()
-		can_shoot = false
-		shoot_sound.play()
-		game_camera.add_trauma(shake_power)
+	 
+	if power_up_amount == 0 and is_powered:
+		var time = power_up_timer.wait_time - power_up_timer.time_left
+		power_up_amount = time * 150
+		if power_up_amount > power_up_cap:
+			power_up_amount = power_up_cap
+	gun_power += power_up_amount
+	print(power_up_amount)
+	power_up_timer.stop()
+	var instance = bullet.instantiate()
+	instance.dir = direction.normalized()
+	instance.spawn_pos = $Marker2D.global_position
+	instance.spawn_rot = rotation 
+	game.add_child.call_deferred(instance)
+	power_up_amount = 0
+	shoot_sound.play()
+	game_camera.add_trauma(shake_power)
 
 
-func _on_shoot_cool_down_timeout() -> void:
-	can_shoot = true
-	
+func _on_power_up_timer_timeout() -> void:
+	power_up_amount = power_up_cap

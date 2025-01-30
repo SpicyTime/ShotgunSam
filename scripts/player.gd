@@ -26,17 +26,18 @@ func handle_input():
 	# Handle jump.
 	if Input.is_action_just_pressed("jump") and is_on_floor():
 		velocity.y = JUMP_VELOCITY
-	if Input.is_action_just_pressed("shoot"):
-		if gun.can_shoot:
-			var gun_position = gun.global_position
-			var direction_to_mouse = (get_global_mouse_position()  - gun_position).normalized()
-			if gun.distance <= gun_radius:
-				velocity = (direction_to_mouse * gun.gun_power)
+	if Input.is_action_just_released("shoot"):
+		gun.shoot()
+		var gun_position = gun.global_position
+		var direction_to_mouse = (get_global_mouse_position()  - gun_position).normalized()
+		if gun.distance <= gun_radius:
+			velocity = (direction_to_mouse * gun.gun_power)
 				
-			else:
-				velocity = - (direction_to_mouse * gun.gun_power)
-			gun.shoot()
-			 
+		else:
+			velocity = - (direction_to_mouse * gun.gun_power)
+		gun.gun_power = gun.base_power
+	elif Input.is_action_just_pressed("shoot"):
+		gun.power_up()
 func rotate_gun():
 	gun.rotate_around(gun_radius)
 func _physics_process(delta: float) -> void:

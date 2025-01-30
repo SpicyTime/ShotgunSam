@@ -8,15 +8,16 @@
 position = Vector2(-4.76837e-07, -4.76837e-07)
 texture = ExtResource("1_6yswn")
 script = ExtResource("2_ocxjr")
-gun_power = 585
-cooldown = 0.8
+gun_power = 550
 
 [node name="Marker2D" type="Marker2D" parent="."]
 position = Vector2(55, -16)
 
-[node name="ShootCoolDown" type="Timer" parent="."]
-
 [node name="ShootSound" type="AudioStreamPlayer2D" parent="."]
 stream = ExtResource("3_e74vx")
 
-[connection signal="timeout" from="ShootCoolDown" to="." method="_on_shoot_cool_down_timeout"]
+[node name="PowerUpTimer" type="Timer" parent="."]
+wait_time = 1.5
+one_shot = true
+
+[connection signal="timeout" from="PowerUpTimer" to="." method="_on_power_up_timer_timeout"]

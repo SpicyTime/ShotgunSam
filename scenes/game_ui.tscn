@@ -1,6 +1,6 @@
 [gd_scene load_steps=2 format=3 uid="uid://cqininx1dibb"]
 
-[ext_resource type="Texture2D" uid="uid://bnjxpwo45usfd" path="res://assets/art/ThinGoldCoin.png" id="1_82nkd"]
+[ext_resource type="Texture2D" uid="uid://bgvub16vdja8t" path="res://assets/art/ThinGoldCoin.png" id="1_82nkd"]
 
 [node name="GameUI" type="Control"]
 layout_mode = 3
