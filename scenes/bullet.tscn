@@ -4,29 +4,33 @@
 [ext_resource type="Texture2D" uid="uid://n5wuv400rq2m" path="res://assets/art/Bullet.png" id="2_6oo67"]
 [ext_resource type="PackedScene" uid="uid://n5n5bff0e5y8" path="res://scenes/kill_zone.tscn" id="3_xa3a2"]
 
-[sub_resource type="CircleShape2D" id="CircleShape2D_s8yy4"]
-radius = 13.0384
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_xetsj"]
+size = Vector2(20, 8)
 
-[sub_resource type="CircleShape2D" id="CircleShape2D_5ow6i"]
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_0r3a0"]
+size = Vector2(20, 8)
 
 [node name="Bullet" type="CharacterBody2D"]
+z_index = 4
 script = ExtResource("1_uimkk")
 SPEED = 500
-
-[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
-shape = SubResource("CircleShape2D_s8yy4")
-disabled = true
 
 [node name="Sprite2D" type="Sprite2D" parent="."]
 texture = ExtResource("2_6oo67")
 
-[node name="kill_zone" parent="." instance=ExtResource("3_xa3a2")]
+[node name="KillZone" parent="." instance=ExtResource("3_xa3a2")]
 
-[node name="kill_zone_coll" type="CollisionShape2D" parent="kill_zone"]
-shape = SubResource("CircleShape2D_5ow6i")
+[node name="KillZoneCollider" type="CollisionShape2D" parent="KillZone"]
+shape = SubResource("RectangleShape2D_xetsj")
 
-[node name="despawn_timer" type="Timer" parent="."]
+[node name="DespawnTimer" type="Timer" parent="."]
 wait_time = 2.5
 one_shot = true
 
-[connection signal="timeout" from="despawn_timer" to="." method="_on_despawn_timer_timeout"]
+[node name="BulletCollider" type="Area2D" parent="."]
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="BulletCollider"]
+shape = SubResource("RectangleShape2D_0r3a0")
+
+[connection signal="timeout" from="DespawnTimer" to="." method="_on_despawn_timer_timeout"]
+[connection signal="body_entered" from="BulletCollider" to="." method="_on_bullet_collider_body_entered"]

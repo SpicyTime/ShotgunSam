@@ -8,7 +8,9 @@
 position = Vector2(-4.76837e-07, -4.76837e-07)
 texture = ExtResource("1_6yswn")
 script = ExtResource("2_ocxjr")
-gun_power = 550
+gun_power = 525
+power_up_cap = 500
+multiplier = 250
 
 [node name="Marker2D" type="Marker2D" parent="."]
 position = Vector2(55, -16)

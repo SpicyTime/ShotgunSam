@@ -2,9 +2,11 @@ extends Sprite2D
 @export var gun_power = 500
 @export var shake_power = 0.3
 @export var power_up_cap: int = 300
+@export var multiplier = 150
 @onready var shoot_sound: AudioStreamPlayer2D = $ShootSound
 @onready var power_up_timer: Timer = $PowerUpTimer
 @onready var bullet = load("res://scenes/bullet.tscn")
+
 @onready var game = get_tree().get_root().get_node("Game")
 @onready var parent = get_parent()
 @onready var game_camera = get_node("/root/Game/Camera")
@@ -34,7 +36,14 @@ func rotate_around(radius):
 	rotation = angle
 	# Calculate the position based off of the angle and the radius
 	var new_position = Vector2(cos(angle), sin(angle)) * radius
-	 
+	print(global_rotation)
+	var parent_sprite = parent.get_node("PlayerSprite")
+	if rotation < - 1.5  || rotation > 1.5:
+		parent_sprite.flip_h = true
+		flip_v = true
+	else:
+		parent_sprite.flip_h = false
+		flip_v = false
 	
 	# Set the child's position relative to the parent
 	position = new_position
@@ -45,17 +54,20 @@ func shoot():
 	 
 	if power_up_amount == 0 and is_powered:
 		var time = power_up_timer.wait_time - power_up_timer.time_left
-		power_up_amount = time * 150
+		power_up_amount = time * multiplier
 		if power_up_amount > power_up_cap:
 			power_up_amount = power_up_cap
 	gun_power += power_up_amount
-	print(power_up_amount)
+	 
+	power_up_timer.start()
 	power_up_timer.stop()
 	var instance = bullet.instantiate()
 	instance.dir = direction.normalized()
 	instance.spawn_pos = $Marker2D.global_position
 	instance.spawn_rot = rotation 
 	game.add_child.call_deferred(instance)
+	instance.add_to_group("Bullets")
+	is_powered = false
 	power_up_amount = 0
 	shoot_sound.play()
 	game_camera.add_trauma(shake_power)

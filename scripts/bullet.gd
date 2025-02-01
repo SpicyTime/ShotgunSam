@@ -1,7 +1,8 @@
 extends CharacterBody2D
 
 @export var SPEED = 200
-@onready var despawn_timer: Timer = $despawn_timer
+@onready var despawn_timer: Timer = $DespawnTimer
+
 var dir: Vector2
 var spawn_pos: Vector2
 var spawn_rot: float
@@ -16,4 +17,11 @@ func _physics_process(_delta: float) -> void:
 	move_and_slide()
  
 func _on_despawn_timer_timeout() -> void:
+	queue_free()
+
+
+ 
+
+
+func _on_bullet_collider_body_entered(body: Node2D) -> void:
 	queue_free()
