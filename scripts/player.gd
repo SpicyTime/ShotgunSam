@@ -56,3 +56,8 @@ func _physics_process(delta: float) -> void:
 	#screen_wrap()
 func screen_wrap() ->void:
 	position.x = wrapf(position.x, 0 - CAMERA_SIZE.x / 2, screen_size.x  - CAMERA_SIZE.x / 2)
+
+func reset():
+	get_tree().reload_current_scene()
+func _on_health_health_depleted() -> void:
+	call_deferred("reset")

@@ -5,12 +5,13 @@ extends Sprite2D
 @export var multiplier = 150
 @onready var shoot_sound: AudioStreamPlayer2D = $ShootSound
 @onready var power_up_timer: Timer = $PowerUpTimer
+@onready var marker_2d: Marker2D = $Marker2D
 @onready var bullet = load("res://scenes/bullet.tscn")
-
 @onready var game = get_tree().get_root().get_node("Game")
 @onready var parent = get_parent()
 @onready var game_camera = get_node("/root/Game/Camera")
 
+var sprite_dimensions : Vector2 = get_texture().get_size()
 var base_power = gun_power
 var direction
 var distance: float
@@ -36,15 +37,19 @@ func rotate_around(radius):
 	rotation = angle
 	# Calculate the position based off of the angle and the radius
 	var new_position = Vector2(cos(angle), sin(angle)) * radius
-	print(global_rotation)
 	var parent_sprite = parent.get_node("PlayerSprite")
 	if rotation < - 1.5  || rotation > 1.5:
 		parent_sprite.flip_h = true
 		flip_v = true
+		#flips bullet spawn position
+		if marker_2d.position.y == -13:
+			marker_2d.position.y = -marker_2d.position.y
 	else:
 		parent_sprite.flip_h = false
 		flip_v = false
-	
+		#flips bullet spawn position
+		if marker_2d.position.y == 13:
+			marker_2d.position.y = -marker_2d.position.y
 	# Set the child's position relative to the parent
 	position = new_position
 func power_up():

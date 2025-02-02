@@ -1,22 +1,39 @@
-[gd_scene load_steps=5 format=3 uid="uid://c2wa1ek2hr3xe"]
+[gd_scene load_steps=7 format=3 uid="uid://c2wa1ek2hr3xe"]
 
 [ext_resource type="Script" path="res://scripts/player.gd" id="1_tcq6q"]
 [ext_resource type="Texture2D" uid="uid://dsyar5otj2v8t" path="res://assets/art/Player.png" id="2_cn3vu"]
 [ext_resource type="PackedScene" uid="uid://b1ng7jf4jymll" path="res://scenes/gun.tscn" id="3_tsfjt"]
+[ext_resource type="Script" path="res://scripts/hurtbox.gd" id="4_8w6kp"]
+[ext_resource type="Script" path="res://scripts/health.gd" id="5_6acjd"]
 
 [sub_resource type="CapsuleShape2D" id="CapsuleShape2D_hatjo"]
-radius = 17.0
-height = 78.0
+radius = 19.0
+height = 74.0
 
 [node name="Player" type="CharacterBody2D"]
 z_index = 10
 script = ExtResource("1_tcq6q")
-
-[node name="PlayerCollider" type="CollisionShape2D" parent="."]
-shape = SubResource("CapsuleShape2D_hatjo")
 
 [node name="PlayerSprite" type="Sprite2D" parent="."]
 position = Vector2(-1.90735e-06, -1.90735e-06)
 texture = ExtResource("2_cn3vu")
 
 [node name="Gun" parent="." instance=ExtResource("3_tsfjt")]
+
+[node name="PlayerCollider" type="CollisionShape2D" parent="."]
+position = Vector2(-2, 2)
+shape = SubResource("CapsuleShape2D_hatjo")
+
+[node name="HurtBox" type="Area2D" parent="." node_paths=PackedStringArray("health")]
+script = ExtResource("4_8w6kp")
+health = NodePath("../Health")
+
+[node name="HurtBoxCollider" type="CollisionShape2D" parent="HurtBox"]
+position = Vector2(-2, 2)
+shape = SubResource("CapsuleShape2D_hatjo")
+
+[node name="Health" type="Node" parent="."]
+script = ExtResource("5_6acjd")
+health = 1
+
+[connection signal="health_depleted" from="Health" to="." method="_on_health_health_depleted"]

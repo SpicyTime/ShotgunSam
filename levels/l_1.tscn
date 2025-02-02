@@ -129,6 +129,7 @@ sources/0 = SubResource("TileSetScenesCollectionSource_xrf6c")
 [node name="SpikesLayer" type="Node" parent="."]
 
 [node name="BottomSpikes" type="TileMapLayer" parent="SpikesLayer"]
+tile_map_data = PackedByteArray("AAD+/wUAAAAAAAAAAQD9/wUAAAAAAAAAAQA=")
 tile_set = SubResource("TileSet_p224m")
 
 [node name="TopSpikes" type="TileMapLayer" parent="SpikesLayer"]

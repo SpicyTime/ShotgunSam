@@ -1,6 +1,5 @@
-[gd_scene load_steps=6 format=3 uid="uid://bfaaj7vkg65bt"]
+[gd_scene load_steps=5 format=3 uid="uid://bfaaj7vkg65bt"]
 
-[ext_resource type="PackedScene" uid="uid://n5n5bff0e5y8" path="res://scenes/kill_zone.tscn" id="1_3fcwm"]
 [ext_resource type="Script" path="res://scripts/game_manager.gd" id="1_a6aoq"]
 [ext_resource type="PackedScene" uid="uid://c2wa1ek2hr3xe" path="res://scenes/player.tscn" id="1_no7uu"]
 [ext_resource type="PackedScene" uid="uid://cqininx1dibb" path="res://scenes/game_ui.tscn" id="3_rfeeu"]
@@ -8,9 +7,6 @@
 
 [node name="Game" type="Node2D"]
 metadata/_edit_horizontal_guides_ = [1426.0]
-
-[node name="Area1KillZone" parent="." instance=ExtResource("1_3fcwm")]
-position = Vector2(3502, 258)
 
 [node name="LoadedLevel" type="Node2D" parent="."]
 
@@ -27,5 +23,3 @@ script = ExtResource("4_kgiod")
 [node name="Player" parent="." groups=["Player"] instance=ExtResource("1_no7uu")]
 unique_name_in_owner = true
 position = Vector2(43, 124)
-
-[connection signal="tree_exiting" from="." to="Area1KillZone" method="_on_game_tree_exiting"]

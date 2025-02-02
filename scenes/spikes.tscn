@@ -1,19 +1,19 @@
 [gd_scene load_steps=4 format=3 uid="uid://l5enih3umcew"]
 
 [ext_resource type="Texture2D" uid="uid://c8mrbobjqrb3v" path="res://assets/art/Misc.png" id="1_ksi3e"]
-[ext_resource type="PackedScene" uid="uid://n5n5bff0e5y8" path="res://scenes/kill_zone.tscn" id="2_y8uxb"]
+[ext_resource type="Script" path="res://scripts/hitbox.gd" id="2_x3ji4"]
 
-[sub_resource type="RectangleShape2D" id="RectangleShape2D_b1nao"]
-size = Vector2(42, 20.5)
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_20tgw"]
+size = Vector2(42, 20)
 
 [node name="Spikes" type="Sprite2D"]
 texture = ExtResource("1_ksi3e")
 region_enabled = true
 region_rect = Rect2(144, 0, 48, 48)
 
-[node name="kill_zone" parent="." instance=ExtResource("2_y8uxb")]
-position = Vector2(1, 0)
+[node name="HitBox" type="Area2D" parent="."]
+script = ExtResource("2_x3ji4")
 
-[node name="CollisionShape2D" type="CollisionShape2D" parent="kill_zone"]
-position = Vector2(-4, 13.75)
-shape = SubResource("RectangleShape2D_b1nao")
+[node name="CollisionShape2D" type="CollisionShape2D" parent="HitBox"]
+position = Vector2(-3, 14)
+shape = SubResource("RectangleShape2D_20tgw")

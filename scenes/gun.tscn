@@ -13,7 +13,7 @@ power_up_cap = 500
 multiplier = 250
 
 [node name="Marker2D" type="Marker2D" parent="."]
-position = Vector2(55, -16)
+position = Vector2(42, -13)
 
 [node name="ShootSound" type="AudioStreamPlayer2D" parent="."]
 stream = ExtResource("3_e74vx")
