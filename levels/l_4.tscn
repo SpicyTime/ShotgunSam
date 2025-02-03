@@ -1,7 +1,11 @@
-[gd_scene load_steps=7 format=4 uid="uid://wujpgnu3r2h2"]
+[gd_scene load_steps=19 format=4 uid="uid://wujpgnu3r2h2"]
 
+[ext_resource type="PackedScene" uid="uid://b53qsi8rbcsrf" path="res://scenes/platform.tscn" id="1_huotg"]
 [ext_resource type="Texture2D" uid="uid://bn0fbmdljiav8" path="res://assets/art/Tileset.png" id="1_kqjpv"]
 [ext_resource type="Texture2D" uid="uid://f8274k6k3yho" path="res://assets/art/PlatformTiles.png" id="2_a2bmf"]
+[ext_resource type="Script" path="res://scripts/platform_manager.gd" id="3_i88ff"]
+[ext_resource type="PackedScene" uid="uid://l5enih3umcew" path="res://scenes/spikes.tscn" id="5_tpmbg"]
+[ext_resource type="PackedScene" uid="uid://cfc30wcm4wluh" path="res://scenes/pickups.tscn" id="6_2xfpw"]
 
 [sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_yv2mv"]
 texture = ExtResource("1_kqjpv")
@@ -110,16 +114,40 @@ sources/0 = SubResource("TileSetAtlasSource_yv2mv")
 texture = ExtResource("2_a2bmf")
 texture_region_size = Vector2i(48, 48)
 0:0/0 = 0
-0:0/0/physics_layer_0/polygon_0/points = PackedVector2Array(-24, -24, 24, -24, 24, 24, -24, 24)
 1:0/0 = 0
-1:0/0/physics_layer_0/polygon_0/points = PackedVector2Array(-24, -24, 24, -24, 24, 24, -24, 24)
 2:0/0 = 0
-2:0/0/physics_layer_0/polygon_0/points = PackedVector2Array(-24, -24, 24, -24, 24, 24, -24, 24)
 
 [sub_resource type="TileSet" id="TileSet_4j6uy"]
 tile_size = Vector2i(48, 48)
-physics_layer_0/collision_layer = 1
 sources/0 = SubResource("TileSetAtlasSource_4r0p8")
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_bfl7c"]
+size = Vector2(144, 48)
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_7k30p"]
+size = Vector2(144, 48)
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_jjjo3"]
+size = Vector2(96, 48)
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_2giv8"]
+size = Vector2(96, 48)
+
+[sub_resource type="TileSetScenesCollectionSource" id="TileSetScenesCollectionSource_lil7e"]
+resource_name = "Spikes"
+scenes/1/scene = ExtResource("5_tpmbg")
+
+[sub_resource type="TileSet" id="TileSet_8o74u"]
+tile_size = Vector2i(48, 48)
+sources/0 = SubResource("TileSetScenesCollectionSource_lil7e")
+
+[sub_resource type="TileSetScenesCollectionSource" id="TileSetScenesCollectionSource_1ayfo"]
+resource_name = "Coins"
+scenes/1/scene = ExtResource("6_2xfpw")
+
+[sub_resource type="TileSet" id="TileSet_0wbeo"]
+tile_size = Vector2i(48, 48)
+sources/0 = SubResource("TileSetScenesCollectionSource_1ayfo")
 
 [node name="L4" type="Node2D"]
 
@@ -129,6 +157,45 @@ sources/0 = SubResource("TileSetAtlasSource_4r0p8")
 tile_map_data = PackedByteArray("AAD0/wYAAAABAAEAAAD1/wYAAAABAAEAAAD2/wYAAAABAAEAAAD3/wYAAAABAAEAAAD4/wYAAAABAAEAAAD5/wYAAAABAAAAAAD6/wYAAAABAAAAAAD7/wYAAAABAAAAAAD8/wYAAAABAAAAAAD9/wYAAAABAAAAAAD+/wYAAAABAAAAAAD//wYAAAABAAAAAAAAAAYAAAABAAAAAAABAAYAAAABAAAAAAACAAYAAAABAAAAAAADAAYAAAABAAAAAAAEAAYAAAABAAAAAAAFAAYAAAABAAAAAAAGAAYAAAABAAAAAAAHAAYAAAABAAAAAAAIAAYAAAABAAAAAAAJAAYAAAABAAAAAAAKAAYAAAABAAAAAAALAAYAAAABAAAAAAD0//n/AAABAAEAAAD0//r/AAABAAEAAAD0//v/AAABAAEAAAD0/wAAAAABAAEAAAD0/wEAAAABAAEAAAD0/wIAAAABAAEAAAD0/wMAAAABAAEAAAD0/wQAAAABAAEAAAD0/wUAAAABAAEAAAD1/wAAAAABAAEAAAD2/wAAAAABAAEAAAD2/wUAAAABAAEAAAD2/wQAAAABAAEAAAD2/wMAAAABAAEAAAD2/wIAAAABAAEAAAD2/wEAAAABAAEAAAD1/wEAAAABAAEAAAD1/wIAAAABAAEAAAD1/wMAAAABAAEAAAD1/wQAAAABAAEAAAD1/wUAAAABAAEAAAD1//n/AAABAAEAAAD2//n/AAABAAEAAAD3//n/AAABAAEAAAD4//n/AAABAAEAAAD5//n/AAABAAEAAAD6//n/AAABAAEAAAD7//n/AAABAAEAAAD8//n/AAABAAEAAAD9//n/AAABAAEAAAD+//n/AAABAAEAAAD///n/AAABAAEAAAAAAPn/AAABAAEAAAABAPn/AAABAAEAAAACAPn/AAABAAEAAAADAPn/AAABAAEAAAAEAPn/AAABAAEAAAAFAPn/AAABAAEAAAAGAPn/AAABAAEAAAAHAPn/AAABAAEAAAAIAPn/AAABAAEAAAAJAPn/AAABAAEAAAAKAPn/AAABAAEAAAALAPn/AAABAAEAAAALAPr/AAABAAEAAAALAPv/AAABAAEAAAALAPz/AAABAAEAAAALAP3/AAABAAEAAAALAP7/AAABAAEAAAALAP//AAABAAEAAAALAAAAAAABAAEAAAALAAEAAAABAAEAAAALAAIAAAABAAEAAAALAAMAAAABAAEAAAALAAQAAAABAAEAAAALAAUAAAABAAEAAAD3/wAAAAABAAEAAAD3/wEAAAABAAEAAAD3/wIAAAABAAEAAAD3/wMAAAABAAEAAAD3/wQAAAABAAEAAAD3/wUAAAABAAEAAAD4/wAAAAABAAEAAAD4/wEAAAABAAEAAAD4/wIAAAABAAEAAAD4/wMAAAABAAEAAAD4/wQAAAABAAEAAAD4/wUAAAABAAEAAAA=")
 tile_set = SubResource("TileSet_56s6c")
 
-[node name="TileMapLayer" type="TileMapLayer" parent="."]
-tile_map_data = PackedByteArray("AAD7/wAAAAAAAAAAAAD8/wAAAAABAAAAAAD9/wAAAAACAAAAAAAGAAAAAAAAAAAAAAAHAAAAAAABAAAAAAAIAAAAAAACAAAAAAAAAAQAAAAAAAAAAAABAAQAAAABAAAAAAACAAQAAAABAAAAAAADAAQAAAACAAAAAAA=")
+[node name="Platforms" type="TileMapLayer" parent="."]
+tile_map_data = PackedByteArray("AAD7/wAAAAAAAAAAAAD8/wAAAAABAAAAAAD9/wAAAAACAAAAAAAGAAAAAAAAAAAAAAAHAAAAAAABAAAAAAAIAAAAAAACAAAAAAD7/wQAAAAAAAAAAAD8/wQAAAACAAAAAAAHAAQAAAAAAAAAAAAIAAQAAAACAAAAAAA=")
 tile_set = SubResource("TileSet_4j6uy")
+
+[node name="PlatformManager" type="Node" parent="."]
+script = ExtResource("3_i88ff")
+platform_areas = Array[Rect2i]([Rect2i(-5, 0, 3, 1), Rect2i(6, 0, 3, 1), Rect2i(0, 4, 2, 1), Rect2i(7, 4, 2, 1)])
+
+[node name="Platform1" parent="PlatformManager" instance=ExtResource("1_huotg")]
+position = Vector2(-168, 24)
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="PlatformManager/Platform1"]
+shape = SubResource("RectangleShape2D_bfl7c")
+
+[node name="Platform2" parent="PlatformManager" instance=ExtResource("1_huotg")]
+position = Vector2(360, 24)
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="PlatformManager/Platform2"]
+shape = SubResource("RectangleShape2D_7k30p")
+
+[node name="Platform3" parent="PlatformManager" instance=ExtResource("1_huotg")]
+position = Vector2(-192, 216)
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="PlatformManager/Platform3"]
+shape = SubResource("RectangleShape2D_jjjo3")
+
+[node name="Platform4" parent="PlatformManager" instance=ExtResource("1_huotg")]
+position = Vector2(384, 216)
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="PlatformManager/Platform4"]
+shape = SubResource("RectangleShape2D_2giv8")
+
+[node name="LevSpawnPos" type="Marker2D" parent="."]
+position = Vector2(-463, -52)
+
+[node name="BottomSpikes" type="TileMapLayer" parent="."]
+tile_map_data = PackedByteArray("AAD6/wUAAAAAAAAAAQD7/wUAAAAAAAAAAQD8/wUAAAAAAAAAAQD9/wUAAAAAAAAAAQD+/wUAAAAAAAAAAQD//wUAAAAAAAAAAQAAAAUAAAAAAAAAAQABAAUAAAAAAAAAAQACAAUAAAAAAAAAAQADAAUAAAAAAAAAAQAEAAUAAAAAAAAAAQAFAAUAAAAAAAAAAQAGAAUAAAAAAAAAAQAHAAUAAAAAAAAAAQAIAAUAAAAAAAAAAQAJAAUAAAAAAAAAAQAKAAUAAAAAAAAAAQD5/wUAAAAAAAAAAQA=")
+tile_set = SubResource("TileSet_8o74u")
+
+[node name="Coins" type="TileMapLayer" parent="."]
+tile_map_data = PackedByteArray("AAD8/wIAAAAAAAAAAQAHAAIAAAAAAAAAAQA=")
+tile_set = SubResource("TileSet_0wbeo")
