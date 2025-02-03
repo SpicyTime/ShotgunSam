@@ -2,6 +2,7 @@ extends CharacterBody2D
 
 @export var SPEED = 200
 @onready var despawn_timer: Timer = $DespawnTimer
+@onready var area_2d: Area2D = $Area2D
 
 var dir: Vector2
 var spawn_pos: Vector2
@@ -23,5 +24,5 @@ func _on_despawn_timer_timeout() -> void:
  
 
 
-func _on_bullet_collider_body_entered(body: Node2D) -> void:
+func _on_area_2d_body_entered(body: Node2D) -> void:
 	queue_free()

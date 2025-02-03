@@ -60,4 +60,5 @@ func screen_wrap() ->void:
 func reset():
 	get_tree().reload_current_scene()
 func _on_health_health_depleted() -> void:
+	print("Dead")
 	call_deferred("reset")

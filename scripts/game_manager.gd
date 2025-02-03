@@ -8,17 +8,18 @@ func spawn_player(level_root):
 	var spawn_marker:Marker2D = level_root.find_child("LevSpawnPos")
 	if spawn_marker:
 		player.global_position = spawn_marker.global_position
-		
-		var next_level_node = level_root.find_child("NextLevel")
+		var door_node = level_root.find_child("Door")
+		if not door_node:
+			return
+		var next_level_node = door_node.find_child("NextLevel")
 		if next_level_node:
 			print("Next level pos : " + str(next_level_node.global_position))
-			next_level_node.get_node("CollisionShape2D").disabled = false
+			 
 func connect_change_scene_signal(node):
 	var next_level_node = node.find_child("NextLevel")
 	if not next_level_node :
 		return
 	if next_level_node.has_signal("change_scene"):
-		print("Connected")
 		next_level_node.change_scene.connect(_on_change_scene)
 func add_level(level_root):
 	get_tree().get_root().add_child(level_root)
@@ -61,7 +62,6 @@ func _on_player_coins_changed(new_value: int):
 		coin_label.text = str(new_value)
 func _on_change_scene(next_level_scene_path):
 	unload_level(get_tree().get_first_node_in_group("Level").get_path())
-	print(player.global_position)
 	load_level(next_level_scene_path)
 
 

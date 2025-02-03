@@ -8,8 +8,6 @@
 [node name="Game" type="Node2D"]
 metadata/_edit_horizontal_guides_ = [1426.0]
 
-[node name="LoadedLevel" type="Node2D" parent="."]
-
 [node name="GameManager" type="Node" parent="."]
 script = ExtResource("1_a6aoq")
 

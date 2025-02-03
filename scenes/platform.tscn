@@ -1,7 +1,6 @@
 [gd_scene load_steps=3 format=3 uid="uid://b53qsi8rbcsrf"]
 
-[sub_resource type="CompressedTexture2D" id="CompressedTexture2D_iyh4a"]
-load_path = "res://.godot/imported/Misc.png-bb13e8718c91b5bcefe9f9a0eed76601.ctex"
+[ext_resource type="Texture2D" uid="uid://f8274k6k3yho" path="res://assets/art/PlatformTiles.png" id="1_cjrn0"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_uatln"]
 size = Vector2(144, 48)
@@ -9,7 +8,7 @@ size = Vector2(144, 48)
 [node name="Platform" type="AnimatableBody2D"]
 
 [node name="Sprite2D" type="Sprite2D" parent="."]
-texture = SubResource("CompressedTexture2D_iyh4a")
+texture = ExtResource("1_cjrn0")
 region_enabled = true
 region_rect = Rect2(0, 0, 144, 48)
 
