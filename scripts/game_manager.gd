@@ -12,8 +12,6 @@ func spawn_player(level_root):
 		if not door_node:
 			return
 		var next_level_node = door_node.find_child("NextLevel")
-		if next_level_node:
-			print("Next level pos : " + str(next_level_node.global_position))
 			 
 func connect_change_scene_signal(node):
 	var next_level_node = node.find_child("NextLevel")

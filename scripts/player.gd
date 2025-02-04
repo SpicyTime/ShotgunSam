@@ -22,10 +22,7 @@ func handle_flip():
 		player_sprite.flip_h = false
 	elif direction == -1:
 		player_sprite.flip_h = true
-func handle_input():
-	# Handle jump.
-	if Input.is_action_just_pressed("jump") and is_on_floor():
-		velocity.y = JUMP_VELOCITY
+func handle_input():       
 	if Input.is_action_just_released("shoot"):
 		gun.shoot()
 		var gun_position = gun.global_position
@@ -58,7 +55,8 @@ func screen_wrap() ->void:
 	position.x = wrapf(position.x, 0 - CAMERA_SIZE.x / 2, screen_size.x  - CAMERA_SIZE.x / 2)
 
 func reset():
-	get_tree().reload_current_scene()
+	var tree = get_tree()
+	if tree:
+		tree.reload_current_scene()
 func _on_health_health_depleted() -> void:
-	print("Dead")
 	call_deferred("reset")

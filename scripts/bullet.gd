@@ -20,9 +20,5 @@ func _physics_process(_delta: float) -> void:
 func _on_despawn_timer_timeout() -> void:
 	queue_free()
 
-
- 
-
-
 func _on_area_2d_body_entered(body: Node2D) -> void:
 	queue_free()

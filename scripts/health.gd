@@ -8,7 +8,7 @@ signal health_depleted
 func set_health(value : int):
 	health = value
 	health_changed.emit(health)
-	if health <= 0:
+	if health == 0:
 		health_depleted.emit()
 func set_max_health(value : int):
 	max_health = value
