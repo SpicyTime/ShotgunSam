@@ -22,7 +22,8 @@ func handle_flip():
 		player_sprite.flip_h = false
 	elif direction == -1:
 		player_sprite.flip_h = true
-func handle_input():       
+func handle_input():      
+	$Gun/HitBox/CollisionShape2D.disabled = true
 	if Input.is_action_just_released("shoot"):
 		gun.shoot()
 		var gun_position = gun.global_position

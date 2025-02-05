@@ -6,11 +6,10 @@ extends Sprite2D
 @onready var shoot_sound: AudioStreamPlayer2D = $ShootSound
 @onready var power_up_timer: Timer = $PowerUpTimer
 @onready var marker_2d: Marker2D = $Marker2D
-@onready var bullet = load("res://scenes/bullet.tscn")
 @onready var game = get_tree().get_root().get_node("Game")
 @onready var parent = get_parent()
 @onready var game_camera = get_node("/root/Game/Camera")
-
+@onready var blast_particles = preload("res://particles/gun_blast_particles.tscn")
 var sprite_dimensions : Vector2 = get_texture().get_size()
 var base_power = gun_power
 var direction
@@ -66,15 +65,13 @@ func shoot():
 	 
 	power_up_timer.start()
 	power_up_timer.stop()
-	var instance = bullet.instantiate()
-	instance.dir = direction.normalized()
-	instance.spawn_pos = $Marker2D.global_position
-	instance.spawn_rot = rotation 
-	game.add_child.call_deferred(instance)
-	instance.add_to_group("Bullets")
+	$HitBox/CollisionShape2D.disabled = false
 	is_powered = false
 	power_up_amount = 0
 	shoot_sound.play()
+	var particles = blast_particles.instantiate()
+	particles.emitting = true
+	marker_2d.add_child(particles)
 	game_camera.add_trauma(shake_power)
 
 
