@@ -10,6 +10,8 @@ extends Sprite2D
 @onready var parent = get_parent()
 @onready var game_camera = get_node("/root/Game/Camera")
 @onready var blast_particles = preload("res://particles/gun_blast_particles.tscn")
+@onready var bullet_particles = preload("res://particles/shotgun_bullet_particles.tscn")
+
 var sprite_dimensions : Vector2 = get_texture().get_size()
 var base_power = gun_power
 var direction
@@ -70,10 +72,18 @@ func shoot():
 	power_up_amount = 0
 	shoot_sound.play()
 	var particles = blast_particles.instantiate()
+	var bullets = bullet_particles.instantiate()
+	bullets.emitting = true
 	particles.emitting = true
+	particles.finished.connect(func(): _on_particles_finished(particles))
+	bullets.finished.connect(func(): _on_particles_finished(bullets))
 	marker_2d.add_child(particles)
+	marker_2d.add_child(bullets)
 	game_camera.add_trauma(shake_power)
 
 
 func _on_power_up_timer_timeout() -> void:
 	power_up_amount = power_up_cap
+func _on_particles_finished(particles):
+	particles.queue_free()
+	 

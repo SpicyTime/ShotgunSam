@@ -4,6 +4,7 @@ extends Node
 @onready var game: Node2D = $".."
 func remove_level(level_root):
 	get_tree().get_root().remove_child(level_root)
+	level_root.queue_free()
 func spawn_player(level_root):
 	var spawn_marker:Marker2D = level_root.find_child("LevSpawnPos")
 	if spawn_marker:
@@ -33,6 +34,7 @@ func load_level(path : String):
 	 
 func unload_level(path : String):
 	var level_root = get_node(path)
+ 	
 	level_root.remove_from_group("Level")
 	player.global_position = Vector2(0, 0)
 	#Removes all of the bullets that are in the current level

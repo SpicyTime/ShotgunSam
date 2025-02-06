@@ -1,0 +1,25 @@
+[gd_scene load_steps=3 format=3 uid="uid://dnb3psu3ejy11"]
+
+[ext_resource type="Texture2D" uid="uid://dodtkl1r5y8vk" path="res://assets/Bullet.png" id="1_q25ow"]
+
+[sub_resource type="Curve" id="Curve_7l5so"]
+_data = [Vector2(0.0114504, 1), 0.0, 0.0, 0, 0, Vector2(1, 0.471698), 0.0, 0.0, 0, 0]
+point_count = 2
+
+[node name="ShotgunBulletParticles" type="CPUParticles2D"]
+emitting = false
+amount = 16
+lifetime = 2.0
+one_shot = true
+speed_scale = 5.0
+explosiveness = 1.0
+texture = ExtResource("1_q25ow")
+spread = 25.0
+gravity = Vector2(0, 0)
+initial_velocity_min = 75.0
+initial_velocity_max = 150.0
+angular_velocity_min = 250.0
+angular_velocity_max = 500.0
+scale_amount_min = 0.13
+scale_amount_max = 0.13
+scale_amount_curve = SubResource("Curve_7l5so")

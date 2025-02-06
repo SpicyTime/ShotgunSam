@@ -4,7 +4,9 @@ signal received_damage(damage: int)
 @export var health : Health
 func _ready()->void:
 	connect("area_entered", _on_area_entered)
+	
 func _on_area_entered(area):
+	
 	if not area is HitBox or not health or not area:
 		return
 	var new_health = health.health - area.damage
