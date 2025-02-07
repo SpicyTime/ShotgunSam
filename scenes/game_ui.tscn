@@ -1,6 +1,7 @@
-[gd_scene load_steps=2 format=3 uid="uid://cqininx1dibb"]
+[gd_scene load_steps=3 format=3 uid="uid://cqininx1dibb"]
 
 [ext_resource type="Texture2D" uid="uid://bgvub16vdja8t" path="res://assets/art/ThinGoldCoin.png" id="1_82nkd"]
+[ext_resource type="Texture2D" uid="uid://djenffevlenyf" path="res://assets/art/ShotgunShell.png" id="1_ervut"]
 
 [node name="GameUI" type="Control"]
 layout_mode = 3
@@ -10,23 +11,27 @@ anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
 
-[node name="Coin" type="Control" parent="."]
-layout_mode = 1
-anchors_preset = 15
-anchor_right = 1.0
-anchor_bottom = 1.0
-grow_horizontal = 2
-grow_vertical = 2
+[node name="CanvasLayer" type="CanvasLayer" parent="."]
 
-[node name="CanvasLayer" type="CanvasLayer" parent="Coin"]
+[node name="Shells" type="Sprite2D" parent="CanvasLayer"]
+position = Vector2(30, 75)
+scale = Vector2(0.282828, 0.30303)
+texture = ExtResource("1_ervut")
 
-[node name="Sprite2D" type="Sprite2D" parent="Coin/CanvasLayer"]
+[node name="ShellsLabel" type="Label" parent="CanvasLayer"]
+offset_left = 64.0
+offset_top = 64.0
+offset_right = 104.0
+offset_bottom = 87.0
+
+[node name="Coin" type="Sprite2D" parent="CanvasLayer"]
 position = Vector2(18, 25)
 texture = ExtResource("1_82nkd")
 region_enabled = true
 region_rect = Rect2(0, 0, 48, 48)
 
-[node name="Label" type="Label" parent="Coin/CanvasLayer"]
+[node name="CoinLabel" type="Label" parent="CanvasLayer"]
+unique_name_in_owner = true
 offset_left = 41.0
 offset_top = 14.0
 offset_right = 81.0

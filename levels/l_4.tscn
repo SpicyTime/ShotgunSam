@@ -153,6 +153,7 @@ tile_map_data = PackedByteArray("AAD0/wYAAAABAAEAAAD1/wYAAAABAAEAAAD2/wYAAAABAAE
 tile_set = SubResource("TileSet_56s6c")
 
 [node name="Platforms" type="TileMapLayer" parent="."]
+visible = false
 tile_map_data = PackedByteArray("AAAAAAAAAAAAAAAAAAABAAAAAAABAAAAAAACAAAAAAABAAAAAAADAAAAAAACAAAAAAA=")
 tile_set = SubResource("TileSet_4j6uy")
 
@@ -164,6 +165,7 @@ platform_areas = Array[Rect2i]([Rect2i(0, 0, 4, 1)])
 position = Vector2(96, 16)
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="PlatformManager/Platform1"]
+position = Vector2(0, 8)
 shape = SubResource("RectangleShape2D_bfl7c")
 
 [node name="LevSpawnPos" type="Marker2D" parent="."]

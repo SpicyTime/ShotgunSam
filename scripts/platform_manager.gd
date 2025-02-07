@@ -8,6 +8,7 @@ func initialize_textures():
 		print("Sizes are not the same")
 		return
 	for i in range(children.size()):
+		print("SDF")
 		children[i].load_texture_from_tilemap(tilemap, platform_areas[i])
 # Called when the node enters the scene tree for the first time.
 func _ready() -> void:

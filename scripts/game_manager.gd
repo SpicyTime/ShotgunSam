@@ -1,7 +1,8 @@
 extends Node
-@onready var player: CharacterBody2D = %Player
-@onready var coin_label: Label = get_node("GameUI/Coin/CanvasLayer/Label")
-@onready var game: Node2D = $".."
+@onready var player : CharacterBody2D = %Player
+@onready var coin_label : Label = get_node("GameUI//CanvasLayer/CoinLabel")
+@onready var shells_used_label : Label = get_node("GameUI/CanvasLayer/ShellsLabel")
+@onready var game : Node2D = $".."
 func remove_level(level_root):
 	get_tree().get_root().remove_child(level_root)
 	level_root.queue_free()
@@ -49,10 +50,12 @@ func _ready() -> void:
 		var level = get_tree().get_first_node_in_group("Level")
 		remove_level(level) 
 		level.remove_from_group("Level")
-	load_level("res://levels/l_1.tscn")
+	load_level("res://levels/l_5.tscn")
 	if player:
 		player.coin_count_changed.connect(_on_player_coins_changed)
 		_on_player_coins_changed(player.coin_count)
+		player.shot_fired_changed.connect(_on_player_shots_fired_changed)
+		_on_player_shots_fired_changed(player.shot_fired_count)
 # Called every frame. 'delta' is the elapsed time since the previous frame.
 func _process(_delta: float) -> void:
 	pass
@@ -60,6 +63,9 @@ func _process(_delta: float) -> void:
 func _on_player_coins_changed(new_value: int):
 	if coin_label:
 		coin_label.text = str(new_value)
+func _on_player_shots_fired_changed(new_value: int):
+	if shells_used_label:
+		shells_used_label.text = str(new_value)
 func _on_change_scene(next_level_scene_path):
 	unload_level(get_tree().get_first_node_in_group("Level").get_path())
 	load_level(next_level_scene_path)
