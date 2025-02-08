@@ -1,7 +1,7 @@
 extends Node
 @onready var player : CharacterBody2D = %Player
 @onready var coin_label : Label = get_node("GameUI//CanvasLayer/CoinLabel")
-@onready var shells_used_label : Label = get_node("GameUI/CanvasLayer/ShellsLabel")
+@onready var ammo_label : Label = get_node("GameUI//CanvasLayer/AmmoLabel")
 @onready var game : Node2D = $".."
 func remove_level(level_root):
 	get_tree().get_root().remove_child(level_root)
@@ -38,11 +38,6 @@ func unload_level(path : String):
  	
 	level_root.remove_from_group("Level")
 	player.global_position = Vector2(0, 0)
-	#Removes all of the bullets that are in the current level
-	while get_tree().get_node_count_in_group("Bullets") > 0:
-		var node = get_tree().get_first_node_in_group("Bullets")
-		node.remove_from_group("Bullets")
-		game.remove_child(node)
 	call_deferred("remove_level", level_root)
 # Called when the node enters the scene tree for the first time.
 func _ready() -> void:
@@ -50,25 +45,23 @@ func _ready() -> void:
 		var level = get_tree().get_first_node_in_group("Level")
 		remove_level(level) 
 		level.remove_from_group("Level")
-	load_level("res://levels/l_5.tscn")
+	load_level("res://levels/l_1.tscn")
 	if player:
 		player.coin_count_changed.connect(_on_player_coins_changed)
 		_on_player_coins_changed(player.coin_count)
-		player.shot_fired_changed.connect(_on_player_shots_fired_changed)
-		_on_player_shots_fired_changed(player.shot_fired_count)
-# Called every frame. 'delta' is the elapsed time since the previous frame.
-func _process(_delta: float) -> void:
-	pass
-
+		player.ammo_count_changed.connect(_on_player_ammo_changed)
+		_on_player_ammo_changed(player.ammo_count)
 func _on_player_coins_changed(new_value: int):
 	if coin_label:
 		coin_label.text = str(new_value)
-func _on_player_shots_fired_changed(new_value: int):
-	if shells_used_label:
-		shells_used_label.text = str(new_value)
+func _on_player_ammo_changed(new_value: int):
+	if ammo_label:
+		ammo_label.text = str(new_value)
 func _on_change_scene(next_level_scene_path):
 	unload_level(get_tree().get_first_node_in_group("Level").get_path())
 	load_level(next_level_scene_path)
+	player.add_ammo(10)
+	
 
 
 	 

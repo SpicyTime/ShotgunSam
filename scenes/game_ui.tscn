@@ -13,12 +13,12 @@ grow_vertical = 2
 
 [node name="CanvasLayer" type="CanvasLayer" parent="."]
 
-[node name="Shells" type="Sprite2D" parent="CanvasLayer"]
+[node name="Ammo" type="Sprite2D" parent="CanvasLayer"]
 position = Vector2(30, 75)
 scale = Vector2(0.282828, 0.30303)
 texture = ExtResource("1_ervut")
 
-[node name="ShellsLabel" type="Label" parent="CanvasLayer"]
+[node name="AmmoLabel" type="Label" parent="CanvasLayer"]
 offset_left = 64.0
 offset_top = 64.0
 offset_right = 104.0

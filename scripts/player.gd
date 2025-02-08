@@ -5,23 +5,23 @@ extends CharacterBody2D
 @onready var CAMERA_SIZE = camera.get_viewport_rect().size
 @onready var player_sprite: Sprite2D = $PlayerSprite
 @export var gun_radius := 50
+@export var ammo_count: int = 10: set = _on_ammo_set
 
 const SPEED = 300.0
 const JUMP_VELOCITY = -400.0
 var gun_rotate_speed = 4
 var direction: float
 var coin_count: int = 0: set = _on_coins_set
-var shot_fired_count: int = 0 : set = _on_shots_fired_set
 signal coin_count_changed(new_value: int)
-signal shot_fired_changed(new_value: int)
+signal ammo_count_changed(new_value: int)
 func add_coins(amount: int):
 	coin_count += amount
 func _on_coins_set(new_value: int):
 	coin_count = new_value
 	coin_count_changed.emit(coin_count)
-func _on_shots_fired_set(new_value: int):
-	shot_fired_count = new_value
-	shot_fired_changed.emit(shot_fired_count)
+func _on_ammo_set(new_value: int):
+	ammo_count = new_value
+	ammo_count_changed.emit(ammo_count)
 func handle_flip():
 	if direction == 1:
 		player_sprite.flip_h = false
@@ -30,8 +30,9 @@ func handle_flip():
 func handle_input():      
 	$Gun/HitBox/CollisionShape2D.disabled = true
 	if Input.is_action_just_released("shoot"):
+		if ammo_count <= 0:
+			return
 		gun.shoot()
-		shot_fired_count += 1
 		var gun_position = gun.global_position
 		var direction_to_mouse = (get_global_mouse_position()  - gun_position).normalized()
 		if gun.distance <= gun_radius:
@@ -44,6 +45,8 @@ func handle_input():
 		gun.power_up()
 func rotate_gun():
 	gun.rotate_around(gun_radius)
+func add_ammo(value: int): 
+	ammo_count += value
 func _physics_process(delta: float) -> void:
 	 
 	# Add the gravity.
@@ -65,5 +68,9 @@ func reset():
 	var tree = get_tree()
 	if tree:
 		tree.reload_current_scene()
+func _ready():
+	gun.gun_shot.connect(_on_gun_shot)
 func _on_health_health_depleted() -> void:
 	call_deferred("reset")
+func _on_gun_shot() -> void:
+	ammo_count -= 1

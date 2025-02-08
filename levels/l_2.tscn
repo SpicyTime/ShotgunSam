@@ -136,7 +136,7 @@ position = Vector2(-547, 199)
 shape = SubResource("RectangleShape2D_rgmtj")
 
 [node name="LevSpawnPos" type="Marker2D" parent="."]
-position = Vector2(-354, 200)
+position = Vector2(-531, 226)
 
 [node name="Door" parent="." instance=ExtResource("3_qj7kp")]
 position = Vector2(552, 192)

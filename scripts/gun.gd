@@ -11,7 +11,7 @@ extends Sprite2D
 @onready var game_camera = get_node("/root/Game/Camera")
 @onready var blast_particles = preload("res://particles/gun_blast_particles.tscn")
 @onready var bullet_particles = preload("res://particles/shotgun_bullet_particles.tscn")
-
+signal gun_shot
 var sprite_dimensions : Vector2 = get_texture().get_size()
 var base_power = gun_power
 var direction
@@ -57,7 +57,7 @@ func power_up():
 	power_up_timer.start()
 	is_powered = true
 func shoot():
-	 
+	gun_shot.emit()
 	if power_up_amount == 0 and is_powered:
 		var time = power_up_timer.wait_time - power_up_timer.time_left
 		power_up_amount = time * multiplier
