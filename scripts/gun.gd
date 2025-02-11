@@ -1,27 +1,17 @@
 extends Sprite2D
-@export var gun_power = 500
 @export var shake_power = 0.3
-@export var power_up_cap: int = 300
-@export var multiplier = 150
+@export var gun_power: int = 500
 @onready var shoot_sound: AudioStreamPlayer2D = $ShootSound
-@onready var power_up_timer: Timer = $PowerUpTimer
 @onready var marker_2d: Marker2D = $Marker2D
 @onready var game = get_tree().get_root().get_node("Game")
 @onready var parent = get_parent()
 @onready var game_camera = get_node("/root/Game/Camera")
 @onready var blast_particles = preload("res://particles/gun_blast_particles.tscn")
 @onready var bullet_particles = preload("res://particles/shotgun_bullet_particles.tscn")
-signal gun_shot
-var sprite_dimensions : Vector2 = get_texture().get_size()
-var base_power = gun_power
+signal shot
+@onready var sprite_dimensions : Vector2 = get_texture().get_size()
 var direction
 var distance: float
-var power_up_amount = 0
-var is_powered = false
-func _process(_delta: float):
-	pass
-func _ready():
-	pass
 func rotate_around(radius):
 	# Get the global position of the mouse
 	var mouse_global_pos = get_global_mouse_position()
@@ -53,23 +43,9 @@ func rotate_around(radius):
 			marker_2d.position.y = -marker_2d.position.y
 	# Set the child's position relative to the parent
 	position = new_position
-func power_up():
-	power_up_timer.start()
-	is_powered = true
 func shoot():
-	gun_shot.emit()
-	if power_up_amount == 0 and is_powered:
-		var time = power_up_timer.wait_time - power_up_timer.time_left
-		power_up_amount = time * multiplier
-		if power_up_amount > power_up_cap:
-			power_up_amount = power_up_cap
-	gun_power += power_up_amount
-	 
-	power_up_timer.start()
-	power_up_timer.stop()
+	shot.emit()
 	$HitBox/CollisionShape2D.disabled = false
-	is_powered = false
-	power_up_amount = 0
 	shoot_sound.play()
 	var particles = blast_particles.instantiate()
 	var bullets = bullet_particles.instantiate()
@@ -82,8 +58,9 @@ func shoot():
 	game_camera.add_trauma(shake_power)
 
 
-func _on_power_up_timer_timeout() -> void:
-	power_up_amount = power_up_cap
+#Not a signal
 func _on_particles_finished(particles):
 	particles.queue_free()
-	 
+
+
+ 

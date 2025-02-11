@@ -14,6 +14,7 @@ var direction: float
 var coin_count: int = 0: set = _on_coins_set
 signal coin_count_changed(new_value: int)
 signal ammo_count_changed(new_value: int)
+signal gun_shot
 func add_coins(amount: int):
 	coin_count += amount
 func _on_coins_set(new_value: int):
@@ -40,9 +41,7 @@ func handle_input():
 				
 		else:
 			velocity = - (direction_to_mouse * gun.gun_power)
-		gun.gun_power = gun.base_power
-	elif Input.is_action_just_pressed("shoot"):
-		gun.power_up()
+	 
 func rotate_gun():
 	gun.rotate_around(gun_radius)
 func add_ammo(value: int): 
@@ -69,8 +68,15 @@ func reset():
 	if tree:
 		tree.reload_current_scene()
 func _ready():
-	gun.gun_shot.connect(_on_gun_shot)
+	pass
 func _on_health_health_depleted() -> void:
 	call_deferred("reset")
+  
 func _on_gun_shot() -> void:
-	ammo_count -= 1
+	#ammo_count -= 1
+	gun_shot.emit()
+
+
+
+
+ 

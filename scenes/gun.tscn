@@ -1,38 +1,27 @@
-[gd_scene load_steps=6 format=3 uid="uid://b1ng7jf4jymll"]
+[gd_scene load_steps=6 format=3 uid="uid://bwhbrw2cdw27s"]
 
-[ext_resource type="Texture2D" uid="uid://bsiw2rd710a47" path="res://assets/art/ShotGun.png" id="1_6yswn"]
-[ext_resource type="Script" path="res://scripts/gun.gd" id="2_ocxjr"]
-[ext_resource type="AudioStream" uid="uid://cuh8aq0c7snf0" path="res://assets/shotgun-firing-4-6746.mp3" id="3_e74vx"]
-[ext_resource type="Script" path="res://scripts/hitbox.gd" id="4_w8kfx"]
+[ext_resource type="Script" path="res://scripts/hitbox.gd" id="1_l84ci"]
+[ext_resource type="Script" path="res://scripts/gun.gd" id="1_rd3yr"]
+[ext_resource type="Texture2D" uid="uid://dddsswka5r4n" path="res://assets/art/ShotGun.png" id="2_rbwvc"]
+[ext_resource type="AudioStream" uid="uid://cuh8aq0c7snf0" path="res://assets/shotgun-firing-4-6746.mp3" id="4_t1eof"]
 
-[sub_resource type="RectangleShape2D" id="RectangleShape2D_oy3pa"]
-size = Vector2(66, 16)
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_g7edj"]
+size = Vector2(53, 20)
 
 [node name="Gun" type="Sprite2D"]
-position = Vector2(-4.76837e-07, -4.76837e-07)
-texture = ExtResource("1_6yswn")
-script = ExtResource("2_ocxjr")
-gun_power = 525
-power_up_cap = 500
-multiplier = 250
-
-[node name="Marker2D" type="Marker2D" parent="."]
-position = Vector2(42, -13)
-
-[node name="ShootSound" type="AudioStreamPlayer2D" parent="."]
-stream = ExtResource("3_e74vx")
-bus = &"SFX"
-
-[node name="PowerUpTimer" type="Timer" parent="."]
-wait_time = 1.5
-one_shot = true
+texture = ExtResource("2_rbwvc")
+script = ExtResource("1_rd3yr")
 
 [node name="HitBox" type="Area2D" parent="."]
-script = ExtResource("4_w8kfx")
+script = ExtResource("1_l84ci")
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="HitBox"]
-position = Vector2(64, -10)
-shape = SubResource("RectangleShape2D_oy3pa")
-disabled = true
+position = Vector2(71.5, -8)
+shape = SubResource("RectangleShape2D_g7edj")
 
-[connection signal="timeout" from="PowerUpTimer" to="." method="_on_power_up_timer_timeout"]
+[node name="Marker2D" type="Marker2D" parent="."]
+position = Vector2(45, -7)
+
+[node name="ShootSound" type="AudioStreamPlayer2D" parent="."]
+stream = ExtResource("4_t1eof")
+bus = &"SFX"

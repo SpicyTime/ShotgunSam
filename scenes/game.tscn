@@ -21,3 +21,8 @@ script = ExtResource("4_kgiod")
 [node name="Player" parent="." groups=["Player"] instance=ExtResource("1_no7uu")]
 unique_name_in_owner = true
 position = Vector2(43, 124)
+
+[node name="SlowTimer" type="Timer" parent="."]
+wait_time = 0.5
+
+[connection signal="timeout" from="SlowTimer" to="GameManager" method="_on_slow_timer_timeout"]

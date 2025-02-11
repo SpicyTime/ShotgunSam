@@ -13,18 +13,14 @@ func shake()->void:
 	offset.x = max_offset.x * amount * randf_range(-1, 1)
 	offset.y = max_offset.y * amount * randf_range(-1, 1)
 # Called when the node enters the scene tree for the first time
-
 func add_trauma(amount: float)-> void:
 	trauma = min(trauma + amount, 1.0)
 	
 func _ready() -> void:
 	randomize()
-
 # Called every frame. 'delta' is the elapsed time since the previous frame.
 func _process(delta: float) -> void:
 	if trauma:
 		trauma = max(trauma - decay * delta, 0)
 		shake()
-
-
  

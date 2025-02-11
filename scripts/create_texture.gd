@@ -18,7 +18,6 @@ func extract_tilemap_texture(layer : TileMapLayer, rect : Rect2i):
 				continue
 			var tile_texture = tile_set.get_source(source_id) as TileSetAtlasSource
 			if tile_texture:
-				#Gets the actual tileset texture. In this case it is getting the Tileset.png
 				var atlas_texture = tile_texture.texture
 				 
 				if atlas_texture:

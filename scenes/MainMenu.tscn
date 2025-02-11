@@ -1,12 +1,12 @@
 [gd_scene load_steps=10 format=3 uid="uid://cxd818viofvf6"]
 
 [ext_resource type="Script" path="res://scripts/main_menu.gd" id="1_hhjtg"]
-[ext_resource type="Texture2D" uid="uid://cqkpil1qv46yl" path="res://assets/art/MainMenu.png" id="2_utbm6"]
+[ext_resource type="Texture2D" uid="uid://dsyar5otj2v8t" path="res://assets/art/Player.png" id="2_xkd2j"]
 
 [sub_resource type="Theme" id="Theme_vomi6"]
 
-[sub_resource type="StyleBoxTexture" id="StyleBoxTexture_n70wf"]
-texture = ExtResource("2_utbm6")
+[sub_resource type="CompressedTexture2D" id="CompressedTexture2D_s6xbr"]
+load_path = "res://.godot/imported/ShotGun.png-b818175ff2dd22d470b4d9bb1dddd19e.ctex"
 
 [sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_4fcox"]
 
@@ -52,14 +52,32 @@ grow_vertical = 2
 theme = SubResource("Theme_vomi6")
 script = ExtResource("1_hhjtg")
 
-[node name="Panel" type="Panel" parent="."]
+[node name="ColorRect" type="ColorRect" parent="."]
 layout_mode = 1
 anchors_preset = 15
 anchor_right = 1.0
 anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
-theme_override_styles/panel = SubResource("StyleBoxTexture_n70wf")
+color = Color(0, 0, 0, 1)
+
+[node name="Player" type="TextureRect" parent="."]
+layout_mode = 1
+offset_left = 24.0
+offset_top = 52.0
+offset_right = 276.0
+offset_bottom = 520.0
+rotation = -0.166876
+texture = ExtResource("2_xkd2j")
+
+[node name="Gun" type="TextureRect" parent="."]
+layout_mode = 0
+offset_left = 349.0
+offset_top = 226.0
+offset_right = 727.0
+offset_bottom = 361.0
+rotation = 1.07496
+texture = SubResource("CompressedTexture2D_s6xbr")
 
 [node name="Main3Buttons" type="Control" parent="."]
 layout_mode = 1
@@ -109,13 +127,14 @@ layout_mode = 1
 anchors_preset = 5
 anchor_left = 0.5
 anchor_right = 0.5
-offset_left = -392.5
-offset_right = 392.5
+offset_left = -318.0
+offset_right = 318.0
 offset_bottom = 137.0
 grow_horizontal = 2
 theme_override_colors/font_color = Color(1, 1, 1, 1)
 theme_override_font_sizes/font_size = 100
-text = "Shotgun Samuel"
+text = "Shotgun Sam
+"
 
 [connection signal="pressed" from="Main3Buttons/VBoxContainer/PlayButton" to="." method="_on_play_button_pressed"]
 [connection signal="pressed" from="Main3Buttons/VBoxContainer/ExitButton" to="." method="_on_exit_button_pressed"]
