@@ -2,7 +2,7 @@
 
 [ext_resource type="Script" path="res://scripts/door.gd" id="1_olity"]
 [ext_resource type="PackedScene" uid="uid://bfsw1vy5loxmt" path="res://scenes/next_level.tscn" id="1_y0l3c"]
-[ext_resource type="Texture2D" uid="uid://gjra5e0xhlb2" path="res://assets/art/DoorCracked0.png" id="2_aefxq"]
+[ext_resource type="Texture2D" uid="uid://5upt73pr8er2" path="res://assets/art/CrackedWall1-1.png.png" id="2_1705x"]
 [ext_resource type="Script" path="res://scripts/hurtbox.gd" id="4_bvacd"]
 [ext_resource type="Script" path="res://scripts/health.gd" id="5_2sdyb"]
 
@@ -20,22 +20,26 @@ position = Vector2(0, 72)
 script = ExtResource("1_olity")
 
 [node name="Sprite2D" type="Sprite2D" parent="."]
-texture = ExtResource("2_aefxq")
+texture = ExtResource("2_1705x")
 
 [node name="NextLevel" parent="." instance=ExtResource("1_y0l3c")]
+visible = false
 
 [node name="NextLevelCollider" type="CollisionShape2D" parent="NextLevel"]
+visible = false
 position = Vector2(0, 0.5)
 shape = SubResource("RectangleShape2D_gtp6p")
 disabled = true
 
 [node name="DoorCollider" type="CollisionShape2D" parent="."]
+visible = false
 shape = SubResource("RectangleShape2D_gtp6p")
 
 [node name="TileMapLayer" type="TileMapLayer" parent="."]
 tile_set = SubResource("TileSet_p2b5k")
 
 [node name="HurtBox" type="Area2D" parent="." node_paths=PackedStringArray("health")]
+visible = false
 script = ExtResource("4_bvacd")
 health = NodePath("../Health")
 

@@ -25,3 +25,5 @@ position = Vector2(45, -7)
 [node name="ShootSound" type="AudioStreamPlayer2D" parent="."]
 stream = ExtResource("4_t1eof")
 bus = &"SFX"
+
+[node name="ChargeDelay" type="Timer" parent="."]

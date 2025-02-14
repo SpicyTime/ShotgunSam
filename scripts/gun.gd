@@ -1,6 +1,7 @@
 extends Sprite2D
 @export var shake_power = 0.3
 @export var gun_power: int = 500
+@export var charge_cap: int = 350
 @onready var shoot_sound: AudioStreamPlayer2D = $ShootSound
 @onready var marker_2d: Marker2D = $Marker2D
 @onready var game = get_tree().get_root().get_node("Game")
@@ -8,8 +9,8 @@ extends Sprite2D
 @onready var game_camera = get_node("/root/Game/Camera")
 @onready var blast_particles = preload("res://particles/gun_blast_particles.tscn")
 @onready var bullet_particles = preload("res://particles/shotgun_bullet_particles.tscn")
-signal shot
 @onready var sprite_dimensions : Vector2 = get_texture().get_size()
+signal shot
 var direction
 var distance: float
 func rotate_around(radius):
@@ -61,6 +62,7 @@ func shoot():
 #Not a signal
 func _on_particles_finished(particles):
 	particles.queue_free()
-
+func _on_begin_shoot():
+	print("Begin Shot")
 
  

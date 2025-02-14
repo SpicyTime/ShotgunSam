@@ -14,6 +14,7 @@ var direction: float
 var coin_count: int = 0: set = _on_coins_set
 signal coin_count_changed(new_value: int)
 signal ammo_count_changed(new_value: int)
+signal begin_shoot
 signal gun_shot
 func add_coins(amount: int):
 	coin_count += amount
@@ -33,6 +34,7 @@ func handle_input():
 	if Input.is_action_just_released("shoot"):
 		if ammo_count <= 0:
 			return
+		begin_shoot.emit()
 		gun.shoot()
 		var gun_position = gun.global_position
 		var direction_to_mouse = (get_global_mouse_position()  - gun_position).normalized()
@@ -68,7 +70,7 @@ func reset():
 	if tree:
 		tree.reload_current_scene()
 func _ready():
-	pass
+	begin_shoot.connect(gun._on_begin_shoot)
 func _on_health_health_depleted() -> void:
 	call_deferred("reset")
   

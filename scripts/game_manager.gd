@@ -1,7 +1,7 @@
 extends Node
 @onready var player : CharacterBody2D = %Player
-@onready var coin_label : Label = get_node("GameUI//CanvasLayer/CoinLabel")
-@onready var ammo_label : Label = get_node("GameUI//CanvasLayer/AmmoLabel")
+@onready var coin_label : Label = get_node("GameUI//CanvasLayer/Coin/CoinLabel")
+@onready var ammo_label : Label = get_node("GameUI//CanvasLayer/Ammo/AmmoLabel")
 @onready var slow_timer: Timer = $"../SlowTimer"
 @onready var game : Node2D = $".."
 @export var start_level: String = "1"
@@ -11,17 +11,22 @@ func remove_level(level_root):
 func spawn_player(level_root):
 	var spawn_marker:Marker2D = level_root.find_child("LevSpawnPos")
 	if spawn_marker:
+		 
 		player.global_position = spawn_marker.global_position
-		var door_node = level_root.find_child("Door")
-		if not door_node:
-			return
-		var next_level_node = door_node.find_child("NextLevel")
+		print("Player Spawned")
+		#var door_node = level_root.find_child("Door")
+		#if not door_node:
+			#return
+		#var next_level_node = door_node.find_child("NextLevel")
 			 
 func connect_change_scene_signal(node):
 	var next_level_node = node.find_child("NextLevel")
 	if not next_level_node :
 		return
+	print("Connecting")
 	if next_level_node.has_signal("change_scene"):
+		
+		print("Connected to " +str(get_path_to(next_level_node)))
 		next_level_node.change_scene.connect(_on_change_scene)
 func add_level(level_root):
 	get_tree().get_root().add_child(level_root)
@@ -34,9 +39,11 @@ func load_level(path : String):
 	call_deferred("connect_change_scene_signal", level_root)
 	 
 func unload_level(path : String):
+	player.global_position = Vector2(0, 0)
+	print(player.global_position)
 	var level_root = get_node(path)
 	level_root.remove_from_group("Level")
-	player.global_position = Vector2(0, 0)
+	 
 	call_deferred("remove_level", level_root)
 # Called when the node enters the scene tree for the first time.
 func _ready() -> void:
@@ -58,6 +65,7 @@ func _on_player_ammo_changed(new_value: int):
 	if ammo_label:
 		ammo_label.text = str(new_value)
 func _on_change_scene(next_level_scene_path):
+	print("Changing Scene")
 	unload_level(get_tree().get_first_node_in_group("Level").get_path())
 	load_level(next_level_scene_path)
 	#Engine.time_scale = 0.5
