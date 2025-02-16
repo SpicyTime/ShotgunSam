@@ -11,13 +11,8 @@ func remove_level(level_root):
 func spawn_player(level_root):
 	var spawn_marker:Marker2D = level_root.find_child("LevSpawnPos")
 	if spawn_marker:
-		 
 		player.global_position = spawn_marker.global_position
 		print("Player Spawned")
-		#var door_node = level_root.find_child("Door")
-		#if not door_node:
-			#return
-		#var next_level_node = door_node.find_child("NextLevel")
 			 
 func connect_change_scene_signal(node):
 	var next_level_node = node.find_child("NextLevel")

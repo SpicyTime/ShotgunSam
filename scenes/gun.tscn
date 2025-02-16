@@ -27,3 +27,6 @@ stream = ExtResource("4_t1eof")
 bus = &"SFX"
 
 [node name="ChargeDelay" type="Timer" parent="."]
+one_shot = true
+
+[connection signal="timeout" from="ChargeDelay" to="." method="_on_charge_delay_timeout"]

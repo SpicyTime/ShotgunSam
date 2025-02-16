@@ -57,12 +57,15 @@ func shoot():
 	marker_2d.add_child(particles)
 	marker_2d.add_child(bullets)
 	game_camera.add_trauma(shake_power)
-
-
+func charge():
+	print("Start Charging")
 #Not a signal
 func _on_particles_finished(particles):
 	particles.queue_free()
 func _on_begin_shoot():
 	print("Begin Shot")
+	$ChargeDelay.start()
 
- 
+
+func _on_charge_delay_timeout() -> void:
+	charge()

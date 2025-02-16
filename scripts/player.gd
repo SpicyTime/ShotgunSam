@@ -31,10 +31,11 @@ func handle_flip():
 		player_sprite.flip_h = true
 func handle_input():      
 	$Gun/HitBox/CollisionShape2D.disabled = true
-	if Input.is_action_just_released("shoot"):
+	if Input.is_action_just_pressed("shoot"):
+		begin_shoot.emit()
+	elif Input.is_action_just_released("shoot"):
 		if ammo_count <= 0:
 			return
-		begin_shoot.emit()
 		gun.shoot()
 		var gun_position = gun.global_position
 		var direction_to_mouse = (get_global_mouse_position()  - gun_position).normalized()
