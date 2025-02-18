@@ -1,7 +1,7 @@
 [gd_scene load_steps=7 format=3 uid="uid://c2wa1ek2hr3xe"]
 
 [ext_resource type="Script" path="res://scripts/player.gd" id="1_tcq6q"]
-[ext_resource type="Texture2D" uid="uid://dsyar5otj2v8t" path="res://assets/art/Player.png" id="2_cn3vu"]
+[ext_resource type="Texture2D" uid="uid://n4dynkr8qcj" path="res://assets/art/Player.png" id="2_cn3vu"]
 [ext_resource type="Script" path="res://scripts/hurtbox.gd" id="4_8w6kp"]
 [ext_resource type="Script" path="res://scripts/health.gd" id="5_6acjd"]
 [ext_resource type="PackedScene" uid="uid://bwhbrw2cdw27s" path="res://scenes/gun.tscn" id="5_md848"]
@@ -13,7 +13,6 @@ height = 74.0
 [node name="Player" type="CharacterBody2D"]
 z_index = 10
 script = ExtResource("1_tcq6q")
-ammo_count = 30
 
 [node name="PlayerSprite" type="Sprite2D" parent="."]
 position = Vector2(-1.90735e-06, -1.90735e-06)
@@ -38,4 +37,5 @@ health = 1
 [node name="Gun" parent="." instance=ExtResource("5_md848")]
 
 [connection signal="health_depleted" from="Health" to="." method="_on_health_health_depleted"]
+[connection signal="bullet_count_changed" from="Gun" to="." method="_on_gun_bullet_count_changed"]
 [connection signal="shot" from="Gun" to="." method="_on_gun_shot"]

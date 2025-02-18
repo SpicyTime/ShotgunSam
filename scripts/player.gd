@@ -5,7 +5,6 @@ extends CharacterBody2D
 @onready var CAMERA_SIZE = camera.get_viewport_rect().size
 @onready var player_sprite: Sprite2D = $PlayerSprite
 @export var gun_radius := 50
-@export var ammo_count: int = 10: set = _on_ammo_set
 
 const SPEED = 300.0
 const JUMP_VELOCITY = -400.0
@@ -13,17 +12,17 @@ var gun_rotate_speed = 4
 var direction: float
 var coin_count: int = 0: set = _on_coins_set
 signal coin_count_changed(new_value: int)
-signal ammo_count_changed(new_value: int)
+signal bullet_count_changed(new_value: int)
 signal begin_shoot
 signal gun_shot
 func add_coins(amount: int):
 	coin_count += amount
+func reload(value: int):
+	gun.add_bullets(value)
 func _on_coins_set(new_value: int):
 	coin_count = new_value
 	coin_count_changed.emit(coin_count)
-func _on_ammo_set(new_value: int):
-	ammo_count = new_value
-	ammo_count_changed.emit(ammo_count)
+
 func handle_flip():
 	if direction == 1:
 		player_sprite.flip_h = false
@@ -32,23 +31,27 @@ func handle_flip():
 func handle_input():      
 	$Gun/HitBox/CollisionShape2D.disabled = true
 	if Input.is_action_just_pressed("shoot"):
-		begin_shoot.emit()
-	elif Input.is_action_just_released("shoot"):
-		if ammo_count <= 0:
+		print("Begin Shoot")
+		gun.begin_shoot() 
+	if Input.is_action_just_released("shoot"):
+		if gun.is_empty():
 			return
 		gun.shoot()
 		var gun_position = gun.global_position
 		var direction_to_mouse = (get_global_mouse_position()  - gun_position).normalized()
+		var recoil = gun.get_recoil()
+		print(gun.charge_power)
 		if gun.distance <= gun_radius:
-			velocity = (direction_to_mouse * gun.gun_power)
+			velocity = (direction_to_mouse * recoil)
 				
 		else:
-			velocity = - (direction_to_mouse * gun.gun_power)
-	 
+			velocity = - (direction_to_mouse * recoil)
+	elif Input.is_action_just_pressed("reload"):
+		print("Reloading")
+		gun.reload()
+		
 func rotate_gun():
 	gun.rotate_around(gun_radius)
-func add_ammo(value: int): 
-	ammo_count += value
 func _physics_process(delta: float) -> void:
 	 
 	# Add the gravity.
@@ -71,15 +74,13 @@ func reset():
 	if tree:
 		tree.reload_current_scene()
 func _ready():
-	begin_shoot.connect(gun._on_begin_shoot)
+	coin_count_changed.emit(0)
 func _on_health_health_depleted() -> void:
 	call_deferred("reset")
   
 func _on_gun_shot() -> void:
 	#ammo_count -= 1
 	gun_shot.emit()
-
-
-
-
  
+func _on_gun_bullet_count_changed(new_value: int) -> void:
+	bullet_count_changed.emit(new_value)

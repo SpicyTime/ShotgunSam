@@ -1,7 +1,7 @@
 [gd_scene load_steps=11 format=3 uid="uid://cfc30wcm4wluh"]
 
 [ext_resource type="Script" path="res://scripts/pickups.gd" id="1_o2gub"]
-[ext_resource type="Texture2D" uid="uid://bnjxpwo45usfd" path="res://assets/art/ThinGoldCoin.png" id="2_62diu"]
+[ext_resource type="Texture2D" uid="uid://dpsd7eqvmrsoh" path="res://assets/art/ThinGoldCoin.png" id="2_62diu"]
 
 [sub_resource type="CapsuleShape2D" id="CapsuleShape2D_vljhm"]
 radius = 19.0

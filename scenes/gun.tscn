@@ -1,9 +1,10 @@
-[gd_scene load_steps=6 format=3 uid="uid://bwhbrw2cdw27s"]
+[gd_scene load_steps=7 format=3 uid="uid://bwhbrw2cdw27s"]
 
 [ext_resource type="Script" path="res://scripts/hitbox.gd" id="1_l84ci"]
 [ext_resource type="Script" path="res://scripts/gun.gd" id="1_rd3yr"]
-[ext_resource type="Texture2D" uid="uid://dddsswka5r4n" path="res://assets/art/ShotGun.png" id="2_rbwvc"]
-[ext_resource type="AudioStream" uid="uid://cuh8aq0c7snf0" path="res://assets/shotgun-firing-4-6746.mp3" id="4_t1eof"]
+[ext_resource type="Texture2D" uid="uid://bdm0n81fejg7o" path="res://assets/art/ShotGun.png" id="2_rbwvc"]
+[ext_resource type="AudioStream" uid="uid://dx33xj08txlbv" path="res://assets/shotgun-firing-4-6746.mp3" id="4_t1eof"]
+[ext_resource type="Script" path="res://scripts/stopwatch.gd" id="5_ra8c7"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_g7edj"]
 size = Vector2(53, 20)
@@ -29,4 +30,11 @@ bus = &"SFX"
 [node name="ChargeDelay" type="Timer" parent="."]
 one_shot = true
 
+[node name="ReloadTime" type="Timer" parent="."]
+one_shot = true
+
+[node name="ChargeStopwatch" type="Node" parent="."]
+script = ExtResource("5_ra8c7")
+
 [connection signal="timeout" from="ChargeDelay" to="." method="_on_charge_delay_timeout"]
+[connection signal="timeout" from="ReloadTime" to="." method="_on_reload_time_timeout"]

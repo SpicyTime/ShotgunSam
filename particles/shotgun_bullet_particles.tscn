@@ -1,6 +1,6 @@
 [gd_scene load_steps=3 format=3 uid="uid://dnb3psu3ejy11"]
 
-[ext_resource type="Texture2D" uid="uid://dodtkl1r5y8vk" path="res://assets/Bullet.png" id="1_q25ow"]
+[ext_resource type="Texture2D" uid="uid://bve46wvrwu40d" path="res://assets/art/Bullet.png" id="1_q25ow"]
 
 [sub_resource type="Curve" id="Curve_7l5so"]
 _data = [Vector2(0.0114504, 1), 0.0, 0.0, 0, 0, Vector2(1, 0.471698), 0.0, 0.0, 0, 0]
