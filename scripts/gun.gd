@@ -14,13 +14,12 @@ extends Sprite2D
 @onready var reload_time: Timer = $ReloadTime
 @onready var sprite_dimensions : Vector2 = get_texture().get_size()
 @onready var charge_stopwatch: Stopwatch = $ChargeStopwatch
-signal shot
-signal bullet_count_changed(new_value: int) 
 var direction
 var distance: float
 var bullet_count: int = 10: set = _on_bullets_set
 var charge_power: int = 0
-var cancel_charge: bool = false
+var stop_charge: bool = false
+#var cancel_charge: bool = false
 func rotate_around(radius):
 	# Get the global position of the mouse
 	var mouse_global_pos = get_global_mouse_position()
@@ -35,6 +34,7 @@ func rotate_around(radius):
 	var angle = direction.angle()
 	# Rotates the sprite to face the mouse
 	rotation = angle
+	 
 	# Calculate the position based off of the angle and the radius
 	var new_position = Vector2(cos(angle), sin(angle)) * radius
 	var parent_sprite = parent.get_node("PlayerSprite")
@@ -61,8 +61,9 @@ func shoot():
 		return
 	 
 	var time = charge_stopwatch.time
-	shot.emit()
-	cancel_charge = true
+	print(time)
+	Signals.shot.emit()
+	 
 	charge_power = time * 75
 	bullet_count -= 1
 	$HitBox/CollisionShape2D.disabled = false
@@ -82,6 +83,9 @@ func shoot():
 func charge():
 	if bullet_count > 0:
 		charge_stopwatch.start()
+func cancel_charge():
+	stop_charge = true
+	
 func reload():
 	reload_time.start()
 func add_bullets(value: int):
@@ -95,12 +99,14 @@ func _process(delta: float):
 func _on_particles_finished(particles):
 	particles.queue_free()
 func begin_shoot():
+	stop_charge = false
+	print("Begin Shoot")
 	$ChargeDelay.start()
+	
 func _ready():
-	bullet_count_changed.emit(bullet_count)
+	Signals.bullet_count_changed.emit(bullet_count)
 func _on_charge_delay_timeout() -> void:
-	if cancel_charge:
-		cancel_charge = false
+	if stop_charge:
 		return
 	print("Charging")
 	charge()
@@ -109,5 +115,5 @@ func _on_reload_time_timeout() -> void:
 	add_bullets(5)
 func _on_bullets_set(new_value: int):
 	bullet_count = new_value
-	bullet_count_changed.emit(bullet_count)
+	Signals.bullet_count_changed.emit(bullet_count)
 	

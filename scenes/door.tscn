@@ -2,7 +2,7 @@
 
 [ext_resource type="Script" path="res://scripts/door.gd" id="1_olity"]
 [ext_resource type="PackedScene" uid="uid://bfsw1vy5loxmt" path="res://scenes/next_level.tscn" id="1_y0l3c"]
-[ext_resource type="Texture2D" uid="uid://5upt73pr8er2" path="res://assets/art/CrackedWall1-1.png.png" id="2_1705x"]
+[ext_resource type="Texture2D" uid="uid://cm56mq7f2db3x" path="res://assets/art/DestrObst.png" id="2_1705x"]
 [ext_resource type="Script" path="res://scripts/hurtbox.gd" id="4_bvacd"]
 [ext_resource type="Script" path="res://scripts/health.gd" id="5_2sdyb"]
 
@@ -51,6 +51,3 @@ shape = SubResource("RectangleShape2D_80yw7")
 script = ExtResource("5_2sdyb")
 health = 3
 max_health = 3
-
-[connection signal="health_changed" from="Health" to="." method="_on_health_changed"]
-[connection signal="health_depleted" from="Health" to="." method="_on_health_depleted"]

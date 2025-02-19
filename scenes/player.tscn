@@ -35,7 +35,3 @@ script = ExtResource("5_6acjd")
 health = 1
 
 [node name="Gun" parent="." instance=ExtResource("5_md848")]
-
-[connection signal="health_depleted" from="Health" to="." method="_on_health_health_depleted"]
-[connection signal="bullet_count_changed" from="Gun" to="." method="_on_gun_bullet_count_changed"]
-[connection signal="shot" from="Gun" to="." method="_on_gun_shot"]

@@ -1,7 +1,7 @@
 [gd_scene load_steps=13 format=4 uid="uid://bmhljl4g2v83n"]
 
 [ext_resource type="PackedScene" uid="uid://l5enih3umcew" path="res://scenes/spikes.tscn" id="1_ofeih"]
-[ext_resource type="Texture2D" uid="uid://cn8whwn6mehnr" path="res://assets/art/TerrainTileset.png" id="2_pvy4m"]
+[ext_resource type="Texture2D" uid="uid://c5fa5lu44mob7" path="res://assets/art/TerrainTileset.png" id="2_pvy4m"]
 [ext_resource type="Script" path="res://scripts/create_texture.gd" id="4_svrep"]
 [ext_resource type="PackedScene" uid="uid://cfc30wcm4wluh" path="res://scenes/pickups.tscn" id="5_gk07y"]
 [ext_resource type="PackedScene" uid="uid://bfsw1vy5loxmt" path="res://scenes/next_level.tscn" id="6_8tq5q"]
@@ -168,8 +168,10 @@ tile_map_data = PackedByteArray("AAAAAPv/AAAAAAAAAQA=")
 tile_set = SubResource("TileSet_wpjd6")
 
 [node name="NextLevel" parent="." instance=ExtResource("6_8tq5q")]
-position = Vector2(549, 186)
+position = Vector2(554, 208)
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="NextLevel"]
 shape = SubResource("RectangleShape2D_wi7q6")
 metadata/_edit_lock_ = true
+
+[connection signal="body_entered" from="Coins/Pickups" to="Coins/Pickups" method="_on_body_entered"]

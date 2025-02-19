@@ -2,7 +2,7 @@
 
 [ext_resource type="Script" path="res://scripts/game_manager.gd" id="1_a6aoq"]
 [ext_resource type="PackedScene" uid="uid://c2wa1ek2hr3xe" path="res://scenes/player.tscn" id="1_no7uu"]
-[ext_resource type="PackedScene" uid="uid://cpx7u6i0j32a7" path="res://scenes/hud.tscn" id="3_eayae"]
+[ext_resource type="PackedScene" uid="uid://cpx7u6i0j32a7" path="res://scenes/UI/hud.tscn" id="3_eayae"]
 [ext_resource type="Script" path="res://scripts/camera.gd" id="4_kgiod"]
 
 [node name="Game" type="Node2D"]
@@ -25,8 +25,4 @@ position = Vector2(43, 124)
 [node name="SlowTimer" type="Timer" parent="."]
 wait_time = 0.5
 
-[connection signal="player_bullet_change" from="GameManager" to="GameManager/Hud" method="_on_game_manager_player_bullet_change"]
-[connection signal="player_coin_change" from="GameManager" to="GameManager/Hud" method="_on_game_manager_player_coin_change"]
-[connection signal="bullet_count_changed" from="Player" to="GameManager" method="_on_player_bullet_count_changed"]
-[connection signal="coin_count_changed" from="Player" to="GameManager" method="_on_player_coin_count_changed"]
 [connection signal="timeout" from="SlowTimer" to="GameManager" method="_on_slow_timer_timeout"]

@@ -3,8 +3,7 @@ extends Node
 @onready var slow_timer: Timer = $"../SlowTimer"
 @onready var game : Node2D = $".."
 @export var start_level: String = "1"
-signal player_coin_change(value: int)
-signal player_bullet_change(value: int)
+
 func remove_level(level_root):
 	get_tree().get_root().remove_child(level_root)
 	level_root.queue_free()
@@ -14,15 +13,6 @@ func spawn_player(level_root):
 		player.global_position = spawn_marker.global_position
 		print("Player Spawned")
 			 
-func connect_change_scene_signal(node):
-	var next_level_node = node.find_child("NextLevel")
-	if not next_level_node :
-		return
-	print("Connecting")
-	if next_level_node.has_signal("change_scene"):
-		
-		print("Connected to " +str(get_path_to(next_level_node)))
-		next_level_node.change_scene.connect(_on_change_scene)
 func add_level(level_root):
 	get_tree().get_root().add_child(level_root)
 func load_level(path : String):
@@ -31,14 +21,14 @@ func load_level(path : String):
 	level_root.add_to_group("Level")
 	spawn_player(level_root)
 	call_deferred("add_level", level_root)
-	call_deferred("connect_change_scene_signal", level_root)
+	
 	 
 func unload_level(path : String):
 	player.global_position = Vector2(0, 0)
 	print(player.global_position)
 	var level_root = get_node(path)
 	level_root.remove_from_group("Level")
-	 
+	
 	call_deferred("remove_level", level_root)
 # Called when the node enters the scene tree for the first time.
 func _ready() -> void:
@@ -47,7 +37,7 @@ func _ready() -> void:
 		remove_level(level) 
 		level.remove_from_group("Level")
 	load_level("res://levels/l_" + str(start_level) + ".tscn")
-		 
+	Signals.change_scene.connect(_on_change_scene)
 		 
  
 func _on_change_scene(next_level_scene_path):
@@ -61,10 +51,4 @@ func _on_change_scene(next_level_scene_path):
 func _on_slow_timer_timeout() -> void:
 	Engine.time_scale = 1
 
-
-func _on_player_bullet_count_changed(new_value: int) -> void:
-	player_bullet_change.emit(new_value)
-
-
-func _on_player_coin_count_changed(new_value: int) -> void:
-	player_coin_change.emit(new_value)
+ 

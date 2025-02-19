@@ -10,18 +10,16 @@ const SPEED = 300.0
 const JUMP_VELOCITY = -400.0
 var gun_rotate_speed = 4
 var direction: float
+var has_shot: bool = false
 var coin_count: int = 0: set = _on_coins_set
-signal coin_count_changed(new_value: int)
-signal bullet_count_changed(new_value: int)
-signal begin_shoot
-signal gun_shot
+
 func add_coins(amount: int):
 	coin_count += amount
 func reload(value: int):
 	gun.add_bullets(value)
 func _on_coins_set(new_value: int):
 	coin_count = new_value
-	coin_count_changed.emit(coin_count)
+	Signals.player_coin_change.emit(coin_count)
 
 func handle_flip():
 	if direction == 1:
@@ -31,21 +29,22 @@ func handle_flip():
 func handle_input():      
 	$Gun/HitBox/CollisionShape2D.disabled = true
 	if Input.is_action_just_pressed("shoot"):
-		print("Begin Shoot")
 		gun.begin_shoot() 
 	if Input.is_action_just_released("shoot"):
 		if gun.is_empty():
 			return
+		gun.cancel_charge()
 		gun.shoot()
+		has_shot = true
 		var gun_position = gun.global_position
 		var direction_to_mouse = (get_global_mouse_position()  - gun_position).normalized()
 		var recoil = gun.get_recoil()
-		print(gun.charge_power)
 		if gun.distance <= gun_radius:
 			velocity = (direction_to_mouse * recoil)
 				
 		else:
 			velocity = - (direction_to_mouse * recoil)
+		print(velocity)
 	elif Input.is_action_just_pressed("reload"):
 		print("Reloading")
 		gun.reload()
@@ -60,10 +59,13 @@ func _physics_process(delta: float) -> void:
 	rotate_gun()
 	 
 	handle_input()
-	 
-	if is_on_floor():
+	
+	if is_on_floor() and not has_shot:
+		
 		velocity.x = move_toward(velocity.x, 0, SPEED)
-	 
+	else:
+		has_shot = false
+	
 	move_and_slide()
 	#screen_wrap()
 func screen_wrap() ->void:
@@ -74,13 +76,17 @@ func reset():
 	if tree:
 		tree.reload_current_scene()
 func _ready():
-	coin_count_changed.emit(0)
-func _on_health_health_depleted() -> void:
+	Signals.player_coin_change.emit(0)
+	Signals.bullet_count_changed.connect(_on_bullet_count_changed)
+	Signals.player_bullet_change.emit(gun.bullet_count)
+	Signals.health_depleted.connect(_on_health_depleted)
+func _on_health_depleted(sender) -> void:
+	if sender.name != "Player":
+		return
 	call_deferred("reset")
-  
-func _on_gun_shot() -> void:
-	#ammo_count -= 1
-	gun_shot.emit()
+
+func _on_bullet_count_changed(new_value):
+	Signals.player_bullet_change.emit(new_value)
  
-func _on_gun_bullet_count_changed(new_value: int) -> void:
-	bullet_count_changed.emit(new_value)
+ 
+ 
