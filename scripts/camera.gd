@@ -18,9 +18,13 @@ func add_trauma(amount: float)-> void:
 	
 func _ready() -> void:
 	randomize()
+	Signals.shake_camera.connect(_on_camera_shake)
 # Called every frame. 'delta' is the elapsed time since the previous frame.
 func _process(delta: float) -> void:
 	if trauma:
 		trauma = max(trauma - decay * delta, 0)
 		shake()
+func _on_camera_shake(trauma: float):
+	add_trauma(trauma)
+	 
  

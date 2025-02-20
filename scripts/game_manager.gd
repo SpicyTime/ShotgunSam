@@ -36,7 +36,8 @@ func _ready() -> void:
 		var level = get_tree().get_first_node_in_group("Level")
 		remove_level(level) 
 		level.remove_from_group("Level")
-	load_level("res://levels/l_" + str(start_level) + ".tscn")
+	#load_level("res://levels/l_" + str(start_level) + ".tscn")
+	load_level("res://levels/test_scene.tscn")
 	Signals.change_scene.connect(_on_change_scene)
 		 
  

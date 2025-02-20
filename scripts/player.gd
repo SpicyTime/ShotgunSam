@@ -39,14 +39,15 @@ func handle_input():
 		var gun_position = gun.global_position
 		var direction_to_mouse = (get_global_mouse_position()  - gun_position).normalized()
 		var recoil = gun.get_recoil()
+		print(recoil)
 		if gun.distance <= gun_radius:
 			velocity = (direction_to_mouse * recoil)
 				
 		else:
 			velocity = - (direction_to_mouse * recoil)
-		print(velocity)
+		#print(velocity)
 	elif Input.is_action_just_pressed("reload"):
-		print("Reloading")
+		#print("Reloading")
 		gun.reload()
 		
 func rotate_gun():

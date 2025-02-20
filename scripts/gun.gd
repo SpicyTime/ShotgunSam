@@ -1,14 +1,14 @@
 extends Sprite2D
-@export var shake_power = 0.3
+@export var shake_power: float = 0.3
 @export var power: int = 500
 @export var charge_cap: int = 350
 @export var max_bullet_capacity: int = 10
 @export var reload_speed: float = 1.5
+@export var charge_mult: float = 75
 @onready var shoot_sound: AudioStreamPlayer2D = $ShootSound
 @onready var marker_2d: Marker2D = $Marker2D
 @onready var game = get_tree().get_root().get_node("Game")
 @onready var parent = get_parent()
-@onready var game_camera = get_node("/root/Game/Camera")
 @onready var blast_particles = preload("res://particles/gun_blast_particles.tscn")
 @onready var bullet_particles = preload("res://particles/shotgun_bullet_particles.tscn")
 @onready var reload_time: Timer = $ReloadTime
@@ -61,10 +61,10 @@ func shoot():
 		return
 	 
 	var time = charge_stopwatch.time
-	print(time)
-	Signals.shot.emit()
 	 
-	charge_power = time * 75
+	charge_power = time * charge_mult
+	if charge_power > charge_cap:
+		charge_power = charge_cap
 	bullet_count -= 1
 	$HitBox/CollisionShape2D.disabled = false
 	shoot_sound.play()
@@ -76,7 +76,7 @@ func shoot():
 	bullets.finished.connect(func(): _on_particles_finished(bullets))
 	marker_2d.add_child(particles)
 	marker_2d.add_child(bullets)
-	game_camera.add_trauma(shake_power)
+	Signals.shake_camera.emit(shake_power)
 	if not charge_stopwatch.stopped:
 		charge_stopwatch.reset()
 		charge_stopwatch.stop()
@@ -100,7 +100,7 @@ func _on_particles_finished(particles):
 	particles.queue_free()
 func begin_shoot():
 	stop_charge = false
-	print("Begin Shoot")
+	#print("Begin Shoot")
 	$ChargeDelay.start()
 	
 func _ready():
@@ -108,7 +108,7 @@ func _ready():
 func _on_charge_delay_timeout() -> void:
 	if stop_charge:
 		return
-	print("Charging")
+	#print("Charging")
 	charge()
 func _on_reload_time_timeout() -> void:
 	#print("Reloaded")
