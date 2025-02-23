@@ -1,7 +1,6 @@
-[gd_scene load_steps=4 format=3 uid="uid://cpx7u6i0j32a7"]
+[gd_scene load_steps=3 format=3 uid="uid://cpx7u6i0j32a7"]
 
 [ext_resource type="Script" path="res://scripts/hud.gd" id="1_h6fgk"]
-[ext_resource type="Texture2D" uid="uid://ds3bi35q5230i" path="res://assets/art/ShotgunShell.png" id="1_pr6jn"]
 [ext_resource type="Texture2D" uid="uid://dpsd7eqvmrsoh" path="res://assets/art/ThinGoldCoin.png" id="2_y5nod"]
 
 [node name="Hud" type="Control"]
@@ -14,27 +13,6 @@ grow_vertical = 2
 script = ExtResource("1_h6fgk")
 
 [node name="HudCanvas" type="CanvasLayer" parent="."]
-
-[node name="AmmoDisplay" type="Control" parent="HudCanvas"]
-layout_mode = 3
-anchors_preset = 0
-offset_left = 32.0
-offset_top = 64.0
-offset_right = 72.0
-offset_bottom = 104.0
-
-[node name="AmmoSprite" type="Sprite2D" parent="HudCanvas/AmmoDisplay"]
-scale = Vector2(0.333333, 0.333333)
-texture = ExtResource("1_pr6jn")
-metadata/_edit_lock_ = true
-
-[node name="AmmoLabel" type="Label" parent="HudCanvas/AmmoDisplay"]
-layout_mode = 0
-offset_left = 33.0
-offset_top = -11.0
-offset_right = 73.0
-offset_bottom = 12.0
-metadata/_edit_lock_ = true
 
 [node name="CoinDisplay" type="Control" parent="HudCanvas"]
 layout_mode = 3

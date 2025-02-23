@@ -5,6 +5,8 @@ extends CharacterBody2D
 @onready var CAMERA_SIZE = camera.get_viewport_rect().size
 @onready var player_sprite: Sprite2D = $PlayerSprite
 @export var gun_radius := 50
+@export var max_y_velocity := 600
+@export var max_x_velocity := 650
 
 const SPEED = 300.0
 const JUMP_VELOCITY = -400.0
@@ -26,6 +28,7 @@ func handle_flip():
 		player_sprite.flip_h = false
 	elif direction == -1:
 		player_sprite.flip_h = true
+ 
 func handle_input():      
 	$Gun/HitBox/CollisionShape2D.disabled = true
 	if Input.is_action_just_pressed("shoot"):
@@ -38,18 +41,20 @@ func handle_input():
 		has_shot = true
 		var gun_position = gun.global_position
 		var direction_to_mouse = (get_global_mouse_position()  - gun_position).normalized()
+		 
 		var recoil = gun.get_recoil()
-		print(recoil)
+		 
+			 
+		var new_velocity =  direction_to_mouse * recoil
+			
 		if gun.distance <= gun_radius:
-			velocity = (direction_to_mouse * recoil)
-				
+			velocity = new_velocity  
+		 
 		else:
-			velocity = - (direction_to_mouse * recoil)
-		#print(velocity)
-	elif Input.is_action_just_pressed("reload"):
-		#print("Reloading")
-		gun.reload()
+			 
 		
+			velocity = - new_velocity
+		 
 func rotate_gun():
 	gun.rotate_around(gun_radius)
 func _physics_process(delta: float) -> void:
@@ -78,16 +83,13 @@ func reset():
 		tree.reload_current_scene()
 func _ready():
 	Signals.player_coin_change.emit(0)
-	Signals.bullet_count_changed.connect(_on_bullet_count_changed)
-	Signals.player_bullet_change.emit(gun.bullet_count)
 	Signals.health_depleted.connect(_on_health_depleted)
 func _on_health_depleted(sender) -> void:
-	if sender.name != "Player":
+	 
+	if sender.get_parent() != self:
 		return
 	call_deferred("reset")
 
-func _on_bullet_count_changed(new_value):
-	Signals.player_bullet_change.emit(new_value)
  
  
  

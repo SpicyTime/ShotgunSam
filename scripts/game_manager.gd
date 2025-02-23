@@ -11,7 +11,6 @@ func spawn_player(level_root):
 	var spawn_marker:Marker2D = level_root.find_child("LevSpawnPos")
 	if spawn_marker:
 		player.global_position = spawn_marker.global_position
-		print("Player Spawned")
 			 
 func add_level(level_root):
 	get_tree().get_root().add_child(level_root)
@@ -36,8 +35,8 @@ func _ready() -> void:
 		var level = get_tree().get_first_node_in_group("Level")
 		remove_level(level) 
 		level.remove_from_group("Level")
-	#load_level("res://levels/l_" + str(start_level) + ".tscn")
-	load_level("res://levels/test_scene.tscn")
+	load_level("res://levels/l_" + str(start_level) + ".tscn")
+	#load_level("res://levels/test_scene.tscn")
 	Signals.change_scene.connect(_on_change_scene)
 		 
  

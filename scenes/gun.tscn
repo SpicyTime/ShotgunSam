@@ -12,7 +12,9 @@ size = Vector2(53, 20)
 [node name="Gun" type="Sprite2D"]
 texture = ExtResource("2_rbwvc")
 script = ExtResource("1_rd3yr")
-charge_cap = 225
+power = 455
+charge_cap = 315
+reload_speed = 1.0
 charge_mult = 100.0
 
 [node name="HitBox" type="Area2D" parent="."]

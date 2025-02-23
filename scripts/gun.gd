@@ -2,7 +2,6 @@ extends Sprite2D
 @export var shake_power: float = 0.3
 @export var power: int = 500
 @export var charge_cap: int = 350
-@export var max_bullet_capacity: int = 10
 @export var reload_speed: float = 1.5
 @export var charge_mult: float = 75
 @onready var shoot_sound: AudioStreamPlayer2D = $ShootSound
@@ -16,9 +15,10 @@ extends Sprite2D
 @onready var charge_stopwatch: Stopwatch = $ChargeStopwatch
 var direction
 var distance: float
-var bullet_count: int = 10: set = _on_bullets_set
+var bullet_count: int = 2: set = _on_bullets_set
 var charge_power: int = 0
 var stop_charge: bool = false
+var is_reloading: bool = false
 #var cancel_charge: bool = false
 func rotate_around(radius):
 	# Get the global position of the mouse
@@ -57,12 +57,16 @@ func get_recoil() -> int:
 func is_empty():
 	return bullet_count <= 0
 func shoot():
-	if bullet_count <= 0:
+	if is_empty():
 		return
 	 
 	var time = charge_stopwatch.time
-	 
-	charge_power = time * charge_mult
+	var extra: int = 1
+	var parent = get_parent()
+	if parent.has_method("is_on_floor"):
+		if not parent.is_on_floor():
+			extra = 3
+	charge_power = time * charge_mult * extra
 	if charge_power > charge_cap:
 		charge_power = charge_cap
 	bullet_count -= 1
@@ -87,12 +91,13 @@ func cancel_charge():
 	stop_charge = true
 	
 func reload():
+	print("Reloading")
+	is_reloading = true
 	reload_time.start()
 func add_bullets(value: int):
-	
+	is_reloading = false
 	bullet_count += value
-	if bullet_count > max_bullet_capacity:
-		bullet_count = max_bullet_capacity
+	 
 func _process(delta: float):
 	reload_time.wait_time = reload_speed
 #Not a signal
@@ -103,17 +108,15 @@ func begin_shoot():
 	#print("Begin Shoot")
 	$ChargeDelay.start()
 	
-func _ready():
-	Signals.bullet_count_changed.emit(bullet_count)
 func _on_charge_delay_timeout() -> void:
 	if stop_charge:
 		return
 	#print("Charging")
 	charge()
 func _on_reload_time_timeout() -> void:
-	#print("Reloaded")
-	add_bullets(5)
+	add_bullets(2)
 func _on_bullets_set(new_value: int):
 	bullet_count = new_value
-	Signals.bullet_count_changed.emit(bullet_count)
+	if is_empty():
+		reload()
 	
