@@ -15,11 +15,10 @@ extends Sprite2D
 @onready var charge_stopwatch: Stopwatch = $ChargeStopwatch
 var direction
 var distance: float
-var bullet_count: int = 2: set = _on_bullets_set
+var bullet_count: int = Constants.MAX_BULLET_COUNT: set = _on_bullets_set
 var charge_power: int = 0
 var stop_charge: bool = false
 var is_reloading: bool = false
-#var cancel_charge: bool = false
 func rotate_around(radius):
 	# Get the global position of the mouse
 	var mouse_global_pos = get_global_mouse_position()
@@ -91,13 +90,17 @@ func cancel_charge():
 	stop_charge = true
 	
 func reload():
-	print("Reloading")
 	is_reloading = true
 	reload_time.start()
 func add_bullets(value: int):
 	is_reloading = false
 	bullet_count += value
-	 
+	Signals.gun_reload.emit(self)
+	if bullet_count > Constants.MAX_BULLET_COUNT:
+		bullet_count = Constants.MAX_BULLET_COUNT
+func fast_reload():
+	get_tree().create_timer(0.25).timeout
+	add_bullets(2)
 func _process(delta: float):
 	reload_time.wait_time = reload_speed
 #Not a signal

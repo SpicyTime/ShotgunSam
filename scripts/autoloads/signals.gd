@@ -6,4 +6,8 @@ signal shake_camera(trauma_amount: float)
 signal received_damage(damage: int)
 signal health_changed(diff : int)
 signal max_health_changed(diff : int)
+signal player_shot(bullets_left: int)
+signal player_reload(bullet_count: int)
+signal gun_reload
+signal gun_shot
 signal health_depleted

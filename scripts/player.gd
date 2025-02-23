@@ -38,6 +38,7 @@ func handle_input():
 			return
 		gun.cancel_charge()
 		gun.shoot()
+		Signals.player_shot.emit(gun.bullet_count)
 		has_shot = true
 		var gun_position = gun.global_position
 		var direction_to_mouse = (get_global_mouse_position()  - gun_position).normalized()
@@ -49,12 +50,10 @@ func handle_input():
 			
 		if gun.distance <= gun_radius:
 			velocity = new_velocity  
-		 
 		else:
-			 
-		
 			velocity = - new_velocity
-		 
+	if Input.is_action_just_pressed("reload"):
+		gun.reload()
 func rotate_gun():
 	gun.rotate_around(gun_radius)
 func _physics_process(delta: float) -> void:
@@ -84,6 +83,12 @@ func reset():
 func _ready():
 	Signals.player_coin_change.emit(0)
 	Signals.health_depleted.connect(_on_health_depleted)
+	Signals.gun_reload.connect(_on_gun_reload)
+func _on_gun_reload(sender):
+	print(sender)
+	if sender != gun:
+		return
+	Signals.player_reload.emit(gun.bullet_count)
 func _on_health_depleted(sender) -> void:
 	 
 	if sender.get_parent() != self:
