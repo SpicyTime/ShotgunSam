@@ -8,6 +8,8 @@ signal health_changed(diff : int)
 signal max_health_changed(diff : int)
 signal player_shot(bullets_left: int)
 signal player_reload(bullet_count: int)
+signal player_gun_charge
 signal gun_reload
 signal gun_shot
+signal gun_charge
 signal health_depleted

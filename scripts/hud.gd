@@ -18,4 +18,6 @@ func _on_player_shot(player_bullets_left: int):
 func _on_player_reload(player_bullet_count):
 	var bullet_uis = bullet_display.get_children()
 	for i in range(player_bullet_count):
+		if i >= bullet_display.get_child_count():
+			return
 		bullet_uis[i].visible = true

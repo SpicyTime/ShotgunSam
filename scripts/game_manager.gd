@@ -38,7 +38,6 @@ func _ready() -> void:
 	load_level("res://levels/l_" + str(start_level) + ".tscn")
 	#load_level("res://levels/test_scene.tscn")
 	Signals.change_scene.connect(_on_change_scene)
-		 
  
 func _on_change_scene(next_level_scene_path):
 	print("Changing Scene")

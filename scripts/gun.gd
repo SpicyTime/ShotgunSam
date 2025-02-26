@@ -85,11 +85,13 @@ func shoot():
 		charge_stopwatch.stop()
 func charge():
 	if bullet_count > 0:
+		Signals.gun_charge.emit(self)
 		charge_stopwatch.start()
 func cancel_charge():
 	stop_charge = true
 	
 func reload():
+	$ReloadSound.play()
 	is_reloading = true
 	reload_time.start()
 func add_bullets(value: int):
@@ -99,8 +101,10 @@ func add_bullets(value: int):
 	if bullet_count > Constants.MAX_BULLET_COUNT:
 		bullet_count = Constants.MAX_BULLET_COUNT
 func fast_reload():
+	$ReloadSound.play()
 	get_tree().create_timer(0.25).timeout
 	add_bullets(2)
+	 
 func _process(delta: float):
 	reload_time.wait_time = reload_speed
 #Not a signal
