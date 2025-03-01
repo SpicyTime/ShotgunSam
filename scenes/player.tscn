@@ -10,7 +10,7 @@
 radius = 19.0
 height = 74.0
 
-[node name="Player" type="CharacterBody2D"]
+[node name="Player" type="CharacterBody2D" groups=["savables"]]
 z_index = 10
 script = ExtResource("1_tcq6q")
 max_y_velocity = 650

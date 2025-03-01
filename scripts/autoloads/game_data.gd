@@ -1,0 +1,36 @@
+extends Node
+var player_bullet_count: int = 2
+var player_coin_count: int = 0
+var player_position: Vector2 = Vector2(0, 0)
+var current_level: String = "res://levels/l_1.tscn"
+func save_game() -> void:
+	var savables  = get_tree().get_nodes_in_group("savables")
+	var save_data: Dictionary;
+	for savable in savables:
+		if not savable.has_method("save"):
+			continue
+		if not savable.has_method("get_node_name"):
+			continue
+		save_data[savable.get_node_name()] = savable.save()
+	 
+		save_data["current_level"] = current_level
+	
+	var file = FileAccess.open("res://savegame.json", FileAccess.WRITE)
+	if not file:
+		print("Failed to save")
+		return
+	var json_string = JSON.stringify(save_data, "\t")
+	file.store_string(json_string)
+	file.close()
+func load_game():
+	var file = FileAccess.open("res://savegame.json", FileAccess.READ)
+	var json_string = file.get_as_text()
+	file.close()
+	var json = JSON.new()
+	var parse_result = json.parse(json_string)
+	if parse_result == OK:
+		var save_data = json.get_data()
+		var player_data = save_data.get("player", {})
+		player_coin_count = player_data.get("player_coin_count")
+		player_bullet_count = player_data.get("player_bullet_count")
+		current_level = save_data.get("current_level")

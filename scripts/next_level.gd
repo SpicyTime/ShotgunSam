@@ -17,6 +17,6 @@ func _on_body_entered(body: Node2D) -> void:
 	var next_level_number: int = level_name.to_int() + 1
  
 	var next_level_path: String = FILE_BEGIN + str(next_level_number) + ".tscn"
-	Signals.change_scene.emit(next_level_path)
-	print(path_string + " Emitting " + next_level_path)
+	Signals.swap_level.emit(next_level_path)
+	GameData.current_level = next_level_path
 	

@@ -3,7 +3,6 @@ extends Node
 @onready var slow_timer: Timer = $"../SlowTimer"
 @onready var game : Node2D = $".."
 @export var start_level: String = "1"
-
 func remove_level(level_root):
 	get_tree().get_root().remove_child(level_root)
 	level_root.queue_free()
@@ -31,23 +30,15 @@ func unload_level(path : String):
 	call_deferred("remove_level", level_root)
 # Called when the node enters the scene tree for the first time.
 func _ready() -> void:
-	if get_tree().get_node_count_in_group("Level") > 0:
-		var level = get_tree().get_first_node_in_group("Level")
-		remove_level(level) 
-		level.remove_from_group("Level")
-	load_level("res://levels/l_" + str(start_level) + ".tscn")
+	GameData.load_game()
+	load_level(GameData.current_level)
 	#load_level("res://levels/test_scene.tscn")
-	Signals.change_scene.connect(_on_change_scene)
- 
-func _on_change_scene(next_level_scene_path):
-	print("Changing Scene")
+	Signals.swap_level.connect(_on_swap_level)
+	SettingsData.load_save()
+
+func _on_swap_level(next_level_scene_path):
 	unload_level(get_tree().get_first_node_in_group("Level").get_path())
 	load_level(next_level_scene_path)
-	#Engine.time_scale = 0.5
-	#slow_timer.start()
-	#player.add_ammo()
-	
+	GameData.save_game()
 func _on_slow_timer_timeout() -> void:
 	Engine.time_scale = 1
-
- 

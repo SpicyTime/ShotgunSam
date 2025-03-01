@@ -2,16 +2,16 @@
 
 [ext_resource type="Script" path="res://scripts/game_manager.gd" id="1_a6aoq"]
 [ext_resource type="PackedScene" uid="uid://c2wa1ek2hr3xe" path="res://scenes/player.tscn" id="1_no7uu"]
-[ext_resource type="PackedScene" uid="uid://cpx7u6i0j32a7" path="res://scenes/UI/hud.tscn" id="3_eayae"]
+[ext_resource type="PackedScene" uid="uid://cpx7u6i0j32a7" path="res://scenes/ui/hud.tscn" id="3_eayae"]
 [ext_resource type="Script" path="res://scripts/camera.gd" id="4_kgiod"]
 
 [node name="Game" type="Node2D"]
 metadata/_edit_horizontal_guides_ = [1426.0]
 
+[node name="Hud" parent="." instance=ExtResource("3_eayae")]
+
 [node name="GameManager" type="Node" parent="."]
 script = ExtResource("1_a6aoq")
-
-[node name="Hud" parent="GameManager" instance=ExtResource("3_eayae")]
 
 [node name="Camera" type="Camera2D" parent="."]
 unique_name_in_owner = true
@@ -25,4 +25,5 @@ position = Vector2(43, 124)
 [node name="SlowTimer" type="Timer" parent="."]
 wait_time = 0.5
 
+[connection signal="tree_exiting" from="Player" to="GameManager" method="_on_player_tree_exiting"]
 [connection signal="timeout" from="SlowTimer" to="GameManager" method="_on_slow_timer_timeout"]

@@ -1,46 +1,13 @@
-[gd_scene load_steps=10 format=3 uid="uid://cxd818viofvf6"]
+[gd_scene load_steps=6 format=3 uid="uid://cxd818viofvf6"]
 
 [ext_resource type="Script" path="res://scripts/main_menu.gd" id="1_h8sve"]
 [ext_resource type="Texture2D" uid="uid://b1j5wmnfvaxfj" path="res://assets/art/Player.png" id="2_67mt3"]
+[ext_resource type="Theme" uid="uid://dule66g8xd2qn" path="res://themes/buttontheme.tres" id="3_860cd"]
 
 [sub_resource type="Theme" id="Theme_vomi6"]
 
 [sub_resource type="CompressedTexture2D" id="CompressedTexture2D_s6xbr"]
 load_path = "res://.godot/imported/ShotGun.png-b818175ff2dd22d470b4d9bb1dddd19e.ctex"
-
-[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_4fcox"]
-
-[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_ee7js"]
-bg_color = Color(0.455817, 0.455817, 0.455817, 1)
-border_width_bottom = 4
-border_color = Color(0.359069, 0.359069, 0.359069, 1)
-corner_radius_top_left = 6
-corner_radius_top_right = 6
-corner_radius_bottom_right = 6
-corner_radius_bottom_left = 6
-
-[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_6tw80"]
-border_width_bottom = 4
-corner_radius_top_left = 6
-corner_radius_top_right = 6
-corner_radius_bottom_right = 6
-corner_radius_bottom_left = 6
-
-[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_kqnvn"]
-bg_color = Color(0.207512, 0.207512, 0.207512, 1)
-border_width_bottom = 4
-border_color = Color(0.106237, 0.106237, 0.106236, 1)
-corner_radius_top_left = 6
-corner_radius_top_right = 6
-corner_radius_bottom_right = 6
-corner_radius_bottom_left = 6
-
-[sub_resource type="Theme" id="Theme_6rqml"]
-Button/font_sizes/font_size = 40
-Button/styles/focus = SubResource("StyleBoxEmpty_4fcox")
-Button/styles/hover = SubResource("StyleBoxFlat_ee7js")
-Button/styles/normal = SubResource("StyleBoxFlat_6tw80")
-Button/styles/pressed = SubResource("StyleBoxFlat_kqnvn")
 
 [node name="MainMenu" type="Control"]
 layout_mode = 3
@@ -90,7 +57,7 @@ anchor_right = 0.5
 anchor_bottom = 0.5
 grow_horizontal = 2
 grow_vertical = 2
-theme = SubResource("Theme_6rqml")
+theme = ExtResource("3_860cd")
 
 [node name="VBoxContainer" type="VBoxContainer" parent="Main3Buttons"]
 layout_mode = 1
@@ -139,4 +106,5 @@ text = "Shotgun Sam
 "
 
 [connection signal="pressed" from="Main3Buttons/VBoxContainer/PlayButton" to="." method="_on_play_button_pressed"]
+[connection signal="pressed" from="Main3Buttons/VBoxContainer/SettingsButton" to="." method="_on_settings_button_pressed"]
 [connection signal="pressed" from="Main3Buttons/VBoxContainer/ExitButton" to="." method="_on_exit_button_pressed"]

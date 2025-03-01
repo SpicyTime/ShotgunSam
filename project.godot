@@ -11,7 +11,7 @@ config_version=5
 [application]
 
 config/name="Test"
-run/main_scene="res://scenes/UI/MainMenu.tscn"
+run/main_scene="res://scenes/menus/mainmenu.tscn"
 config/features=PackedStringArray("4.3", "Forward Plus")
 config/icon="res://icon.svg"
 
@@ -23,10 +23,16 @@ driver/driver="OpenAL"
 
 Signals="*res://scripts/autoloads/signals.gd"
 Constants="*res://scripts/autoloads/constants.gd"
+SettingsData="*res://scripts/autoloads/settings_data.gd"
+GameData="*res://scripts/autoloads/game_data.gd"
 
 [display]
 
 window/size/viewport_height=672
+
+[global_group]
+
+savables=""
 
 [input]
 

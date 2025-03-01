@@ -14,24 +14,37 @@ var gun_rotate_speed = 4
 var direction: float
 var has_shot: bool = false
 var coin_count: int = 0: set = _on_coins_set
-
-func add_coins(amount: int):
+var node_name: String = "player"
+func get_node_name() -> String:
+	return node_name
+	
+func add_coins(amount: int) -> void:
 	coin_count += amount
-func reload(value: int):
+	
+func reload(value: int) -> void: 
 	gun.add_bullets(value)
-func _on_coins_set(new_value: int):
-	coin_count = new_value
-	Signals.player_coin_change.emit(coin_count)
 
-func handle_flip():
+func handle_flip() -> void:
 	if direction == 1:
 		player_sprite.flip_h = false
 	elif direction == -1:
 		player_sprite.flip_h = true
  
-	 
-func rotate_gun():
+func rotate_gun() -> void:
 	gun.rotate_around(gun_radius)
+	
+func save() -> Dictionary: 
+	var data = {
+		"player_coin_count" : GameData.player_coin_count,
+		"player_bullet_count" : GameData.player_bullet_count,
+		"player_position" : GameData.player_position
+	}
+	return data
+func reset() -> void:
+	var tree = get_tree()
+	if tree:
+		tree.reload_current_scene()
+		
 func _physics_process(delta: float) -> void:
 	# Add the gravity.
 	if not is_on_floor():
@@ -43,12 +56,9 @@ func _physics_process(delta: float) -> void:
 		has_shot = false
 	
 	move_and_slide()
-	#screen_wrap()
-func screen_wrap() ->void:
-	position.x = wrapf(position.x, 0 - CAMERA_SIZE.x / 2, screen_size.x  - CAMERA_SIZE.x / 2)
- 
+	
 func _unhandled_input(event: InputEvent) -> void:
-	print(event)
+	#print(event)
 	if event is InputEventMouseButton:
 		$Gun/HitBox/CollisionShape2D.disabled = true
 		if Input.is_action_just_pressed("shoot"):
@@ -58,6 +68,7 @@ func _unhandled_input(event: InputEvent) -> void:
 				return
 			gun.cancel_charge()
 			gun.shoot()
+			GameData.player_bullet_count = gun.bullet_count
 			Signals.player_shot.emit(gun.bullet_count)
 			has_shot = true
 			var gun_position = gun.global_position
@@ -72,34 +83,37 @@ func _unhandled_input(event: InputEvent) -> void:
 		rotate_gun()
 	 
 func _unhandled_key_input(event: InputEvent) -> void:
-	
 	if event.is_action_pressed("reload"):
 		gun.reload()
-	if event.is_action_just_pressed("mainmenu"):
-		pass
-func reset():
-	var tree = get_tree()
-	if tree:
-		tree.reload_current_scene()
-func _ready():
+	if event.is_action_pressed("mainmenu"):
+		get_tree().change_scene_to_file("res://scenes/menus/mainmenu.tscn")
+		print("Escaping to main menu")
+func _ready() -> void:
+	#Connect Signals
 	Signals.player_coin_change.emit(0)
 	Signals.health_depleted.connect(_on_health_depleted)
 	Signals.gun_reload.connect(_on_gun_reload)
 	Signals.gun_charge.connect(_on_gun_charge)
-	set_process_input(false)
-	set_process_shortcut_input(false)
-func _on_gun_reload(sender):
+	coin_count = GameData.player_coin_count
+	gun.bullet_count = GameData.player_bullet_count
+	
+func _on_gun_reload(sender) -> void:
 	 
 	if sender != gun:
 		return
 	Signals.player_reload.emit(gun.bullet_count)
+	
+func _on_coins_set(new_value: int):
+	coin_count = new_value
+	Signals.player_coin_change.emit(coin_count)
+	GameData.player_coin_count = new_value
 func _on_health_depleted(sender) -> void:
 	 
 	if sender.get_parent() != self:
 		return
 	call_deferred("reset")
 
-func _on_gun_charge(sender):
+func _on_gun_charge(sender) -> void:
 	if sender != gun:
 		return
 	Signals.player_gun_charge.emit()
