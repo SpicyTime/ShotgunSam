@@ -1,8 +1,9 @@
-[gd_scene load_steps=6 format=3 uid="uid://cxd818viofvf6"]
+[gd_scene load_steps=7 format=3 uid="uid://cxd818viofvf6"]
 
 [ext_resource type="Script" path="res://scripts/main_menu.gd" id="1_h8sve"]
 [ext_resource type="Texture2D" uid="uid://b1j5wmnfvaxfj" path="res://assets/art/Player.png" id="2_67mt3"]
 [ext_resource type="Theme" uid="uid://dule66g8xd2qn" path="res://themes/buttontheme.tres" id="3_860cd"]
+[ext_resource type="AudioStream" uid="uid://cs6fg78jdxn3a" path="res://assets/music/main_menu.mp3" id="4_wpasu"]
 
 [sub_resource type="Theme" id="Theme_vomi6"]
 
@@ -48,7 +49,7 @@ offset_bottom = 361.0
 rotation = 1.07496
 texture = SubResource("CompressedTexture2D_s6xbr")
 
-[node name="Main3Buttons" type="Control" parent="."]
+[node name="Buttons" type="Control" parent="."]
 layout_mode = 1
 anchors_preset = 8
 anchor_left = 0.5
@@ -59,7 +60,7 @@ grow_horizontal = 2
 grow_vertical = 2
 theme = ExtResource("3_860cd")
 
-[node name="VBoxContainer" type="VBoxContainer" parent="Main3Buttons"]
+[node name="VBoxContainer" type="VBoxContainer" parent="Buttons"]
 layout_mode = 1
 anchors_preset = 8
 anchor_left = 0.5
@@ -73,20 +74,19 @@ offset_bottom = 126.0
 grow_horizontal = 2
 grow_vertical = 2
 
-[node name="PlayButton" type="Button" parent="Main3Buttons/VBoxContainer"]
+[node name="NewGameButton" type="Button" parent="Buttons/VBoxContainer"]
 layout_mode = 2
-text = "Play
-"
+text = "New Game"
 
-[node name="TutorialButton" type="Button" parent="Main3Buttons/VBoxContainer"]
+[node name="LoadGameButton" type="Button" parent="Buttons/VBoxContainer"]
 layout_mode = 2
-text = "Tutorial"
+text = "Load Game"
 
-[node name="SettingsButton" type="Button" parent="Main3Buttons/VBoxContainer"]
+[node name="SettingsButton" type="Button" parent="Buttons/VBoxContainer"]
 layout_mode = 2
 text = "Settings"
 
-[node name="ExitButton" type="Button" parent="Main3Buttons/VBoxContainer"]
+[node name="ExitButton" type="Button" parent="Buttons/VBoxContainer"]
 layout_mode = 2
 text = "Exit
 "
@@ -105,6 +105,12 @@ theme_override_font_sizes/font_size = 100
 text = "Shotgun Sam
 "
 
-[connection signal="pressed" from="Main3Buttons/VBoxContainer/PlayButton" to="." method="_on_play_button_pressed"]
-[connection signal="pressed" from="Main3Buttons/VBoxContainer/SettingsButton" to="." method="_on_settings_button_pressed"]
-[connection signal="pressed" from="Main3Buttons/VBoxContainer/ExitButton" to="." method="_on_exit_button_pressed"]
+[node name="Music" type="AudioStreamPlayer2D" parent="."]
+stream = ExtResource("4_wpasu")
+autoplay = true
+bus = &"Music"
+
+[connection signal="pressed" from="Buttons/VBoxContainer/NewGameButton" to="." method="_on_new_game_button_pressed"]
+[connection signal="pressed" from="Buttons/VBoxContainer/LoadGameButton" to="." method="_on_load_game_button_pressed"]
+[connection signal="pressed" from="Buttons/VBoxContainer/SettingsButton" to="." method="_on_settings_button_pressed"]
+[connection signal="pressed" from="Buttons/VBoxContainer/ExitButton" to="." method="_on_exit_button_pressed"]

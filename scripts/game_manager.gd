@@ -14,6 +14,9 @@ func spawn_player(level_root):
 func add_level(level_root):
 	get_tree().get_root().add_child(level_root)
 func load_level(path : String):
+	 
+	while get_tree().get_node_count_in_group("Level") > 0:
+		unload_level(get_tree().get_first_node_in_group("Level").get_path())
 	var packed_level = load(path)
 	var level_root = packed_level.instantiate()
 	level_root.add_to_group("Level")
@@ -28,7 +31,13 @@ func unload_level(path : String):
 	level_root.remove_from_group("Level")
 	
 	call_deferred("remove_level", level_root)
+func save() -> Dictionary:
+	var data = {
+		"current_level" : GameData.current_level
+	}
+	return data
 # Called when the node enters the scene tree for the first time.
+
 func _ready() -> void:
 	GameData.load_game()
 	load_level(GameData.current_level)
@@ -39,6 +48,9 @@ func _ready() -> void:
 func _on_swap_level(next_level_scene_path):
 	unload_level(get_tree().get_first_node_in_group("Level").get_path())
 	load_level(next_level_scene_path)
+	GameData.current_level = next_level_scene_path
 	GameData.save_game()
+	
 func _on_slow_timer_timeout() -> void:
 	Engine.time_scale = 1
+	

@@ -11,10 +11,10 @@ func save():
 	file.store_string(JSON.stringify(save_data, "\t"))
 	file.close()
 func load_save():
-	if not FileAccess.file_exists(Constants.SAVE_PATH):
+	if not FileAccess.file_exists(Constants.SETTINGS_SAVE_PATH):
 		print("No save file found!")
 		return  # No save file, do nothing
-	var file = FileAccess.open(Constants.SAVE_PATH, FileAccess.READ)
+	var file = FileAccess.open(Constants.SETTINGS_SAVE_PATH, FileAccess.READ)
 	var json_string = file.get_as_text()
 	file.close()
 	var json = JSON.new()

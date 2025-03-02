@@ -1,0 +1,8 @@
+{
+	"current_level": "res://levels/l_1.tscn",
+	"player": {
+		"player_bullet_count": 2,
+		"player_coin_count": 0,
+		"player_position": "(0, 0)"
+	}
+}

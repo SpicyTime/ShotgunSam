@@ -96,7 +96,7 @@ func _ready() -> void:
 	Signals.gun_charge.connect(_on_gun_charge)
 	coin_count = GameData.player_coin_count
 	gun.bullet_count = GameData.player_bullet_count
-	
+	rotate_gun()
 func _on_gun_reload(sender) -> void:
 	 
 	if sender != gun:

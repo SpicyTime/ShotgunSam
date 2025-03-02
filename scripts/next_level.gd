@@ -13,10 +13,9 @@ func _on_body_entered(body: Node2D) -> void:
 	var path_string = get_path() as String
 	var elements = path_string.split("/")
 	var level_name:String = elements[2]
-	print(path_string + "Hit")
+	 
 	var next_level_number: int = level_name.to_int() + 1
  
 	var next_level_path: String = FILE_BEGIN + str(next_level_number) + ".tscn"
 	Signals.swap_level.emit(next_level_path)
-	GameData.current_level = next_level_path
 	

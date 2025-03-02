@@ -15,7 +15,7 @@ func save_game() -> void:
 	 
 		save_data["current_level"] = current_level
 	
-	var file = FileAccess.open("res://savegame.json", FileAccess.WRITE)
+	var file = FileAccess.open(Constants.SAVE_GAME_PATH, FileAccess.WRITE)
 	if not file:
 		print("Failed to save")
 		return
@@ -23,7 +23,7 @@ func save_game() -> void:
 	file.store_string(json_string)
 	file.close()
 func load_game():
-	var file = FileAccess.open("res://savegame.json", FileAccess.READ)
+	var file = FileAccess.open(Constants.SAVE_GAME_PATH, FileAccess.READ)
 	var json_string = file.get_as_text()
 	file.close()
 	var json = JSON.new()
@@ -34,3 +34,13 @@ func load_game():
 		player_coin_count = player_data.get("player_coin_count")
 		player_bullet_count = player_data.get("player_bullet_count")
 		current_level = save_data.get("current_level")
+func reset_game():
+	var empty_game_save_file = FileAccess.open(Constants.EMPTY_GAME_SAVE_PATH, FileAccess.READ)
+	var json_string = empty_game_save_file.get_as_text()
+	empty_game_save_file.close()
+	var game_save_file = FileAccess.open(Constants.SAVE_GAME_PATH, FileAccess.WRITE)
+	if game_save_file == null:
+		print("Failed to open", Constants.SAVE_GAME_PATH)
+		return
+	game_save_file.store_string(json_string)
+	game_save_file.close()

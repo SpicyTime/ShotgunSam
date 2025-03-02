@@ -40,8 +40,9 @@ func lerp_zoom(target_zoom: Vector2):
 	zoom = new_zoom 
 func lerp_position( target_position: Vector2):
 	var new_position = lerp(transform.origin, target_position, lerp_speed)
-	 
-	global_translate(new_position - transform.origin)
+	var int_new_position_x: int = new_position.x
+	var int_new_position_y: int = new_position.y
+	global_translate(Vector2(int_new_position_x, int_new_position_y) - transform.origin)
 	 
 func reset_zoom():
 	zoom = Vector2(1, 1)

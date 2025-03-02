@@ -25,5 +25,6 @@ position = Vector2(43, 124)
 [node name="SlowTimer" type="Timer" parent="."]
 wait_time = 0.5
 
+[connection signal="tree_exiting" from="GameManager" to="Hud" method="_on_game_manager_tree_exiting"]
 [connection signal="tree_exiting" from="Player" to="GameManager" method="_on_player_tree_exiting"]
 [connection signal="timeout" from="SlowTimer" to="GameManager" method="_on_slow_timer_timeout"]

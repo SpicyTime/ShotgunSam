@@ -13,3 +13,4 @@ signal gun_reload
 signal gun_shot
 signal gun_charge
 signal health_depleted
+signal stop_watch_changed(new_value: float)

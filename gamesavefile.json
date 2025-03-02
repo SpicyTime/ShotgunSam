@@ -1,8 +1,8 @@
 {
-	"current_level": "res://levels/l_5.tscn",
+	"current_level": "res://levels/l_6.tscn",
 	"player": {
 		"player_bullet_count": 1,
-		"player_coin_count": 1,
+		"player_coin_count": 2,
 		"player_position": "(0, 0)"
 	}
 }

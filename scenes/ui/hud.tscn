@@ -51,3 +51,14 @@ texture = ExtResource("3_5octp")
 [node name="Bullet2" type="Sprite2D" parent="HudCanvas/BulletDisplay"]
 position = Vector2(49, 77)
 texture = ExtResource("3_5octp")
+
+[node name="LevelStopwatchDisplay" type="Control" parent="HudCanvas"]
+layout_mode = 3
+anchors_preset = 0
+offset_right = 40.0
+offset_bottom = 40.0
+
+[node name="LevelStopwatchLabel" type="Label" parent="HudCanvas/LevelStopwatchDisplay"]
+layout_mode = 0
+offset_right = 40.0
+offset_bottom = 23.0
