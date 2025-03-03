@@ -46,8 +46,10 @@ func lerp_position( target_position: Vector2):
 	 
 func reset_zoom():
 	zoom = Vector2(1, 1)
+	print("Zoom reset")
 func reset_position():
 	global_position = prezoom_position
+	print("Position reset")
 func _on_camera_shake(trauma: float):
 	add_trauma(trauma)
 
@@ -57,7 +59,5 @@ func _on_player_gun_charge():
 	lerp_pos = calc_lerp_pos(prezoom_position, player.global_position)
 func _on_player_shoot(bullets_left: int):
 	player_charging_gun = false
-	reset_zoom()
-	reset_position()
 	 
  

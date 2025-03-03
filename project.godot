@@ -23,17 +23,21 @@ driver/driver="OpenAL"
 
 Signals="*res://scripts/autoloads/signals.gd"
 Constants="*res://scripts/autoloads/constants.gd"
-SettingsData="*res://scripts/autoloads/settings_data.gd"
 GameData="*res://scripts/autoloads/game_data.gd"
+SettingsData="*res://scripts/autoloads/settings_data.gd"
 
 [display]
 
 window/size/viewport_height=672
 window/stretch/mode="viewport"
 
+[editor_plugins]
+
+enabled=PackedStringArray("res://addons/ridiculous_coding/plugin.cfg")
+
 [global_group]
 
-savables=""
+game_savables=""
 
 [input]
 

@@ -35,15 +35,18 @@ func rotate_gun() -> void:
 	
 func save() -> Dictionary: 
 	var data = {
-		"player_coin_count" : GameData.player_coin_count,
-		"player_bullet_count" : GameData.player_bullet_count,
-		"player_position" : GameData.player_position
+		"player_coin_count" : coin_count,
+		"player_bullet_count" : gun.bullet_count,
+		"player_position" : global_position
 	}
 	return data
 func reset() -> void:
+	GameData.player_bullet_count = 2
+	GameData.save_game()
 	var tree = get_tree()
 	if tree:
 		tree.reload_current_scene()
+	 
 		
 func _physics_process(delta: float) -> void:
 	# Add the gravity.
@@ -74,11 +77,15 @@ func _unhandled_input(event: InputEvent) -> void:
 			var gun_position = gun.global_position
 			var direction_to_mouse = (get_global_mouse_position()  - gun_position).normalized() 
 			var recoil = gun.get_recoil()
+			 
 			var new_velocity =  direction_to_mouse * recoil
 			if gun.distance <= gun_radius:
-				velocity = new_velocity  
+				velocity = new_velocity
+				print("Recoil force applied")  
 			else:
 				velocity = - new_velocity
+			camera.reset_zoom()
+			camera.reset_position()
 	elif event is InputEventMouseMotion:
 		rotate_gun()
 	 
@@ -86,7 +93,9 @@ func _unhandled_key_input(event: InputEvent) -> void:
 	if event.is_action_pressed("reload"):
 		gun.reload()
 	if event.is_action_pressed("mainmenu"):
+		GameData.save_game()
 		get_tree().change_scene_to_file("res://scenes/menus/mainmenu.tscn")
+		
 		print("Escaping to main menu")
 func _ready() -> void:
 	#Connect Signals

@@ -58,7 +58,7 @@ func is_empty():
 func shoot():
 	if is_empty():
 		return
-	 
+	print("Shot")
 	var time = charge_stopwatch.time
 	var extra: int = 1
 	var parent = get_parent()

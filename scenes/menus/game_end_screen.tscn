@@ -1,0 +1,77 @@
+[gd_scene load_steps=3 format=3 uid="uid://dh513uenuxaej"]
+
+[ext_resource type="Script" path="res://scripts/game_end_screen.gd" id="1_gnhdq"]
+[ext_resource type="Theme" uid="uid://dule66g8xd2qn" path="res://themes/buttontheme.tres" id="2_ce8xx"]
+
+[node name="GameEndScreen" type="Control"]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+script = ExtResource("1_gnhdq")
+
+[node name="ColorRect" type="ColorRect" parent="."]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+color = Color(0, 0, 0, 1)
+
+[node name="Buttons" type="Control" parent="."]
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -20.0
+offset_top = -20.0
+offset_right = 20.0
+offset_bottom = 20.0
+grow_horizontal = 2
+grow_vertical = 2
+theme = ExtResource("2_ce8xx")
+
+[node name="VBoxContainer" type="VBoxContainer" parent="Buttons"]
+layout_mode = 1
+anchors_preset = -1
+anchor_left = -2.8
+anchor_top = -2.1
+anchor_right = 3.8
+anchor_bottom = 3.1
+grow_horizontal = 2
+grow_vertical = 2
+metadata/_edit_use_anchors_ = true
+
+[node name="ExitToMenuButton" type="Button" parent="Buttons/VBoxContainer"]
+layout_mode = 2
+text = "Exit To Menu"
+
+[node name="RestartButton" type="Button" parent="Buttons/VBoxContainer"]
+layout_mode = 2
+text = "Restart Game"
+
+[node name="TimeLabel" type="Label" parent="."]
+layout_mode = 0
+offset_left = 344.0
+offset_top = 96.0
+offset_right = 540.0
+offset_bottom = 151.0
+theme_override_font_sizes/font_size = 40
+text = "Your Time"
+
+[node name="BestTimeLabel" type="Label" parent="."]
+layout_mode = 0
+offset_left = 344.0
+offset_top = 168.0
+offset_right = 540.0
+offset_bottom = 223.0
+theme_override_font_sizes/font_size = 40
+text = "Best Time"
+
+[connection signal="pressed" from="Buttons/VBoxContainer/ExitToMenuButton" to="." method="_on_exit_to_menu_button_pressed"]
+[connection signal="pressed" from="Buttons/VBoxContainer/RestartButton" to="." method="_on_restart_button_pressed"]

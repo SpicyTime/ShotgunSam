@@ -1,5 +1,5 @@
 extends Node
 const MAX_BULLET_COUNT = 2
-const SETTINGS_SAVE_PATH: String = "res://settingssavefile.json"
-const SAVE_GAME_PATH: String = "res://gamesavefile.json"
-const EMPTY_GAME_SAVE_PATH: String = "res://emptygamesavefile.json"
+const GAME_SAVE_PATH: String = "user://game_save_file.json"
+const EMPTY_GAME_SAVE_PATH: String = "user://empty_game_save_file.json"
+const SETTINGS_SAVE_PATH: String = "user://settings_save_file.json"

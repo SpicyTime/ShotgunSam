@@ -54,9 +54,12 @@ texture = ExtResource("3_5octp")
 
 [node name="LevelStopwatchDisplay" type="Control" parent="HudCanvas"]
 layout_mode = 3
-anchors_preset = 0
-offset_right = 40.0
+anchors_preset = 1
+anchor_left = 1.0
+anchor_right = 1.0
+offset_left = -40.0
 offset_bottom = 40.0
+grow_horizontal = 0
 
 [node name="LevelStopwatchLabel" type="Label" parent="HudCanvas/LevelStopwatchDisplay"]
 layout_mode = 0

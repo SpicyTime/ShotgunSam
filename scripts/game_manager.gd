@@ -1,8 +1,8 @@
 extends Node
 @onready var player : CharacterBody2D = %Player
-@onready var slow_timer: Timer = $"../SlowTimer"
 @onready var game : Node2D = $".."
-@export var start_level: String = "1"
+@onready var stopwatch: Stopwatch = $"../Stopwatch"
+
 func remove_level(level_root):
 	get_tree().get_root().remove_child(level_root)
 	level_root.queue_free()
@@ -33,18 +33,26 @@ func unload_level(path : String):
 	call_deferred("remove_level", level_root)
 func save() -> Dictionary:
 	var data = {
-		"current_level" : GameData.current_level
+		"current_level" : GameData.current_level,
+		"game_run_time" : GameData.game_run_time
 	}
 	return data
-# Called when the node enters the scene tree for the first time.
+# Called when the node enters the scene tree for the first time.fd
 
+func get_node_name() -> String:
+	return "game"
 func _ready() -> void:
 	GameData.load_game()
 	load_level(GameData.current_level)
 	#load_level("res://levels/test_scene.tscn")
 	Signals.swap_level.connect(_on_swap_level)
-	SettingsData.load_save()
-
+	 
+	stopwatch.start()
+	stopwatch.time = GameData.game_run_time
+	Signals.game_stopwatch_changed.emit(stopwatch.time)
+func _process(delta: float) -> void:
+	GameData.game_run_time = stopwatch.time
+	Signals.game_stopwatch_changed.emit(stopwatch.time)
 func _on_swap_level(next_level_scene_path):
 	unload_level(get_tree().get_first_node_in_group("Level").get_path())
 	load_level(next_level_scene_path)
