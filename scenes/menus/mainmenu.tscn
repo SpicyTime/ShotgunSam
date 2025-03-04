@@ -1,8 +1,9 @@
-[gd_scene load_steps=7 format=3 uid="uid://cxd818viofvf6"]
+[gd_scene load_steps=8 format=3 uid="uid://cxd818viofvf6"]
 
 [ext_resource type="Script" path="res://scripts/main_menu.gd" id="1_h8sve"]
 [ext_resource type="Texture2D" uid="uid://b1j5wmnfvaxfj" path="res://assets/art/Player.png" id="2_67mt3"]
 [ext_resource type="Theme" uid="uid://dule66g8xd2qn" path="res://themes/buttontheme.tres" id="3_860cd"]
+[ext_resource type="Theme" uid="uid://uqij1mue7qu1" path="res://themes/font_theme.tres" id="4_1xq5r"]
 [ext_resource type="AudioStream" uid="uid://cs6fg78jdxn3a" path="res://assets/music/main_menu.mp3" id="4_wpasu"]
 
 [sub_resource type="Theme" id="Theme_vomi6"]
@@ -100,10 +101,12 @@ offset_left = -318.0
 offset_right = 318.0
 offset_bottom = 137.0
 grow_horizontal = 2
+theme = ExtResource("4_1xq5r")
 theme_override_colors/font_color = Color(1, 1, 1, 1)
-theme_override_font_sizes/font_size = 100
+theme_override_font_sizes/font_size = 125
 text = "Shotgun Sam
 "
+horizontal_alignment = 1
 
 [node name="Music" type="AudioStreamPlayer2D" parent="."]
 stream = ExtResource("4_wpasu")

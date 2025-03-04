@@ -1,4 +1,6 @@
-[gd_resource type="Theme" load_steps=5 format=3 uid="uid://dule66g8xd2qn"]
+[gd_resource type="Theme" load_steps=6 format=3 uid="uid://dule66g8xd2qn"]
+
+[ext_resource type="FontFile" uid="uid://cebrmguk7oa5" path="res://assets/fonts/ThaleahFat.ttf" id="1_a86mj"]
 
 [sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_4fcox"]
 
@@ -28,7 +30,8 @@ corner_radius_bottom_right = 6
 corner_radius_bottom_left = 6
 
 [resource]
-Button/font_sizes/font_size = 40
+Button/font_sizes/font_size = 55
+Button/fonts/font = ExtResource("1_a86mj")
 Button/styles/focus = SubResource("StyleBoxEmpty_4fcox")
 Button/styles/hover = SubResource("StyleBoxFlat_ee7js")
 Button/styles/normal = SubResource("StyleBoxFlat_6tw80")

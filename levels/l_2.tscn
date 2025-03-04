@@ -1,9 +1,10 @@
-[gd_scene load_steps=16 format=4 uid="uid://bmhljl4g2v83n"]
+[gd_scene load_steps=18 format=4 uid="uid://bmhljl4g2v83n"]
 
 [ext_resource type="Texture2D" uid="uid://t8t4t4cjeh7f" path="res://assets/art/WallTile.png" id="1_men5o"]
 [ext_resource type="PackedScene" uid="uid://l5enih3umcew" path="res://scenes/spikes.tscn" id="1_ofeih"]
 [ext_resource type="Texture2D" uid="uid://ctg5ods306dfr" path="res://assets/art/TerrainTileset.png" id="2_pvy4m"]
 [ext_resource type="PackedScene" uid="uid://cfc30wcm4wluh" path="res://scenes/pickups.tscn" id="5_gk07y"]
+[ext_resource type="Theme" uid="uid://uqij1mue7qu1" path="res://themes/font_theme.tres" id="6_5onrc"]
 [ext_resource type="PackedScene" uid="uid://bfsw1vy5loxmt" path="res://scenes/next_level.tscn" id="6_8tq5q"]
 
 [sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_gnuqt"]
@@ -142,6 +143,11 @@ size = Vector2(52, 189)
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_17s2m"]
 size = Vector2(48, 192)
 
+[sub_resource type="LabelSettings" id="LabelSettings_mn4ie"]
+font_size = 30
+outline_size = 2
+outline_color = Color(0, 0, 0, 1)
+
 [node name="L2" type="Node2D"]
 
 [node name="Background" type="TileMapLayer" parent="."]
@@ -190,4 +196,24 @@ position = Vector2(-552, 192)
 [node name="CollisionShape2D" type="CollisionShape2D" parent="StaticBody2D"]
 shape = SubResource("RectangleShape2D_17s2m")
 
-[connection signal="body_entered" from="Coins/Pickups" to="Coins/Pickups" method="_on_body_entered"]
+[node name="TutorialText" type="Control" parent="."]
+layout_mode = 3
+anchors_preset = 0
+offset_left = -520.0
+offset_top = -112.0
+offset_right = -480.0
+offset_bottom = -72.0
+theme = ExtResource("6_5onrc")
+
+[node name="Text" type="Label" parent="TutorialText"]
+layout_mode = 0
+offset_right = 488.0
+offset_bottom = 126.0
+theme = ExtResource("6_5onrc")
+text = "Two shots won't be enough.
+Charge the gun by holding
+the mouse
+"
+label_settings = SubResource("LabelSettings_mn4ie")
+horizontal_alignment = 1
+vertical_alignment = 1

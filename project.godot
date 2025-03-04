@@ -29,7 +29,8 @@ SettingsData="*res://scripts/autoloads/settings_data.gd"
 [display]
 
 window/size/viewport_height=672
-window/stretch/mode="viewport"
+window/stretch/mode="canvas_items"
+window/stretch/aspect="expand"
 
 [editor_plugins]
 

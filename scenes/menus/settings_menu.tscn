@@ -1,21 +1,10 @@
-[gd_scene load_steps=5 format=3 uid="uid://bihwsl0hw2r35"]
+[gd_scene load_steps=6 format=3 uid="uid://bihwsl0hw2r35"]
 
 [ext_resource type="Script" path="res://scripts/settings_menu.gd" id="1_3odhi"]
+[ext_resource type="Theme" uid="uid://uqij1mue7qu1" path="res://themes/font_theme.tres" id="1_nkekj"]
 [ext_resource type="Theme" uid="uid://dule66g8xd2qn" path="res://themes/buttontheme.tres" id="2_eghry"]
-
-[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_6xfod"]
-content_margin_left = 0.0
-content_margin_top = 0.0
-content_margin_right = 0.0
-content_margin_bottom = 0.0
-corner_radius_top_left = 3
-corner_radius_top_right = 3
-corner_radius_bottom_right = 3
-corner_radius_bottom_left = 3
-corner_detail = 5
-
-[sub_resource type="Theme" id="Theme_ge2gc"]
-Panel/styles/panel = SubResource("StyleBoxFlat_6xfod")
+[ext_resource type="Theme" uid="uid://stl2ux72t250" path="res://themes/panel.tres" id="3_7bc1q"]
+[ext_resource type="FontFile" uid="uid://cebrmguk7oa5" path="res://assets/fonts/ThaleahFat.ttf" id="4_86ku3"]
 
 [node name="SettingsMenu" type="Control"]
 layout_mode = 3
@@ -25,16 +14,22 @@ anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
 size_flags_horizontal = 0
+theme = ExtResource("1_nkekj")
 script = ExtResource("1_3odhi")
 
 [node name="Background" type="ColorRect" parent="."]
-layout_mode = 0
-offset_left = 2.0
-offset_right = 1154.0
-offset_bottom = 672.0
+layout_mode = 1
+anchors_preset = 6
+anchor_left = 1.0
+anchor_top = 0.5
+anchor_right = 1.0
+anchor_bottom = 0.5
+offset_left = -1152.0
+offset_top = -336.0
+offset_bottom = 336.0
+grow_horizontal = 0
+grow_vertical = 2
 color = Color(0, 0, 0, 1)
-
-[node name="Sprites" type="CanvasLayer" parent="."]
 
 [node name="Sliders" type="Control" parent="."]
 layout_mode = 1
@@ -48,7 +43,7 @@ offset_right = 239.808
 offset_bottom = 292.16
 grow_horizontal = 2
 grow_vertical = 2
-theme = SubResource("Theme_ge2gc")
+theme = ExtResource("3_7bc1q")
 
 [node name="Music" type="Panel" parent="Sliders"]
 layout_mode = 1
@@ -78,6 +73,7 @@ anchors_preset = 10
 anchor_right = 1.0
 offset_bottom = 23.0
 grow_horizontal = 2
+theme_override_font_sizes/font_size = 25
 text = "Music Volume"
 horizontal_alignment = 1
 
@@ -109,8 +105,25 @@ anchors_preset = 10
 anchor_right = 1.0
 offset_bottom = 23.0
 grow_horizontal = 2
+theme_override_font_sizes/font_size = 25
 text = "SFX Volume"
 horizontal_alignment = 1
+
+[node name="AutoReload" type="Panel" parent="."]
+layout_mode = 0
+offset_left = 456.0
+offset_top = 288.0
+offset_right = 680.0
+offset_bottom = 328.0
+theme = ExtResource("3_7bc1q")
+
+[node name="CheckButton" type="CheckButton" parent="AutoReload"]
+layout_mode = 0
+offset_right = 224.0
+offset_bottom = 39.0
+theme_override_fonts/font = ExtResource("4_86ku3")
+theme_override_font_sizes/font_size = 30
+text = "Auto reload"
 
 [node name="BackToMenuButton" type="Button" parent="."]
 layout_mode = 0
@@ -122,7 +135,7 @@ theme = ExtResource("2_eghry")
 layout_mode = 0
 offset_right = 232.0
 offset_bottom = 104.0
-theme_override_font_sizes/font_size = 30
+theme_override_font_sizes/font_size = 40
 text = "Back To Menu
 "
 horizontal_alignment = 1
@@ -130,4 +143,5 @@ vertical_alignment = 1
 
 [connection signal="value_changed" from="Sliders/Music/MusicSlider" to="." method="_on_music_slider_value_changed"]
 [connection signal="value_changed" from="Sliders/SFX/SFXSlider" to="." method="_on_sfx_slider_value_changed"]
+[connection signal="toggled" from="AutoReload/CheckButton" to="." method="_on_check_button_toggled"]
 [connection signal="pressed" from="BackToMenuButton" to="." method="_on_back_to_menu_button_pressed"]

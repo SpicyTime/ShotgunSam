@@ -10,11 +10,11 @@ func _ready():
 	Signals.player_shot.connect(_on_player_shot)
 	Signals.player_reload.connect(_on_player_reload)
 	Signals.game_stopwatch_changed.connect(_on_game_stopwatch_changed)
+	
 func _on_player_coin_change(new_value: int):
 	coin_label.text = str(new_value)
 
 func _on_player_shot(player_bullets_left: int):
-
 	var bullet_uis = bullet_display.get_children()
 	bullet_uis[player_bullets_left].visible = false
 

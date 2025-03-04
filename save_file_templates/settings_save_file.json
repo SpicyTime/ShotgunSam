@@ -2,5 +2,8 @@
 	"audio_settings" : {
 		"music_slider_val" : 50,
 		"sfx_slider_val" : 50
+	},
+	"gameplay_settings" : {
+		"auto_reload" : false
 	}
 }

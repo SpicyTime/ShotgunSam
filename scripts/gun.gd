@@ -51,10 +51,13 @@ func rotate_around(radius):
 			marker_2d.position.y = -marker_2d.position.y
 	# Set the child's position relative to the parent
 	position = new_position
+	
 func get_recoil() -> int:
 	return power + charge_power
-func is_empty():
+	
+func is_empty() -> bool:
 	return bullet_count <= 0
+	
 func shoot():
 	if is_empty():
 		return
@@ -124,6 +127,6 @@ func _on_reload_time_timeout() -> void:
 	add_bullets(2)
 func _on_bullets_set(new_value: int):
 	bullet_count = new_value
-	if is_empty():
+	if is_empty() and SettingsData.auto_reload:
 		reload()
 	
