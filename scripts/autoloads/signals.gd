@@ -14,3 +14,5 @@ signal gun_shot
 signal gun_charge
 signal health_depleted
 signal game_stopwatch_changed(new_value: float)
+signal button_hover()
+signal button_press()

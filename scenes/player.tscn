@@ -1,14 +1,77 @@
-[gd_scene load_steps=7 format=3 uid="uid://c2wa1ek2hr3xe"]
+[gd_scene load_steps=16 format=3 uid="uid://c2wa1ek2hr3xe"]
 
 [ext_resource type="Script" path="res://scripts/player.gd" id="1_tcq6q"]
 [ext_resource type="Texture2D" uid="uid://b1j5wmnfvaxfj" path="res://assets/art/Player.png" id="2_cn3vu"]
 [ext_resource type="Script" path="res://scripts/hurtbox.gd" id="4_8w6kp"]
 [ext_resource type="Script" path="res://scripts/health.gd" id="5_6acjd"]
 [ext_resource type="PackedScene" uid="uid://bwhbrw2cdw27s" path="res://scenes/gun.tscn" id="5_md848"]
+[ext_resource type="Texture2D" uid="uid://yi8c72t16q3k" path="res://assets/art/PlayerReloadAnim.png" id="6_ikxi2"]
 
 [sub_resource type="CapsuleShape2D" id="CapsuleShape2D_hatjo"]
 radius = 19.0
 height = 74.0
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_178ci"]
+atlas = ExtResource("6_ikxi2")
+region = Rect2(0, 0, 54, 20)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_wlh75"]
+atlas = ExtResource("6_ikxi2")
+region = Rect2(0, 0, 54, 20)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_a5u8y"]
+atlas = ExtResource("6_ikxi2")
+region = Rect2(0, 20, 54, 20)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_j4p76"]
+atlas = ExtResource("6_ikxi2")
+region = Rect2(0, 40, 54, 20)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_afste"]
+atlas = ExtResource("6_ikxi2")
+region = Rect2(0, 60, 54, 20)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_mo2lj"]
+atlas = ExtResource("6_ikxi2")
+region = Rect2(0, 80, 54, 20)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_cvnxn"]
+atlas = ExtResource("6_ikxi2")
+region = Rect2(0, 100, 54, 20)
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_gk6xv"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_178ci")
+}],
+"loop": true,
+"name": &"idle",
+"speed": 5.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_wlh75")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_a5u8y")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_j4p76")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_afste")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_mo2lj")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_cvnxn")
+}],
+"loop": false,
+"name": &"reload",
+"speed": 5.0
+}]
 
 [node name="Player" type="CharacterBody2D" groups=["savables"]]
 z_index = 10
@@ -36,3 +99,8 @@ script = ExtResource("5_6acjd")
 health = 1
 
 [node name="Gun" parent="." instance=ExtResource("5_md848")]
+
+[node name="Arms" type="AnimatedSprite2D" parent="."]
+sprite_frames = SubResource("SpriteFrames_gk6xv")
+animation = &"idle"
+autoplay = "idle"

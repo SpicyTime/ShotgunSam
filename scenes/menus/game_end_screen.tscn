@@ -1,7 +1,17 @@
-[gd_scene load_steps=3 format=3 uid="uid://dh513uenuxaej"]
+[gd_scene load_steps=6 format=4 uid="uid://dh513uenuxaej"]
 
 [ext_resource type="Script" path="res://scripts/game_end_screen.gd" id="1_gnhdq"]
 [ext_resource type="Theme" uid="uid://dule66g8xd2qn" path="res://themes/buttontheme.tres" id="2_ce8xx"]
+[ext_resource type="Texture2D" uid="uid://t8t4t4cjeh7f" path="res://assets/art/WallTile.png" id="2_clfqj"]
+
+[sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_sfov6"]
+texture = ExtResource("2_clfqj")
+texture_region_size = Vector2i(48, 48)
+0:0/0 = 0
+
+[sub_resource type="TileSet" id="TileSet_7xtp5"]
+tile_size = Vector2i(48, 48)
+sources/1 = SubResource("TileSetAtlasSource_sfov6")
 
 [node name="GameEndScreen" type="Control"]
 layout_mode = 3
@@ -12,14 +22,10 @@ grow_horizontal = 2
 grow_vertical = 2
 script = ExtResource("1_gnhdq")
 
-[node name="ColorRect" type="ColorRect" parent="."]
-layout_mode = 1
-anchors_preset = 15
-anchor_right = 1.0
-anchor_bottom = 1.0
-grow_horizontal = 2
-grow_vertical = 2
-color = Color(0, 0, 0, 1)
+[node name="TileMapLayer" type="TileMapLayer" parent="."]
+scale = Vector2(5, 5)
+tile_map_data = PackedByteArray("AAAAAAAAAQAAAAAAAAAAAAEAAQAAAAAAAAAAAAIAAQAAAAAAAAABAAAAAQAAAAAAAAABAAEAAQAAAAAAAAABAAIAAQAAAAAAAAACAAAAAQAAAAAAAAACAAEAAQAAAAAAAAACAAIAAQAAAAAAAAADAAAAAQAAAAAAAAADAAEAAQAAAAAAAAADAAIAAQAAAAAAAAAEAAAAAQAAAAAAAAAEAAEAAQAAAAAAAAAEAAIAAQAAAAAAAAA=")
+tile_set = SubResource("TileSet_7xtp5")
 
 [node name="Buttons" type="Control" parent="."]
 layout_mode = 1

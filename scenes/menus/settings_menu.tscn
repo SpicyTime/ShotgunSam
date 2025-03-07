@@ -1,10 +1,21 @@
-[gd_scene load_steps=6 format=3 uid="uid://bihwsl0hw2r35"]
+[gd_scene load_steps=10 format=4 uid="uid://bihwsl0hw2r35"]
 
 [ext_resource type="Script" path="res://scripts/settings_menu.gd" id="1_3odhi"]
 [ext_resource type="Theme" uid="uid://uqij1mue7qu1" path="res://themes/font_theme.tres" id="1_nkekj"]
 [ext_resource type="Theme" uid="uid://dule66g8xd2qn" path="res://themes/buttontheme.tres" id="2_eghry"]
 [ext_resource type="Theme" uid="uid://stl2ux72t250" path="res://themes/panel.tres" id="3_7bc1q"]
+[ext_resource type="Texture2D" uid="uid://t8t4t4cjeh7f" path="res://assets/art/WallTile.png" id="3_j3qpq"]
 [ext_resource type="FontFile" uid="uid://cebrmguk7oa5" path="res://assets/fonts/ThaleahFat.ttf" id="4_86ku3"]
+[ext_resource type="PackedScene" uid="uid://b235hsioubgbt" path="res://scenes/install_sounds.tscn" id="7_voegi"]
+
+[sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_1bqgs"]
+texture = ExtResource("3_j3qpq")
+texture_region_size = Vector2i(48, 48)
+0:0/0 = 0
+
+[sub_resource type="TileSet" id="TileSet_34h86"]
+tile_size = Vector2i(48, 48)
+sources/1 = SubResource("TileSetAtlasSource_1bqgs")
 
 [node name="SettingsMenu" type="Control"]
 layout_mode = 3
@@ -17,19 +28,10 @@ size_flags_horizontal = 0
 theme = ExtResource("1_nkekj")
 script = ExtResource("1_3odhi")
 
-[node name="Background" type="ColorRect" parent="."]
-layout_mode = 1
-anchors_preset = 6
-anchor_left = 1.0
-anchor_top = 0.5
-anchor_right = 1.0
-anchor_bottom = 0.5
-offset_left = -1152.0
-offset_top = -336.0
-offset_bottom = 336.0
-grow_horizontal = 0
-grow_vertical = 2
-color = Color(0, 0, 0, 1)
+[node name="TileMapLayer" type="TileMapLayer" parent="."]
+scale = Vector2(5, 5)
+tile_map_data = PackedByteArray("AAAAAAAAAQAAAAAAAAAAAAEAAQAAAAAAAAAAAAIAAQAAAAAAAAABAAAAAQAAAAAAAAABAAEAAQAAAAAAAAABAAIAAQAAAAAAAAACAAAAAQAAAAAAAAACAAEAAQAAAAAAAAACAAIAAQAAAAAAAAADAAAAAQAAAAAAAAADAAEAAQAAAAAAAAADAAIAAQAAAAAAAAAEAAAAAQAAAAAAAAAEAAEAAQAAAAAAAAAEAAIAAQAAAAAAAAA=")
+tile_set = SubResource("TileSet_34h86")
 
 [node name="Sliders" type="Control" parent="."]
 layout_mode = 1
@@ -125,13 +127,18 @@ theme_override_fonts/font = ExtResource("4_86ku3")
 theme_override_font_sizes/font_size = 30
 text = "Auto reload"
 
-[node name="BackToMenuButton" type="Button" parent="."]
+[node name="Buttons" type="Control" parent="."]
+anchors_preset = 0
+offset_right = 40.0
+offset_bottom = 40.0
+
+[node name="BackToMenuButton" type="Button" parent="Buttons"]
 layout_mode = 0
 offset_right = 232.0
 offset_bottom = 104.0
 theme = ExtResource("2_eghry")
 
-[node name="Label" type="Label" parent="BackToMenuButton"]
+[node name="Label" type="Label" parent="Buttons/BackToMenuButton"]
 layout_mode = 0
 offset_right = 232.0
 offset_bottom = 104.0
@@ -141,7 +148,10 @@ text = "Back To Menu
 horizontal_alignment = 1
 vertical_alignment = 1
 
+[node name="InstallSounds" parent="." instance=ExtResource("7_voegi")]
+root_path = NodePath("../Buttons")
+
 [connection signal="value_changed" from="Sliders/Music/MusicSlider" to="." method="_on_music_slider_value_changed"]
 [connection signal="value_changed" from="Sliders/SFX/SFXSlider" to="." method="_on_sfx_slider_value_changed"]
 [connection signal="toggled" from="AutoReload/CheckButton" to="." method="_on_check_button_toggled"]
-[connection signal="pressed" from="BackToMenuButton" to="." method="_on_back_to_menu_button_pressed"]
+[connection signal="pressed" from="Buttons/BackToMenuButton" to="." method="_on_back_to_menu_button_pressed"]

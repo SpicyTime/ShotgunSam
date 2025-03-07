@@ -11,6 +11,8 @@ func load_file(from_path: String, into_path: String) ->void:
 		into_file.store_string(json_contents)
 		into_file.close()
 	print(into_path + " does not exist")
+func switch_scene(path: String):
+	get_tree().change_scene_to_file(path)
 func _ready() ->void:
 	 
 	if not FileAccess.file_exists(Constants.EMPTY_GAME_SAVE_PATH):
@@ -24,16 +26,15 @@ func _ready() ->void:
 	if not FileAccess.file_exists(Constants.SETTINGS_SAVE_PATH):
 		load_file("res://save_file_templates/settings_save_file.json", Constants.SETTINGS_SAVE_PATH)
 	var dir = DirAccess.open("user://")
-	print(dir.get_files())
 func _on_new_game_button_pressed() -> void:
 	GameData.reset_game()
-	get_tree().change_scene_to_file("res://scenes/game.tscn")
+	call_deferred("switch_scene", "res://scenes/game.tscn")
 	
 func _on_load_game_button_pressed() -> void:
-	get_tree().change_scene_to_file("res://scenes/game.tscn")
-	
+	call_deferred("switch_scene", "res://scenes/game.tscn")
 func _on_exit_button_pressed() -> void:
 	get_tree().quit()
 
 func _on_settings_button_pressed() -> void:
-	get_tree().change_scene_to_file("res://scenes/menus/settings_menu.tscn")
+	call_deferred("switch_scene", "res://scenes/menus/settings_menu.tscn")
+	

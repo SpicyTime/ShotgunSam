@@ -94,7 +94,7 @@ func _unhandled_key_input(event: InputEvent) -> void:
 		gun.reload()
 	if event.is_action_pressed("mainmenu"):
 		GameData.save_game()
-		get_tree().change_scene_to_file("res://scenes/menus/mainmenu.tscn")
+		get_tree().change_scene_to_file("res://scenes/menus/main_menu.tscn")
 		
 		print("Escaping to main menu")
 func _ready() -> void:

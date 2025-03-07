@@ -4,7 +4,6 @@ var player_coin_count: int = 0
 var player_position: Vector2 = Vector2(0, 0)
 var current_level: String = "res://levels/l_1.tscn"
 var game_run_time: float = 0.0
- 
 func save_game() -> void:
 	var savables  = get_tree().get_nodes_in_group("game_savables")
 	var save_data: Dictionary

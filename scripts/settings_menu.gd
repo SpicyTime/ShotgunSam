@@ -16,6 +16,8 @@ func save() -> Dictionary:
 		"gameplay_settings" : gameplay_settings
 	}
 	return data
+func switch_scene(path: String):
+	get_tree().change_scene_to_file(path)
 func _ready() ->void:
 	SettingsData.load_settings()
 	music_slider.value = SettingsData.music_slider_val
@@ -37,7 +39,8 @@ func _on_music_slider_value_changed(value: float) -> void:
 	
 func _on_back_to_menu_button_pressed() -> void:
 	SettingsData.save_settings()
-	get_tree().change_scene_to_file("res://scenes/menus/mainmenu.tscn")
-	 
+	call_deferred("switch_scene", "res://scenes/menus/main_menu.tscn")
 func _on_check_button_toggled(toggled_on: bool) -> void:
 	SettingsData.auto_reload = check_button.button_pressed
+	
+	
