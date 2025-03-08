@@ -1,13 +1,12 @@
 extends CharacterBody2D
 @onready var camera: Camera2D = %Camera
-@onready var gun: Sprite2D = $Gun
+@onready var gun: AnimatedSprite2D = $Gun
 @onready var screen_size = get_viewport().size
 @onready var CAMERA_SIZE = camera.get_viewport_rect().size
 @onready var player_sprite: Sprite2D = $PlayerSprite
 @export var gun_radius := 50
 @export var max_y_velocity := 600
 @export var max_x_velocity := 650
-
 const SPEED = 300.0
 const JUMP_VELOCITY = -400.0
 var gun_rotate_speed = 4
@@ -15,6 +14,7 @@ var direction: float
 var has_shot: bool = false
 var coin_count: int = 0: set = _on_coins_set
 var node_name: String = "player"
+var distance_to_mouse: float
 func get_node_name() -> String:
 	return node_name
 	
@@ -29,10 +29,47 @@ func handle_flip() -> void:
 		player_sprite.flip_h = false
 	elif direction == -1:
 		player_sprite.flip_h = true
- 
-func rotate_gun() -> void:
-	gun.rotate_around(gun_radius)
+func rotate_node_around_player(node: Node2D, offset: Vector2 = Vector2(0, 0))-> void:
+	# Get the global position of the mouse
+	var mouse_global_pos = get_global_mouse_position()
+ 	# Get the parent's global position
+	 
+	distance_to_mouse = sqrt(pow((global_position.x - mouse_global_pos.x), 2) + 
+	pow((global_position.y - mouse_global_pos.y), 2))
+
+	# Calculate the direction vector from the parent to the mouse
+	var direction = mouse_global_pos - global_position
+		 
+	var angle = direction.angle()
+	# Rotates the sprite to face the mouse
+	node.rotation = angle
+	 
+	# Calculate the position based off of the angle and the radius
+	var new_position = Vector2(cos(angle), sin(angle)) * gun_radius
+	# Set the child's position relative to the parent
+	node.position = new_position + offset
+	if node is AnimatedSprite2D or node is Sprite2D:
+		#print(typeof(node))
+		pass
+	else:
+		return
+	if node.rotation < - 1.5  || node.rotation > 1.5:
+		$PlayerSprite.flip_h = true
+		if node.has_method("handle_flip"):
+			node.handle_flip(true)
+		else:
+			node.flip_v = true
+	else:
+		$PlayerSprite.flip_h = false
+		if node.has_method("handle_flip"):
+			node.handle_flip(false)
+		else:
+			node.flip_v = false
 	
+func rotate_gun() -> void:
+	rotate_node_around_player(gun)
+func rotate_arms() -> void:
+	rotate_node_around_player($Arms, Vector2(3, 5))
 func save() -> Dictionary: 
 	var data = {
 		"player_coin_count" : coin_count,
@@ -79,19 +116,20 @@ func _unhandled_input(event: InputEvent) -> void:
 			var recoil = gun.get_recoil()
 			 
 			var new_velocity =  direction_to_mouse * recoil
-			if gun.distance <= gun_radius:
+			if distance_to_mouse <= gun_radius:
 				velocity = new_velocity
-				print("Recoil force applied")  
 			else:
-				velocity = - new_velocity
+				velocity = -new_velocity
 			camera.reset_zoom()
 			camera.reset_position()
 	elif event is InputEventMouseMotion:
 		rotate_gun()
+		rotate_arms()
 	 
 func _unhandled_key_input(event: InputEvent) -> void:
 	if event.is_action_pressed("reload"):
 		gun.reload()
+		$Arms.play("reload")
 	if event.is_action_pressed("mainmenu"):
 		GameData.save_game()
 		get_tree().change_scene_to_file("res://scenes/menus/main_menu.tscn")
@@ -106,6 +144,7 @@ func _ready() -> void:
 	coin_count = GameData.player_coin_count
 	gun.bullet_count = GameData.player_bullet_count
 	rotate_gun()
+	rotate_arms()
 func _on_gun_reload(sender) -> void:
 	 
 	if sender != gun:
@@ -126,7 +165,6 @@ func _on_gun_charge(sender) -> void:
 	if sender != gun:
 		return
 	Signals.player_gun_charge.emit()
-
- 
- 
- 
+	
+func _on_arms_animation_finished() -> void:
+	$Arms.play("idle")

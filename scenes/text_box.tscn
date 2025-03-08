@@ -1,0 +1,16 @@
+[gd_scene load_steps=2 format=3 uid="uid://dfifg6opadqby"]
+
+[ext_resource type="Texture2D" uid="uid://q257f2vct3fe" path="res://assets/art/SpeechBubble.png" id="1_3757k"]
+
+[node name="TextBox" type="MarginContainer"]
+offset_right = 40.0
+offset_bottom = 32.0
+
+[node name="NinePatchRect" type="NinePatchRect" parent="."]
+layout_mode = 2
+texture = ExtResource("1_3757k")
+region_rect = Rect2(0, 0, 48, 48)
+patch_margin_left = 16
+patch_margin_top = 16
+patch_margin_right = 16
+patch_margin_bottom = 16

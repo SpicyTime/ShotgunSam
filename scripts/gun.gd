@@ -1,4 +1,4 @@
-extends Sprite2D
+extends AnimatedSprite2D
 @export var shake_power: float = 0.3
 @export var power: int = 500
 @export var charge_cap: int = 350
@@ -7,57 +7,23 @@ extends Sprite2D
 @onready var shoot_sound: AudioStreamPlayer2D = $ShootSound
 @onready var marker_2d: Marker2D = $Marker2D
 @onready var game = get_tree().get_root().get_node("Game")
-@onready var parent = get_parent()
 @onready var blast_particles = preload("res://particles/gun_blast_particles.tscn")
 @onready var bullet_particles = preload("res://particles/shotgun_bullet_particles.tscn")
 @onready var reload_time: Timer = $ReloadTime
-@onready var sprite_dimensions : Vector2 = get_texture().get_size()
 @onready var charge_stopwatch: Stopwatch = $ChargeStopwatch
-var direction
-var distance: float
 var bullet_count: int = Constants.MAX_BULLET_COUNT: set = _on_bullets_set
 var charge_power: int = 0
 var stop_charge: bool = false
 var is_reloading: bool = false
-func rotate_around(radius):
-	# Get the global position of the mouse
-	var mouse_global_pos = get_global_mouse_position()
- 	# Get the parent's global position
-	var parent_global_pos = get_parent().global_position 
-	distance = sqrt(pow((parent_global_pos.x - mouse_global_pos.x), 2) + 
-	pow((parent_global_pos.y - mouse_global_pos.y), 2))
-
-	# Calculate the direction vector from the parent to the mouse
-	direction = mouse_global_pos - parent_global_pos
-		 
-	var angle = direction.angle()
-	# Rotates the sprite to face the mouse
-	rotation = angle
-	 
-	# Calculate the position based off of the angle and the radius
-	var new_position = Vector2(cos(angle), sin(angle)) * radius
-	var parent_sprite = parent.get_node("PlayerSprite")
-	if rotation < - 1.5  || rotation > 1.5:
-		parent_sprite.flip_h = true
-		flip_v = true
-		#flips bullet spawn position
-		if marker_2d.position.y == -13:
-			marker_2d.position.y = -marker_2d.position.y
-	else:
-		parent_sprite.flip_h = false
-		flip_v = false
-		#flips bullet spawn position
-		if marker_2d.position.y == 13:
-			marker_2d.position.y = -marker_2d.position.y
-	# Set the child's position relative to the parent
-	position = new_position
-	
+var distance: float
 func get_recoil() -> int:
 	return power + charge_power
 	
 func is_empty() -> bool:
 	return bullet_count <= 0
-	
+func handle_flip(right: bool):
+	flip_v = right
+	marker_2d.position.y = -marker_2d.position.y
 func shoot():
 	if is_empty():
 		return
@@ -97,6 +63,7 @@ func reload():
 	$ReloadSound.play()
 	is_reloading = true
 	reload_time.start()
+	play("reload")
 func add_bullets(value: int):
 	is_reloading = false
 	bullet_count += value
@@ -129,4 +96,5 @@ func _on_bullets_set(new_value: int):
 	bullet_count = new_value
 	if is_empty() and SettingsData.auto_reload:
 		reload()
-	
+func _on_animation_finished() -> void:
+	play("idle")

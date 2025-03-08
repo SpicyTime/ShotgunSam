@@ -1,17 +1,53 @@
-[gd_scene load_steps=8 format=3 uid="uid://bwhbrw2cdw27s"]
+[gd_scene load_steps=12 format=3 uid="uid://bwhbrw2cdw27s"]
 
 [ext_resource type="Script" path="res://scripts/hitbox.gd" id="1_l84ci"]
+[ext_resource type="Texture2D" uid="uid://ddom8gslu6i0y" path="res://assets/art/GunReloadAnim.png" id="1_rcxs2"]
 [ext_resource type="Script" path="res://scripts/gun.gd" id="1_rd3yr"]
-[ext_resource type="Texture2D" uid="uid://dq7fx2cp2pcsa" path="res://assets/art/ShotGun.png" id="2_rbwvc"]
 [ext_resource type="AudioStream" uid="uid://ccq320qxngfwk" path="res://assets/SFX/shotgun-firing-4-6746.mp3" id="4_t1eof"]
 [ext_resource type="Script" path="res://scripts/stopwatch.gd" id="5_ra8c7"]
 [ext_resource type="AudioStream" uid="uid://bx8dkxg5nju0h" path="res://assets/SFX/Pump Reload Full MP3.mp3" id="6_1nn3b"]
 
+[sub_resource type="AtlasTexture" id="AtlasTexture_4438o"]
+atlas = ExtResource("1_rcxs2")
+region = Rect2(0, 0, 90, 33)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_f5n02"]
+atlas = ExtResource("1_rcxs2")
+region = Rect2(0, 0, 90, 33)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_c7oaq"]
+atlas = ExtResource("1_rcxs2")
+region = Rect2(0, 33, 90, 33)
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_vaab5"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_4438o")
+}],
+"loop": false,
+"name": &"idle",
+"speed": 5.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_f5n02")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_c7oaq")
+}],
+"loop": false,
+"name": &"reload",
+"speed": 5.0
+}]
+
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_g7edj"]
 size = Vector2(53, 20)
 
-[node name="Gun" type="Sprite2D"]
-texture = ExtResource("2_rbwvc")
+[node name="Gun" type="AnimatedSprite2D"]
+sprite_frames = SubResource("SpriteFrames_vaab5")
+animation = &"idle"
+autoplay = "idle"
 script = ExtResource("1_rd3yr")
 power = 455
 charge_cap = 315
@@ -46,5 +82,6 @@ script = ExtResource("5_ra8c7")
 stream = ExtResource("6_1nn3b")
 bus = &"SFX"
 
+[connection signal="animation_finished" from="." to="." method="_on_animation_finished"]
 [connection signal="timeout" from="ChargeDelay" to="." method="_on_charge_delay_timeout"]
 [connection signal="timeout" from="ReloadTime" to="." method="_on_reload_time_timeout"]
