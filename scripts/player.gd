@@ -130,11 +130,9 @@ func _unhandled_key_input(event: InputEvent) -> void:
 	if event.is_action_pressed("reload"):
 		gun.reload()
 		$Arms.play("reload")
-	if event.is_action_pressed("mainmenu"):
-		GameData.save_game()
-		get_tree().change_scene_to_file("res://scenes/menus/main_menu.tscn")
+	 
 		
-		print("Escaping to main menu")
+		#print("Escaping to main menu")
 func _ready() -> void:
 	#Connect Signals
 	Signals.player_coin_change.emit(0)
@@ -145,6 +143,7 @@ func _ready() -> void:
 	gun.bullet_count = GameData.player_bullet_count
 	rotate_gun()
 	rotate_arms()
+	
 func _on_gun_reload(sender) -> void:
 	 
 	if sender != gun:

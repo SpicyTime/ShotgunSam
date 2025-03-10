@@ -25,10 +25,10 @@ func _ready() ->void:
 		$Buttons/VBoxContainer/LoadGameButton.disabled = false
 	if not FileAccess.file_exists(Constants.SETTINGS_SAVE_PATH):
 		load_file("res://save_file_templates/settings_save_file.json", Constants.SETTINGS_SAVE_PATH)
-	var dir = DirAccess.open("user://")
+
 func _on_new_game_button_pressed() -> void:
 	GameData.reset_game()
-	call_deferred("switch_scene", "res://scenes/game.tscn")
+	call_deferred("switch_scene", "res://scenes/intro.tscn")
 	
 func _on_load_game_button_pressed() -> void:
 	call_deferred("switch_scene", "res://scenes/game.tscn")

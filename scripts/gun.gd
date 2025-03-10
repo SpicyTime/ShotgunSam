@@ -75,7 +75,7 @@ func fast_reload():
 	get_tree().create_timer(0.25).timeout
 	add_bullets(2)
 	 
-func _process(delta: float):
+func _process(_delta: float):
 	reload_time.wait_time = reload_speed
 #Not a signal
 func _on_particles_finished(particles):

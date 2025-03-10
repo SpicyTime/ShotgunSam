@@ -23,19 +23,17 @@ func save_game() -> void:
 func load_game():
 	 
 	var file = FileAccess.open(Constants.GAME_SAVE_PATH, FileAccess.READ)
-	if not file.file_exists(Constants.GAME_SAVE_PATH):
+	if not FileAccess.file_exists(Constants.GAME_SAVE_PATH):
 
 		return
 	var json_string = file.get_as_text()
-	print(json_string)
+	 
 	file.close()
 	var json = JSON.new()
 	var parse_result = json.parse(json_string)
 	if parse_result == OK:
 		var save_data = json.get_data()
 		var player_data = save_data.get("player", {})
-		print(player_data)
-		print(player_data.get("player_coin_count"))
 		player_coin_count = player_data.get("player_coin_count", 0)
 		player_bullet_count = player_data.get("player_bullet_count", 2)
 		var game_data = save_data.get("game", {})

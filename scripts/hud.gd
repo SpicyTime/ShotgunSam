@@ -26,3 +26,6 @@ func _on_player_reload(player_bullet_count):
 		bullet_uis[i].visible = true
 func _on_game_stopwatch_changed(new_value: float):
 	level_stopwatch_label.text = str(new_value)
+
+
+ 

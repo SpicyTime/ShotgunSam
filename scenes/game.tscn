@@ -1,16 +1,10 @@
-[gd_scene load_steps=8 format=3 uid="uid://bfaaj7vkg65bt"]
+[gd_scene load_steps=6 format=3 uid="uid://bfaaj7vkg65bt"]
 
 [ext_resource type="Script" path="res://scripts/game_manager.gd" id="1_a6aoq"]
 [ext_resource type="PackedScene" uid="uid://c2wa1ek2hr3xe" path="res://scenes/player.tscn" id="1_no7uu"]
 [ext_resource type="PackedScene" uid="uid://cpx7u6i0j32a7" path="res://scenes/ui/hud.tscn" id="3_eayae"]
 [ext_resource type="Script" path="res://scripts/camera.gd" id="4_kgiod"]
 [ext_resource type="Script" path="res://scripts/stopwatch.gd" id="5_i3mmg"]
-[ext_resource type="Texture2D" uid="uid://b1a4i333pjw7m" path="res://assets/art/Trail.png" id="6_xd4qv"]
-
-[sub_resource type="Curve" id="Curve_r267i"]
-max_value = 20.0
-_data = [Vector2(0, 0.916981), 0.0, 0.0, 0, 0, Vector2(0.400763, 6.71698), 0.0, 0.0, 0, 0, Vector2(0.767176, 19.0943), 0.0, 0.0, 0, 0]
-point_count = 3
 
 [node name="Game" type="Node2D"]
 metadata/_edit_horizontal_guides_ = [1426.0]
@@ -32,21 +26,4 @@ position = Vector2(43, 124)
 [node name="Stopwatch" type="Node" parent="."]
 script = ExtResource("5_i3mmg")
 
-[node name="Node" type="Node" parent="."]
-
-[node name="CPUParticles2D" type="CPUParticles2D" parent="Node"]
-visible = false
-position = Vector2(-8, 296)
-amount = 25
-lifetime = 1.5
-speed_scale = 0.75
-texture = ExtResource("6_xd4qv")
-emission_shape = 3
-emission_rect_extents = Vector2(400, 10)
-gravity = Vector2(0, -980)
-split_scale = true
-scale_curve_x = null
-scale_curve_y = SubResource("Curve_r267i")
-
-[connection signal="tree_exiting" from="GameManager" to="Hud" method="_on_game_manager_tree_exiting"]
 [connection signal="tree_exiting" from="Player" to="GameManager" method="_on_player_tree_exiting"]

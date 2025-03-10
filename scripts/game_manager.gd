@@ -4,7 +4,13 @@ extends Node
 @onready var stopwatch: Stopwatch = $"../Stopwatch"
 
 func remove_level(level_root):
-	get_tree().get_root().remove_child(level_root)
+	 
+	var tree = get_tree()
+	if not tree:
+		 
+		return
+	print("removing level")
+	tree.root.remove_child(level_root)
 	level_root.queue_free()
 func spawn_player(level_root):
 	var spawn_marker:Marker2D = level_root.find_child("LevSpawnPos")
@@ -12,7 +18,8 @@ func spawn_player(level_root):
 		player.global_position = spawn_marker.global_position
 			 
 func add_level(level_root):
-	get_tree().get_root().add_child(level_root)
+	print("adding level")
+	get_tree().root.add_child(level_root)
 func load_level(path : String):
 	while get_tree().get_node_count_in_group("Level") > 0:
 		unload_level(get_tree().get_first_node_in_group("Level").get_path())
@@ -24,7 +31,7 @@ func load_level(path : String):
 	 
 func unload_level(path : String):
 	player.global_position = Vector2(0, 0)
-	print(player.global_position)
+	 
 	var level_root = get_node(path)
 	level_root.remove_from_group("Level")
 	
@@ -45,11 +52,16 @@ func _ready() -> void:
 	load_level(GameData.current_level)
 	#load_level("res://levels/test_scene.tscn")
 	Signals.swap_level.connect(_on_swap_level)
-	
 	stopwatch.start()
 	stopwatch.time = GameData.game_run_time
 	Signals.game_stopwatch_changed.emit(stopwatch.time)
-func _process(delta: float) -> void:
+func _unhandled_key_input(event: InputEvent) -> void:
+	if event.is_action_pressed("mainmenu"):
+		GameData.save_game()
+		unload_level(get_tree().get_first_node_in_group("Level").get_path())
+		get_tree().call_deferred("change_scene_to_file", "res://scenes/menus/main_menu.tscn")
+	 
+func _process(_delta: float) -> void:
 	GameData.game_run_time = stopwatch.time
 	Signals.game_stopwatch_changed.emit(stopwatch.time)
 	
