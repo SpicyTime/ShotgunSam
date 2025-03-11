@@ -70,14 +70,5 @@ offset_bottom = 151.0
 theme_override_font_sizes/font_size = 40
 text = "Your Time"
 
-[node name="BestTimeLabel" type="Label" parent="."]
-layout_mode = 0
-offset_left = 344.0
-offset_top = 168.0
-offset_right = 540.0
-offset_bottom = 223.0
-theme_override_font_sizes/font_size = 40
-text = "Best Time"
-
 [connection signal="pressed" from="Buttons/VBoxContainer/ExitToMenuButton" to="." method="_on_exit_to_menu_button_pressed"]
 [connection signal="pressed" from="Buttons/VBoxContainer/RestartButton" to="." method="_on_restart_button_pressed"]

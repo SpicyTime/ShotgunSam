@@ -21,10 +21,8 @@ func save_game() -> void:
 	file.store_string(json_string)
 	file.close()
 func load_game():
-	 
 	var file = FileAccess.open(Constants.GAME_SAVE_PATH, FileAccess.READ)
 	if not FileAccess.file_exists(Constants.GAME_SAVE_PATH):
-
 		return
 	var json_string = file.get_as_text()
 	 
@@ -37,9 +35,9 @@ func load_game():
 		player_coin_count = player_data.get("player_coin_count", 0)
 		player_bullet_count = player_data.get("player_bullet_count", 2)
 		var game_data = save_data.get("game", {})
-		current_level = game_data.get("current_level")
+		current_level =  game_data.get("current_level")
 		game_run_time = game_data.get("game_run_time")
-		
+		Signals.player_bullet_change.emit(player_bullet_count)
 func reset_game():
 	print("Resetting game")
 	var empty_game_save_file = FileAccess.open(Constants.EMPTY_GAME_SAVE_PATH, FileAccess.READ)

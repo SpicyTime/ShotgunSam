@@ -13,6 +13,10 @@ func _process(delta: float):
 func _on_dialogue_toggled(showing: bool):
 	#changes to the game scene when the intro dialogue ends
 	if not showing:
+		$Control.visible = true
+		$BoneBreak.play()
+		$Thud.play()
+		await get_tree().create_timer(2.5).timeout
 		get_tree().change_scene_to_file("res://scenes/game.tscn")
 	 
 	

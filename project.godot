@@ -31,7 +31,6 @@ DialogueManager="*res://scripts/dialogue_manager.gd"
 
 window/size/viewport_height=672
 window/stretch/mode="canvas_items"
-window/stretch/aspect="expand"
 
 [editor_plugins]
 
@@ -80,3 +79,4 @@ mainmenu={
 [rendering]
 
 textures/canvas_textures/default_texture_filter=0
+renderer/rendering_method="gl_compatibility"

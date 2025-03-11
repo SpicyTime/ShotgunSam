@@ -26,6 +26,7 @@ func load_level(path : String):
 	var packed_level = load(path)
 	var level_root = packed_level.instantiate()
 	level_root.add_to_group("Level")
+	DialogueManager.start_dialogue(level_root.name)
 	spawn_player(level_root)
 	call_deferred("add_level", level_root)
 	 
@@ -55,18 +56,21 @@ func _ready() -> void:
 	stopwatch.start()
 	stopwatch.time = GameData.game_run_time
 	Signals.game_stopwatch_changed.emit(stopwatch.time)
+	 
 func _unhandled_key_input(event: InputEvent) -> void:
 	if event.is_action_pressed("mainmenu"):
 		GameData.save_game()
-		unload_level(get_tree().get_first_node_in_group("Level").get_path())
-		get_tree().call_deferred("change_scene_to_file", "res://scenes/menus/main_menu.tscn")
+		var tree = get_tree()
+		unload_level(tree.get_first_node_in_group("Level").get_path())
+		tree.call_deferred("change_scene_to_file", "res://scenes/menus/main_menu.tscn")
 	 
 func _process(_delta: float) -> void:
 	GameData.game_run_time = stopwatch.time
 	Signals.game_stopwatch_changed.emit(stopwatch.time)
 	
 func _on_swap_level(next_level_scene_path):
-	unload_level(get_tree().get_first_node_in_group("Level").get_path())
+	var tree = get_tree()
+	unload_level(tree.get_first_node_in_group("Level").get_path())
 	load_level(next_level_scene_path)
 	GameData.current_level = next_level_scene_path
 	GameData.save_game()

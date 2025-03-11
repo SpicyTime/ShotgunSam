@@ -1,4 +1,4 @@
-[gd_scene load_steps=13 format=4 uid="uid://bhq3l1uk5ss8d"]
+[gd_scene load_steps=15 format=4 uid="uid://bhq3l1uk5ss8d"]
 
 [ext_resource type="Texture2D" uid="uid://b1a4i333pjw7m" path="res://assets/art/Trail.png" id="1_mttuh"]
 [ext_resource type="Script" path="res://scripts/intro.gd" id="1_t3rjy"]
@@ -6,6 +6,8 @@
 [ext_resource type="Texture2D" uid="uid://njkiyvwwqsfj" path="res://assets/art/PlayerFalling.png" id="3_y46gr"]
 [ext_resource type="Texture2D" uid="uid://dq7fx2cp2pcsa" path="res://assets/art/ShotGun.png" id="4_nnu86"]
 [ext_resource type="Texture2D" uid="uid://c44rx14gcqp3w" path="res://assets/art/PlayerReloadAnim.png" id="5_ok0vr"]
+[ext_resource type="AudioStream" uid="uid://do8u7qa4dbxy2" path="res://assets/SFX/bone-break-6-218517.mp3" id="7_05qyh"]
+[ext_resource type="AudioStream" uid="uid://bvoruuus2ho5b" path="res://assets/SFX/loud-thud-45719.mp3" id="8_r208c"]
 
 [sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_5ck6x"]
 texture = ExtResource("2_w82ie")
@@ -199,3 +201,31 @@ region_enabled = true
 region_rect = Rect2(0, 0, 54, 20)
 
 [node name="Camera2D" type="Camera2D" parent="."]
+
+[node name="Control" type="Control" parent="."]
+visible = false
+layout_mode = 3
+anchors_preset = 0
+offset_left = -576.0
+offset_top = -336.0
+offset_right = 576.0
+offset_bottom = 344.0
+
+[node name="ColorRect" type="ColorRect" parent="Control"]
+z_index = 2
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+color = Color(0, 0, 0, 1)
+
+[node name="BoneBreak" type="AudioStreamPlayer2D" parent="."]
+stream = ExtResource("7_05qyh")
+bus = &"SFX"
+
+[node name="Thud" type="AudioStreamPlayer2D" parent="."]
+stream = ExtResource("8_r208c")
+volume_db = 24.0
+bus = &"SFX"

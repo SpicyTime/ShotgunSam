@@ -47,7 +47,7 @@ func rotate_node_around_player(node: Node2D, offset: Vector2 = Vector2(0, 0))-> 
 	# Calculate the position based off of the angle and the radius
 	var new_position = Vector2(cos(angle), sin(angle)) * gun_radius
 	# Set the child's position relative to the parent
-	node.position = new_position + offset
+	node.position = new_position + offset 
 	if node is AnimatedSprite2D or node is Sprite2D:
 		#print(typeof(node))
 		pass
@@ -101,20 +101,18 @@ func _unhandled_input(event: InputEvent) -> void:
 	#print(event)
 	if event is InputEventMouseButton:
 		$Gun/HitBox/CollisionShape2D.disabled = true
-		if Input.is_action_just_pressed("shoot"):
-			gun.begin_shoot() 
 		if Input.is_action_just_released("shoot"):
 			if gun.is_empty():
 				return
 			gun.cancel_charge()
 			gun.shoot()
 			GameData.player_bullet_count = gun.bullet_count
-			Signals.player_shot.emit(gun.bullet_count)
+			Signals.player_shot.emit()
+			Signals.player_bullet_change.emit(gun.bullet_count)
 			has_shot = true
 			var gun_position = gun.global_position
 			var direction_to_mouse = (get_global_mouse_position()  - gun_position).normalized() 
 			var recoil = gun.get_recoil()
-			 
 			var new_velocity =  direction_to_mouse * recoil
 			if distance_to_mouse <= gun_radius:
 				velocity = new_velocity
@@ -122,6 +120,9 @@ func _unhandled_input(event: InputEvent) -> void:
 				velocity = -new_velocity
 			camera.reset_zoom()
 			camera.reset_position()
+		elif Input.is_action_just_pressed("shoot"):
+			gun.begin_shoot() 
+		 
 	elif event is InputEventMouseMotion:
 		rotate_gun()
 		rotate_arms()
@@ -131,7 +132,6 @@ func _unhandled_key_input(event: InputEvent) -> void:
 		gun.reload()
 		$Arms.play("reload")
 	 
-		
 		#print("Escaping to main menu")
 func _ready() -> void:
 	#Connect Signals
@@ -148,7 +148,7 @@ func _on_gun_reload(sender) -> void:
 	 
 	if sender != gun:
 		return
-	Signals.player_reload.emit(gun.bullet_count)
+	Signals.player_bullet_change.emit(gun.bullet_count)
 	
 func _on_coins_set(new_value: int):
 	coin_count = new_value
@@ -167,3 +167,5 @@ func _on_gun_charge(sender) -> void:
 	
 func _on_arms_animation_finished() -> void:
 	$Arms.play("idle")
+ 
+	

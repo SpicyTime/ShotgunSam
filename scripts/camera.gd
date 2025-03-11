@@ -56,7 +56,6 @@ func _on_player_gun_charge():
 	player_charging_gun = true
 	prezoom_position = global_position
 	lerp_pos = calc_lerp_pos(prezoom_position, player.global_position)
-func _on_player_shoot(_bullets_left: int):
+func _on_player_shoot():
 	player_charging_gun = false
-	 
  
