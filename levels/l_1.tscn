@@ -177,3 +177,5 @@ offset_bottom = 23.0
 theme_override_colors/font_outline_color = Color(0, 0, 0, 1)
 text = "Click The Mouse To Shoot"
 label_settings = SubResource("LabelSettings_mt5xf")
+
+[connection signal="body_entered" from="Coins/Pickups" to="Coins/Pickups" method="_on_body_entered"]

@@ -39,3 +39,5 @@ signal text_display_finished()
 signal dialogue_toggled(is_displaying: bool)
 @warning_ignore("unused_signal")
 signal player_bullet_change(new_value: int)
+@warning_ignore("unused_signal")
+signal mouse_on_edge

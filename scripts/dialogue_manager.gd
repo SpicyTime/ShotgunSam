@@ -30,7 +30,6 @@ func start_dialogue(dialogue_key: String):
 	is_dialogue_active = true
 	Signals.text_display_finished.connect(_on_text_box_display_finished)
 func show_text_box():
-	print("Showing")
 	text_box = text_box_scene.instantiate()
 	text_box.global_position = Vector2( 0, 304)
 	get_tree().root.add_child(text_box)

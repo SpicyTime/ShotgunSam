@@ -4,13 +4,17 @@ extends Camera2D
 @export var max_roll : float = 0.1
 @export var lerp_speed: float = 0.1
 @onready var player: CharacterBody2D = %Player
-
+#Right, Left, Bottom, Top
+#@onready var pan_bounds = [  get_tree().root.get_visible_rect().size.y / 2 - Constants.TILE_SIZE /2,   -get_tree().root.get_visible_rect().size.y / 2 + Constants.TILE_SIZE /2 ]
 const TILE_SIZE = 48
 var trauma : float = 0.0
 var trauma_power : int = 2
 var player_charging_gun: bool = false
 var prezoom_position: Vector2  
 var lerp_pos
+var has_panned: bool = false
+func get_pan_bounds()->Array[int]:
+	return [get_tree().root.get_visible_rect().size.x / 2 - Constants.TILE_SIZE / 2, -get_tree().root.get_visible_rect().size.x / 2 + Constants.TILE_SIZE / 2, -get_tree().root.get_visible_rect().size.y / 2 + Constants.TILE_SIZE / 2, get_tree().root.get_visible_rect().size.y / 2 - Constants.TILE_SIZE /2]
 func shake()->void:
 	var amount = pow(trauma, trauma_power)
 	rotation = max_roll * amount * randf_range(-1, 1)
@@ -19,12 +23,15 @@ func shake()->void:
 # Called when the node enters the scene tree for the first time
 func add_trauma(amount: float)-> void:
 	trauma = min(trauma + amount, 1.0)
-	
+func pan_camera_on_edge(target)->void:
+	lerp_position(target)
 func _ready() -> void:
 	randomize()
 	Signals.shake_camera.connect(_on_camera_shake)
 	Signals.player_gun_charge.connect(_on_player_gun_charge)
 	Signals.player_shot.connect(_on_player_shoot)
+	Signals.mouse_on_edge.connect(_on_mouse_on_edge)
+	#global_position = Vector2(0, 75)
 # Called every frame. 'delta' is the elapsed time since the previous frame.
 func _process(delta: float) -> void:
 	if trauma:
@@ -33,6 +40,8 @@ func _process(delta: float) -> void:
 	if  player_charging_gun:
 		lerp_zoom(Vector2(1.06, 1.06))
 		lerp_position(lerp_pos)
+
+		
 func calc_lerp_pos(pos1: Vector2, pos2: Vector2)->Vector2:
 	return Vector2((pos1.x + pos2.x) / 4, (pos1.y + pos2.y) / 4)
 func lerp_zoom(target_zoom: Vector2):
@@ -58,4 +67,28 @@ func _on_player_gun_charge():
 	lerp_pos = calc_lerp_pos(prezoom_position, player.global_position)
 func _on_player_shoot():
 	player_charging_gun = false
+func _on_mouse_on_edge():
+	var mouse_global_pos = get_global_mouse_position()
+	var viewport_rect = get_viewport_rect()
+	var pan_bounds = get_pan_bounds()
+	#Panning Up
+	var v_to_mouse: Vector2 = mouse_global_pos - global_position
+	print(pan_bounds[0])
+	print(mouse_global_pos)
+	if mouse_global_pos.y  < pan_bounds[3] && not has_panned && v_to_mouse.y > Constants.TILE_SIZE:
+		global_position.y -= Constants.TILE_SIZE * 1.25
+		 
+			 
+	#Panning Down
+	
+	elif mouse_global_pos.y > pan_bounds[2]  && not has_panned  && v_to_mouse.y > Constants.TILE_SIZE:
+		#print("Pan Down")
+		 
+		global_position.y += Constants.TILE_SIZE * 1.25
+	if mouse_global_pos.x > pan_bounds[0]    :
+		print("Panning right")
+		 
+		global_position.x += Constants.TILE_SIZE * 1.25
+	has_panned = true
+	
  
