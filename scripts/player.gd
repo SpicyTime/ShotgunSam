@@ -127,18 +127,25 @@ func _unhandled_input(event: InputEvent) -> void:
 	elif event is InputEventMouseMotion:
 		rotate_gun()
 		rotate_arms()
-		Signals.mouse_on_edge.emit()
+		#Signals.mouse_on_edge.emit()
 		var pan_bounds = camera.get_pan_bounds()
 		var mouse_global_pos = get_global_mouse_position()
-		if mouse_global_pos.x > pan_bounds[1] or mouse_global_pos.x <  pan_bounds[0] or mouse_global_pos.y > pan_bounds[2] or  mouse_global_pos.y  < pan_bounds[3]  :
-			Signals.mouse_on_edge.emit()
-			print("Mouse on edge")
+		#print(pan_bounds)
+ 
 		 
-		if mouse_global_pos.y < get_viewport_rect().size.y / 2- Constants.TILE_SIZE /2 && mouse_global_pos.y > -get_viewport_rect().size.y / 2 + Constants.TILE_SIZE /2  :
-			camera.global_position = Vector2(0, 0)	 
-			camera.has_panned = false
+		if mouse_global_pos.x < pan_bounds[1] or mouse_global_pos.x >  pan_bounds[0] or mouse_global_pos.y < pan_bounds[2] or  mouse_global_pos.y  > pan_bounds[3]  :
+			Signals.mouse_on_edge.emit()
+			#print("Mouse on edge")
+		#Resets the x when it is not in the pan bounds
+		if mouse_global_pos.x > pan_bounds[1] && mouse_global_pos.x < pan_bounds[0]:
+			camera.is_panned_hor = false
+			camera.global_position.x = 0
+		#Resets the y when it is not in the pan bounds
+		if mouse_global_pos.y > pan_bounds[2] && mouse_global_pos.y < pan_bounds[3]:
+		 
+			camera.is_panned_vert = false
+			camera.global_position.y = 0
 		
-	 
 func _unhandled_key_input(event: InputEvent) -> void:
 	if event.is_action_pressed("reload"):
 		gun.reload()

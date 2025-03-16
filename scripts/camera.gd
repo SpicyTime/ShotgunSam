@@ -12,9 +12,10 @@ var trauma_power : int = 2
 var player_charging_gun: bool = false
 var prezoom_position: Vector2  
 var lerp_pos
-var has_panned: bool = false
+var is_panned_hor: bool = false
+var is_panned_vert: bool = false
 func get_pan_bounds()->Array[int]:
-	return [get_tree().root.get_visible_rect().size.x / 2 - Constants.TILE_SIZE / 2, -get_tree().root.get_visible_rect().size.x / 2 + Constants.TILE_SIZE / 2, -get_tree().root.get_visible_rect().size.y / 2 + Constants.TILE_SIZE / 2, get_tree().root.get_visible_rect().size.y / 2 - Constants.TILE_SIZE /2]
+	return [get_tree().root.get_visible_rect().size.x / 2 - Constants.TILE_SIZE / 1.25, -get_tree().root.get_visible_rect().size.x / 2 + Constants.TILE_SIZE / 1.25, -get_tree().root.get_visible_rect().size.y / 2 + Constants.TILE_SIZE / 1.25, get_tree().root.get_visible_rect().size.y / 2 - Constants.TILE_SIZE /1.25]
 func shake()->void:
 	var amount = pow(trauma, trauma_power)
 	rotation = max_roll * amount * randf_range(-1, 1)
@@ -72,23 +73,29 @@ func _on_mouse_on_edge():
 	var viewport_rect = get_viewport_rect()
 	var pan_bounds = get_pan_bounds()
 	#Panning Up
-	var v_to_mouse: Vector2 = mouse_global_pos - global_position
-	print(pan_bounds[0])
-	print(mouse_global_pos)
-	if mouse_global_pos.y  < pan_bounds[3] && not has_panned && v_to_mouse.y > Constants.TILE_SIZE:
-		global_position.y -= Constants.TILE_SIZE * 1.25
-		 
-			 
-	#Panning Down
-	
-	elif mouse_global_pos.y > pan_bounds[2]  && not has_panned  && v_to_mouse.y > Constants.TILE_SIZE:
-		#print("Pan Down")
-		 
-		global_position.y += Constants.TILE_SIZE * 1.25
-	if mouse_global_pos.x > pan_bounds[0]    :
-		print("Panning right")
-		 
+	var v_to_mouse: Vector2 = mouse_global_pos - player.global_position
+	 
+	 
+	print(v_to_mouse)
+	print(abs(v_to_mouse))
+	#Pan Right
+	if mouse_global_pos.x > pan_bounds[0] && not is_panned_hor  :
 		global_position.x += Constants.TILE_SIZE * 1.25
-	has_panned = true
+		is_panned_hor = true
+	#Pan Left
+	elif mouse_global_pos.x < pan_bounds[1] && not is_panned_hor  :
+		global_position.x -= Constants.TILE_SIZE * 1.25
+		is_panned_hor = true
+
+	print(v_to_mouse)
+	if mouse_global_pos.y  > pan_bounds[3] && not is_panned_vert   :
+		global_position.y += Constants.TILE_SIZE * 1.25
+		is_panned_vert = true
+	#Panning Down
+	elif mouse_global_pos.y < pan_bounds[2] && not is_panned_vert  :
+		is_panned_vert = true
+		global_position.y -= Constants.TILE_SIZE * 1.25
+ 
+	 
 	
  
