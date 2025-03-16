@@ -3,7 +3,7 @@
 [ext_resource type="Texture2D" uid="uid://ctg5ods306dfr" path="res://assets/art/TerrainTileset.png" id="1_xiitv"]
 [ext_resource type="Texture2D" uid="uid://t8t4t4cjeh7f" path="res://assets/art/WallTile.png" id="1_y084b"]
 [ext_resource type="PackedScene" uid="uid://bfsw1vy5loxmt" path="res://scenes/next_level.tscn" id="2_asl88"]
-[ext_resource type="PackedScene" uid="uid://cfc30wcm4wluh" path="res://scenes/pickups.tscn" id="3_rc7ey"]
+[ext_resource type="PackedScene" uid="uid://cfc30wcm4wluh" path="res://scenes/coin.tscn" id="3_rc7ey"]
 [ext_resource type="Theme" uid="uid://uqij1mue7qu1" path="res://themes/font_theme.tres" id="5_ryxa1"]
 
 [sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_nnjqy"]
@@ -177,5 +177,3 @@ offset_bottom = 23.0
 theme_override_colors/font_outline_color = Color(0, 0, 0, 1)
 text = "Click The Mouse To Shoot"
 label_settings = SubResource("LabelSettings_mt5xf")
-
-[connection signal="body_entered" from="Coins/Pickups" to="Coins/Pickups" method="_on_body_entered"]

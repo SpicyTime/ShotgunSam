@@ -75,9 +75,6 @@ func _on_mouse_on_edge():
 	#Panning Up
 	var v_to_mouse: Vector2 = mouse_global_pos - player.global_position
 	 
-	 
-	print(v_to_mouse)
-	print(abs(v_to_mouse))
 	#Pan Right
 	if mouse_global_pos.x > pan_bounds[0] && not is_panned_hor  :
 		global_position.x += Constants.TILE_SIZE * 1.25
@@ -87,7 +84,6 @@ func _on_mouse_on_edge():
 		global_position.x -= Constants.TILE_SIZE * 1.25
 		is_panned_hor = true
 
-	print(v_to_mouse)
 	if mouse_global_pos.y  > pan_bounds[3] && not is_panned_vert   :
 		global_position.y += Constants.TILE_SIZE * 1.25
 		is_panned_vert = true
