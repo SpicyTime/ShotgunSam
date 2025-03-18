@@ -7,13 +7,11 @@ var all_dialogue_lines: Dictionary
 var can_advance_line: bool = false
 var is_dialogue_active
 func load_dialogue_from_file():
-	print("loaded")
 	var file = FileAccess.open("res://dialogue.json", FileAccess.READ)
 	if not file:
 		return
 	var json_string = file.get_as_text()
 	file.close()
- 
 	var json = JSON.new()
 	var parse_result = json.parse(json_string)
 	if parse_result == OK:
@@ -23,7 +21,6 @@ func load_dialogue_from_file():
 func start_dialogue(dialogue_key: String):
 	if is_dialogue_active or not all_dialogue_lines.has(dialogue_key):
 		return
- 
 	load_dialogue(dialogue_key)
 	show_text_box()
 	Signals.dialogue_toggled.emit(true)
@@ -35,13 +32,25 @@ func show_text_box():
 	get_tree().root.add_child(text_box)
 	text_box.display_text(dialogue_lines[current_dialogue_index])
 	can_advance_line = false
+func save()->Dictionary:
+	var data: Dictionary
+	data["current_dialogue"] = dialogue_lines
+	data["current_line"] = current_dialogue_index
+	return data
+func load(data: Dictionary):
+	if data.has("current_dialogue"):
+		load_dialogue(data.get("current_dialogue"))
+		show_text_box()
+	if data.has("current_line"):
+		current_dialogue_index = data.get("current_line")
+func load_dialogue(dialogue_key: String):
+	dialogue_lines = all_dialogue_lines[dialogue_key]
 func _on_text_box_display_finished():
 	can_advance_line = true
-func load_dialogue(dialogue_key: String) :
-	print(all_dialogue_lines)
-	
-	dialogue_lines = all_dialogue_lines[dialogue_key]
-			
+ 
+func _ready():
+	add_to_group("game_savables")
+
 func _unhandled_input(_event: InputEvent) -> void:
 	if Input.is_action_just_pressed("ui_accept") && is_dialogue_active && can_advance_line:
 		text_box.queue_free()
@@ -51,5 +60,4 @@ func _unhandled_input(_event: InputEvent) -> void:
 			Signals.dialogue_toggled.emit(false)
 			current_dialogue_index = 0
 			return
-		 
 		show_text_box()

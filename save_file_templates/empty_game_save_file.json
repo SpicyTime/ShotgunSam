@@ -3,9 +3,16 @@
 		"current_level" : "res://levels/l_1.tscn",
 		"game_run_time" : 0.0
 	},
+	"dialogue" : {
+		"current_line" : 0,
+		"current_dialogue" : ""
+	},
 	"player" : {
-		"player_coint_count" : 0,
-		"player_bullet_count" : 2,
+		"player_coin_count" : 0,
 		"player_position" : "(0, 0)"
+		
+	},
+	"gun" : {
+		"bullet_count" : 2
 	}
 }

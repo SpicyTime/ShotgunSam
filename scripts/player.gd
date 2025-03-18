@@ -74,10 +74,17 @@ func rotate_arms() -> void:
 func save() -> Dictionary: 
 	var data = {
 		"player_coin_count" : coin_count,
-		"player_bullet_count" : gun.bullet_count,
 		"player_position" : global_position
 	}
 	return data
+func load(data: Dictionary):
+	 
+	if data.has("player_coin_count"):
+		coin_count = data.get("player_coin_count")
+		
+	if data.has("player_position"):
+		#global_position = data.get("player_position")
+		pass
 func reset() -> void:
 	GameData.player_bullet_count = 2
 	GameData.save_game()
@@ -85,7 +92,6 @@ func reset() -> void:
 	if tree:
 		tree.reload_current_scene()
 	 
-		
 func _physics_process(delta: float) -> void:
 	# Add the gravity.
 	if not is_on_floor():

@@ -44,7 +44,7 @@ animations = [{
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_g7edj"]
 size = Vector2(53, 20)
 
-[node name="Gun" type="AnimatedSprite2D"]
+[node name="Gun" type="AnimatedSprite2D" groups=["game_savables"]]
 sprite_frames = SubResource("SpriteFrames_vaab5")
 animation = &"idle"
 autoplay = "idle"

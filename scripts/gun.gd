@@ -74,7 +74,13 @@ func fast_reload():
 	$ReloadSound.play()
 	get_tree().create_timer(0.25).timeout
 	add_bullets(2)
-	 
+func save() ->Dictionary:
+	var data: Dictionary
+	data["bullet_count"] = bullet_count
+	return data
+func load(data: Dictionary):
+	if data.has("bullet_count"):
+		bullet_count = data.get("bullet_count");
 func _process(_delta: float):
 	reload_time.wait_time = reload_speed
 #Not a signal

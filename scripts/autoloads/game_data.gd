@@ -25,19 +25,24 @@ func load_game():
 	if not FileAccess.file_exists(Constants.GAME_SAVE_PATH):
 		return
 	var json_string = file.get_as_text()
-	 
 	file.close()
 	var json = JSON.new()
 	var parse_result = json.parse(json_string)
 	if parse_result == OK:
 		var save_data = json.get_data()
+		print(save_data)
 		var player_data = save_data.get("player", {})
-		player_coin_count = player_data.get("player_coin_count", 0)
-		player_bullet_count = player_data.get("player_bullet_count", 2)
+		for node in get_tree().get_nodes_in_group("game_savables"):
+			if node.has_method("load"):
+				 
+				node.load(save_data.get(node.get_name().to_lower()))
+		 
 		var game_data = save_data.get("game", {})
 		current_level =  game_data.get("current_level")
 		game_run_time = game_data.get("game_run_time")
 		Signals.player_bullet_change.emit(player_bullet_count)
+ 
+	
 func reset_game():
 	print("Resetting game")
 	var empty_game_save_file = FileAccess.open(Constants.EMPTY_GAME_SAVE_PATH, FileAccess.READ)
