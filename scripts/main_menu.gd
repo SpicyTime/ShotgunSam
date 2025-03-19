@@ -16,6 +16,7 @@ func switch_scene(path: String):
 	get_tree().change_scene_to_file(path)
 	
 func _ready() ->void:
+	 
 	if not FileAccess.file_exists(Constants.EMPTY_GAME_SAVE_PATH):
 		print("Loading Empty Game Save File")
 		load_file("res://save_file_templates/empty_game_save_file.json", Constants.EMPTY_GAME_SAVE_PATH)
@@ -26,7 +27,8 @@ func _ready() ->void:
 	if not FileAccess.file_exists(Constants.SETTINGS_SAVE_PATH):
 		load_file("res://save_file_templates/settings_save_file.json", Constants.SETTINGS_SAVE_PATH)
 	DialogueManager.load_dialogue_from_file()
-	 
+	
+	
 func _on_new_game_button_pressed() -> void:
 	GameData.reset_game()
 	call_deferred("switch_scene", "res://scenes/intro.tscn")

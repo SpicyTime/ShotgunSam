@@ -20,7 +20,7 @@ func _on_player_bullet_change(player_bullets: int):
 	elif player_bullets < last_count:
 		decrease(player_bullets)
 	last_count = player_bullets
-func increase(new_value: int):
+func increase(_new_value: int):
 	var bullet_uis = bullet_display.get_children()
 	for i in range(bullet_uis.size()):
 		bullet_uis[i].visible = true

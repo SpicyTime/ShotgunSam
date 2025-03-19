@@ -5,6 +5,7 @@ var player_position: Vector2 = Vector2(0, 0)
 var current_level: String = "res://levels/l_1.tscn"
 var game_run_time: float = 0.0
 func save_game() -> void:
+	 
 	var savables  = get_tree().get_nodes_in_group("game_savables")
 	var save_data: Dictionary
 	for savable in savables:
@@ -21,6 +22,7 @@ func save_game() -> void:
 	file.store_string(json_string)
 	file.close()
 func load_game():
+	 
 	var file = FileAccess.open(Constants.GAME_SAVE_PATH, FileAccess.READ)
 	if not FileAccess.file_exists(Constants.GAME_SAVE_PATH):
 		return
@@ -30,12 +32,12 @@ func load_game():
 	var parse_result = json.parse(json_string)
 	if parse_result == OK:
 		var save_data = json.get_data()
-		print(save_data)
+		 
 		var player_data = save_data.get("player", {})
 		for node in get_tree().get_nodes_in_group("game_savables"):
 			if node.has_method("load"):
 				 
-				node.load(save_data.get(node.get_name().to_lower()))
+				node.load(save_data.get(node.get_node_name().to_lower()))
 		 
 		var game_data = save_data.get("game", {})
 		current_level =  game_data.get("current_level")
@@ -44,9 +46,16 @@ func load_game():
  
 	
 func reset_game():
-	print("Resetting game")
+	#print("Resetting game")
 	var empty_game_save_file = FileAccess.open(Constants.EMPTY_GAME_SAVE_PATH, FileAccess.READ)
 	var json_string = empty_game_save_file.get_as_text()
+	 
+	
+	
+	
+	
+	
+	
 	empty_game_save_file.close()
 	var game_save_file = FileAccess.open(Constants.GAME_SAVE_PATH, FileAccess.WRITE)
 	if game_save_file == null:

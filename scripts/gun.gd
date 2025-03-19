@@ -16,6 +16,10 @@ var charge_power: int = 0
 var stop_charge: bool = false
 var is_reloading: bool = false
 var distance: float
+var node_name: String = "gun"
+
+func get_node_name():
+	return node_name
 func get_recoil() -> int:
 	return power + charge_power
 	

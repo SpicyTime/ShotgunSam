@@ -6,6 +6,10 @@ var text_box
 var all_dialogue_lines: Dictionary
 var can_advance_line: bool = false
 var is_dialogue_active
+var current_dialogue_key
+var node_name = "dialogue"
+func get_node_name():
+	return node_name;
 func load_dialogue_from_file():
 	var file = FileAccess.open("res://dialogue.json", FileAccess.READ)
 	if not file:
@@ -34,17 +38,28 @@ func show_text_box():
 	can_advance_line = false
 func save()->Dictionary:
 	var data: Dictionary
-	data["current_dialogue"] = dialogue_lines
+	data["current_dialogue"] = current_dialogue_key
 	data["current_line"] = current_dialogue_index
 	return data
 func load(data: Dictionary):
+	print(data)
 	if data.has("current_dialogue"):
+		var key = data.get("current_dialogue")
+		if key == "":
+			return	
 		load_dialogue(data.get("current_dialogue"))
 		show_text_box()
 	if data.has("current_line"):
 		current_dialogue_index = data.get("current_line")
+func stop()->void:
+	can_advance_line = false
+	is_dialogue_active = false
+	text_box.queue_free()
+	
 func load_dialogue(dialogue_key: String):
+	current_dialogue_key = dialogue_key
 	dialogue_lines = all_dialogue_lines[dialogue_key]
+	
 func _on_text_box_display_finished():
 	can_advance_line = true
  

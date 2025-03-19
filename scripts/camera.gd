@@ -70,7 +70,7 @@ func _on_player_shoot():
 	player_charging_gun = false
 func _on_mouse_on_edge():
 	var mouse_global_pos = get_global_mouse_position()
-	var viewport_rect = get_viewport_rect()
+	 
 	var pan_bounds = get_pan_bounds()
 	#Panning Up
 	var v_to_mouse: Vector2 = mouse_global_pos - player.global_position

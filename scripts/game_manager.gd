@@ -9,7 +9,7 @@ func remove_level(level_root):
 	if not tree:
 		 
 		return
-	print("removing level")
+	#print("removing level")
 	tree.root.remove_child(level_root)
 	level_root.queue_free()
 func spawn_player(level_root):
@@ -18,7 +18,7 @@ func spawn_player(level_root):
 		player.global_position = spawn_marker.global_position
 			 
 func add_level(level_root):
-	print("adding level")
+	#print("adding level")
 	get_tree().root.add_child(level_root)
 func load_level(path : String):
 	while get_tree().get_node_count_in_group("Level") > 0:
@@ -59,7 +59,9 @@ func _ready() -> void:
 	 
 func _unhandled_key_input(event: InputEvent) -> void:
 	if event.is_action_pressed("mainmenu"):
+		DialogueManager.stop()
 		GameData.save_game()
+		
 		var tree = get_tree()
 		unload_level(tree.get_first_node_in_group("Level").get_path())
 		tree.call_deferred("change_scene_to_file", "res://scenes/menus/main_menu.tscn")
