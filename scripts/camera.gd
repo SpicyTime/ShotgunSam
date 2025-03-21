@@ -14,6 +14,7 @@ var prezoom_position: Vector2
 var lerp_pos
 var is_panned_hor: bool = false
 var is_panned_vert: bool = false
+
 func get_pan_bounds()->Array[int]:
 	return [get_tree().root.get_visible_rect().size.x / 2 - Constants.TILE_SIZE / 1.25, -get_tree().root.get_visible_rect().size.x / 2 + Constants.TILE_SIZE / 1.25, -get_tree().root.get_visible_rect().size.y / 2 + Constants.TILE_SIZE / 1.25, get_tree().root.get_visible_rect().size.y / 2 - Constants.TILE_SIZE /1.25]
 func shake()->void:
@@ -25,6 +26,7 @@ func shake()->void:
 func add_trauma(amount: float)-> void:
 	trauma = min(trauma + amount, 1.0)
 func pan_camera_on_edge(target)->void:
+	 
 	lerp_position(target)
 func _ready() -> void:
 	randomize()
@@ -35,15 +37,18 @@ func _ready() -> void:
 	#global_position = Vector2(0, 75)
 # Called every frame. 'delta' is the elapsed time since the previous frame.
 func _process(delta: float) -> void:
+	#print("Camer global" , global_position)
 	if trauma:
 		trauma = max(trauma - decay * delta, 0)
 		shake()
-	if  player_charging_gun:
+	if  player_charging_gun :
+		
 		lerp_zoom(Vector2(1.06, 1.06))
 		lerp_position(lerp_pos)
 
 		
 func calc_lerp_pos(pos1: Vector2, pos2: Vector2)->Vector2:
+	
 	return Vector2((pos1.x + pos2.x) / 4, (pos1.y + pos2.y) / 4)
 func lerp_zoom(target_zoom: Vector2):
 	var new_zoom: Vector2 = lerp(zoom, target_zoom, lerp_speed) 
@@ -53,12 +58,13 @@ func lerp_position( target_position: Vector2):
 	var int_new_position_x: int = new_position.x
 	var int_new_position_y: int = new_position.y
 	global_translate(Vector2(int_new_position_x, int_new_position_y) - transform.origin)
-	 
+	print("Lerpring position")
 func reset_zoom():
 	zoom = Vector2(1, 1)
+	print("Resetting zoom")
 func reset_position():
 	global_position = prezoom_position
- 
+	print("Resetting position")
 func _on_camera_shake(trauma: float):
 	add_trauma(trauma)
 
@@ -66,31 +72,39 @@ func _on_player_gun_charge():
 	player_charging_gun = true
 	prezoom_position = global_position
 	lerp_pos = calc_lerp_pos(prezoom_position, player.global_position)
+	print("Player charging")
 func _on_player_shoot():
 	player_charging_gun = false
+	print("Player Shot")
 func _on_mouse_on_edge():
-	var mouse_global_pos = get_global_mouse_position()
+	var mouse_pos = get_global_mouse_position()
 	 
 	var pan_bounds = get_pan_bounds()
+	print(mouse_pos)
+	#print(pan_bounds)
 	#Panning Up
-	var v_to_mouse: Vector2 = mouse_global_pos - player.global_position
+	var v_to_mouse: Vector2 = mouse_pos - player.global_position
 	 
 	#Pan Right
-	if mouse_global_pos.x > pan_bounds[0] && not is_panned_hor  :
+	if mouse_pos.x > pan_bounds[0] && not is_panned_hor  :
 		global_position.x += Constants.TILE_SIZE * 1.25
+		lerp_pos.x += Constants.TILE_SIZE * 1.25
 		is_panned_hor = true
 	#Pan Left
-	elif mouse_global_pos.x < pan_bounds[1] && not is_panned_hor  :
+	elif mouse_pos.x < pan_bounds[1] && not is_panned_hor  :
 		global_position.x -= Constants.TILE_SIZE * 1.25
+		lerp_pos.x -= Constants.TILE_SIZE * 1.25
 		is_panned_hor = true
 
-	if mouse_global_pos.y  > pan_bounds[3] && not is_panned_vert   :
+	if mouse_pos.y  > pan_bounds[3] && not is_panned_vert   :
 		global_position.y += Constants.TILE_SIZE * 1.25
+		lerp_pos.y += Constants.TILE_SIZE * 1.25
 		is_panned_vert = true
 	#Panning Down
-	elif mouse_global_pos.y < pan_bounds[2] && not is_panned_vert  :
+	elif mouse_pos.y < pan_bounds[2] && not is_panned_vert  :
 		is_panned_vert = true
 		global_position.y -= Constants.TILE_SIZE * 1.25
+		lerp_pos.y -= Constants.TILE_SIZE * 1.25
  
 	 
 	

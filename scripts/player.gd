@@ -113,6 +113,7 @@ func _unhandled_input(event: InputEvent) -> void:
 				return
 			gun.cancel_charge()
 			gun.shoot()
+			$Sprite2D.visible = false
 			GameData.player_bullet_count = gun.bullet_count
 			Signals.player_shot.emit()
 			Signals.player_bullet_change.emit(gun.bullet_count)
@@ -129,7 +130,8 @@ func _unhandled_input(event: InputEvent) -> void:
 			camera.reset_position()
 		elif Input.is_action_just_pressed("shoot"):
 			gun.begin_shoot() 
-		 
+			$Sprite2D.global_position = get_global_mouse_position()
+			$Sprite2D.visible = true
 	elif event is InputEventMouseMotion:
 		rotate_gun()
 		rotate_arms()
@@ -143,12 +145,11 @@ func _unhandled_input(event: InputEvent) -> void:
 			Signals.mouse_on_edge.emit()
 			#print("Mouse on edge")
 		#Resets the x when it is not in the pan bounds
-		if mouse_global_pos.x > pan_bounds[1] && mouse_global_pos.x < pan_bounds[0]:
+		if mouse_global_pos.x > pan_bounds[1] && mouse_global_pos.x < pan_bounds[0] && camera.is_panned_hor:
 			camera.is_panned_hor = false
 			camera.global_position.x = 0
 		#Resets the y when it is not in the pan bounds
-		if mouse_global_pos.y > pan_bounds[2] && mouse_global_pos.y < pan_bounds[3]:
-		 
+		if mouse_global_pos.y > pan_bounds[2] && mouse_global_pos.y < pan_bounds[3] && camera.is_panned_vert:
 			camera.is_panned_vert = false
 			camera.global_position.y = 0
 		

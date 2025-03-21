@@ -36,6 +36,7 @@ func show_text_box():
 	get_tree().root.add_child(text_box)
 	text_box.display_text(dialogue_lines[current_dialogue_index])
 	can_advance_line = false
+	print("Showing")
 func save()->Dictionary:
 	var data: Dictionary
 	data["current_dialogue"] = current_dialogue_key
@@ -48,13 +49,14 @@ func load(data: Dictionary):
 		if key == "":
 			return	
 		load_dialogue(data.get("current_dialogue"))
-		show_text_box()
 	if data.has("current_line"):
 		current_dialogue_index = data.get("current_line")
 func stop()->void:
 	can_advance_line = false
 	is_dialogue_active = false
+	 
 	text_box.queue_free()
+	print("freeing")
 	
 func load_dialogue(dialogue_key: String):
 	current_dialogue_key = dialogue_key
