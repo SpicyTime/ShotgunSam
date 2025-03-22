@@ -17,6 +17,7 @@ func switch_scene(path: String):
 	
 func _ready() ->void:
 	 
+ 
 	if not FileAccess.file_exists(Constants.EMPTY_GAME_SAVE_PATH):
 		print("Loading Empty Game Save File")
 		load_file("res://save_file_templates/empty_game_save_file.json", Constants.EMPTY_GAME_SAVE_PATH)
@@ -26,6 +27,9 @@ func _ready() ->void:
 		$Buttons/VBoxContainer/LoadGameButton.disabled = false
 	if not FileAccess.file_exists(Constants.SETTINGS_SAVE_PATH):
 		load_file("res://save_file_templates/settings_save_file.json", Constants.SETTINGS_SAVE_PATH)
+	if not FileAccess.file_exists(Constants.BEST_TIMES_SAVE_PATH):
+		load_file("res://save_file_templates/best_times.json", Constants.BEST_TIMES_SAVE_PATH)
+		print("loading best times json")
 	DialogueManager.load_dialogue_from_file()
 	
 	

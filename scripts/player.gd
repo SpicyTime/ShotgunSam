@@ -113,7 +113,7 @@ func _unhandled_input(event: InputEvent) -> void:
 				return
 			gun.cancel_charge()
 			gun.shoot()
-			$Sprite2D.visible = false
+			 
 			GameData.player_bullet_count = gun.bullet_count
 			Signals.player_shot.emit()
 			Signals.player_bullet_change.emit(gun.bullet_count)
@@ -130,8 +130,7 @@ func _unhandled_input(event: InputEvent) -> void:
 			camera.reset_position()
 		elif Input.is_action_just_pressed("shoot"):
 			gun.begin_shoot() 
-			$Sprite2D.global_position = get_global_mouse_position()
-			$Sprite2D.visible = true
+			 
 	elif event is InputEventMouseMotion:
 		rotate_gun()
 		rotate_arms()
