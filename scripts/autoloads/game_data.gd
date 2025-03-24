@@ -31,6 +31,7 @@ func load_game():
 	var parse_result = json.parse(json_string)
 	if parse_result == OK:
 		var save_data = json.get_data()
+		print(save_data)
 		var player_data = save_data.get("player", {})
 		for node in get_tree().get_nodes_in_group("game_savables"):
 			if node.has_method("load"):

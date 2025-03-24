@@ -5,8 +5,8 @@ extends AnimatedSprite2D
 @export var reload_speed: float = 1.5
 @export var charge_mult: float = 75
 @onready var shoot_sound: AudioStreamPlayer2D = $ShootSound
+@onready var empty_gun_sound: AudioStreamPlayer2D = $EmptyGunSound
 @onready var marker_2d: Marker2D = $Marker2D
-@onready var game = get_tree().get_root().get_node("Game")
 @onready var blast_particles = preload("res://particles/gun_blast_particles.tscn")
 @onready var bullet_particles = preload("res://particles/shotgun_bullet_particles.tscn")
 @onready var reload_time: Timer = $ReloadTime
@@ -30,6 +30,8 @@ func handle_flip(right: bool):
 	marker_2d.position.y = -marker_2d.position.y
 func shoot():
 	if is_empty():
+	 
+		 
 		return
 	print("Shot")
 	var time = charge_stopwatch.time

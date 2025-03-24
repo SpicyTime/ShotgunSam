@@ -11,7 +11,8 @@ var trauma : float = 0.0
 var trauma_power : int = 2
 var player_charging_gun: bool = false
 var prezoom_position: Vector2  
-var lerp_pos
+var lerp_pos: Vector2
+var prev_lerp_pos
 var is_panned_hor: bool = false
 var is_panned_vert: bool = false
 
@@ -73,7 +74,7 @@ func _on_player_gun_charge():
 	player_charging_gun = true
 	prezoom_position = global_position
 	lerp_pos = calc_lerp_pos(prezoom_position, player.global_position)
- 
+	prev_lerp_pos = lerp_pos
 func _on_player_shoot():
 	player_charging_gun = false
 	 
@@ -84,7 +85,7 @@ func _on_mouse_on_edge():
 
 	#Panning Up
 	var v_to_mouse: Vector2 = mouse_pos - player.global_position
-	 
+	
 	#Pan Right
 	if mouse_pos.x > pan_bounds[0] && not is_panned_hor  :
 		global_position.x += Constants.TILE_SIZE * 1.25

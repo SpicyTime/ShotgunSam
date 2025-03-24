@@ -110,6 +110,7 @@ func _unhandled_input(event: InputEvent) -> void:
 		$Gun/HitBox/CollisionShape2D.disabled = true
 		if Input.is_action_just_released("shoot"):
 			if gun.is_empty():
+				gun.empty_gun_sound.play()
 				return
 			gun.cancel_charge()
 			gun.shoot()
@@ -147,10 +148,12 @@ func _unhandled_input(event: InputEvent) -> void:
 		if mouse_global_pos.x > pan_bounds[1] && mouse_global_pos.x < pan_bounds[0] && camera.is_panned_hor:
 			camera.is_panned_hor = false
 			camera.global_position.x = 0
+			camera.lerp_pos.x = camera.prev_lerp_pos.x
 		#Resets the y when it is not in the pan bounds
 		if mouse_global_pos.y > pan_bounds[2] && mouse_global_pos.y < pan_bounds[3] && camera.is_panned_vert:
 			camera.is_panned_vert = false
 			camera.global_position.y = 0
+			camera.lerp_pos.y = camera.prev_lerp_pos.y
 		
 func _unhandled_key_input(event: InputEvent) -> void:
 	if event.is_action_pressed("reload"):

@@ -16,13 +16,14 @@ func _ready() -> void:
 			
 			sounds[i].add_to_group("UI_SFX")
 	install_sounds(get_node(root_path))
+	
 func install_sounds(node: Node):
 	for i in node.get_children():
 		if i is Button:
 			i.mouse_entered.connect(_ui_sfx_play.bind(&"UI_Hover"))
 			i.pressed.connect(_ui_sfx_play.bind(&"UI_Pressed"))
+			
 func _ui_sfx_play(sound: String):
-	print("Playing", sound)
 	sounds[sound].play()
 
  

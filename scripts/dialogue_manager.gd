@@ -8,6 +8,7 @@ var can_advance_line: bool = false
 var is_dialogue_active
 var current_dialogue_key
 var node_name = "dialogue"
+var swapping_text_box: bool
 func get_node_name():
 	return node_name;
 func load_dialogue_from_file():
@@ -36,14 +37,23 @@ func show_text_box():
 	get_tree().root.add_child(text_box)
 	text_box.display_text(dialogue_lines[current_dialogue_index])
 	can_advance_line = false
-	print("Showing")
+func swap_text_box():
+	if is_instance_valid(text_box):
+		text_box.queue_free()
+	current_dialogue_index += 1
+	if current_dialogue_index >= dialogue_lines.size():
+		is_dialogue_active = false
+		Signals.dialogue_toggled.emit(false)
+		current_dialogue_index = 0
+		print("Dialogue unactive")
+		return
+	show_text_box()
 func save()->Dictionary:
 	var data: Dictionary
 	data["current_dialogue"] = current_dialogue_key
 	data["current_line"] = current_dialogue_index
 	return data
 func load(data: Dictionary):
-	print(data)
 	if data.has("current_dialogue"):
 		var key = data.get("current_dialogue")
 		if key == "":
@@ -54,8 +64,8 @@ func load(data: Dictionary):
 func stop()->void:
 	can_advance_line = false
 	is_dialogue_active = false
-	 
-	text_box.queue_free()
+	if is_instance_valid(text_box):
+		text_box.queue_free()
 	print("freeing")
 	
 func load_dialogue(dialogue_key: String):
@@ -64,17 +74,15 @@ func load_dialogue(dialogue_key: String):
 	
 func _on_text_box_display_finished():
 	can_advance_line = true
+	if is_dialogue_active:
+		var next = current_dialogue_index + 1
+		await get_tree().create_timer(3).timeout
+		if next != current_dialogue_index && is_dialogue_active:
+			swap_text_box()
  
 func _ready():
 	add_to_group("game_savables")
 
 func _unhandled_input(_event: InputEvent) -> void:
 	if Input.is_action_just_pressed("ui_accept") && is_dialogue_active && can_advance_line:
-		text_box.queue_free()
-		current_dialogue_index += 1
-		if current_dialogue_index >= dialogue_lines.size():
-			is_dialogue_active = false
-			Signals.dialogue_toggled.emit(false)
-			current_dialogue_index = 0
-			return
-		show_text_box()
+		swap_text_box()

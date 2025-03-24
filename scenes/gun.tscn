@@ -1,4 +1,4 @@
-[gd_scene load_steps=12 format=3 uid="uid://bwhbrw2cdw27s"]
+[gd_scene load_steps=13 format=3 uid="uid://bwhbrw2cdw27s"]
 
 [ext_resource type="Script" path="res://scripts/hitbox.gd" id="1_l84ci"]
 [ext_resource type="Texture2D" uid="uid://ddom8gslu6i0y" path="res://assets/art/GunReloadAnim.png" id="1_rcxs2"]
@@ -6,6 +6,7 @@
 [ext_resource type="AudioStream" uid="uid://ccq320qxngfwk" path="res://assets/SFX/shotgun-firing-4-6746.mp3" id="4_t1eof"]
 [ext_resource type="Script" path="res://scripts/stopwatch.gd" id="5_ra8c7"]
 [ext_resource type="AudioStream" uid="uid://bx8dkxg5nju0h" path="res://assets/SFX/Pump Reload Full MP3.mp3" id="6_1nn3b"]
+[ext_resource type="AudioStream" uid="uid://cg7qbrx6gl0b0" path="res://assets/SFX/EmptyGunSound.mp3" id="7_ut8ba"]
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_4438o"]
 atlas = ExtResource("1_rcxs2")
@@ -80,6 +81,10 @@ script = ExtResource("5_ra8c7")
 
 [node name="ReloadSound" type="AudioStreamPlayer2D" parent="."]
 stream = ExtResource("6_1nn3b")
+bus = &"SFX"
+
+[node name="EmptyGunSound" type="AudioStreamPlayer2D" parent="."]
+stream = ExtResource("7_ut8ba")
 bus = &"SFX"
 
 [connection signal="animation_finished" from="." to="." method="_on_animation_finished"]

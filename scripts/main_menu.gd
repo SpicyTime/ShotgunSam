@@ -10,14 +10,15 @@ func load_file(from_path: String, into_path: String) ->void:
 		var into_file = FileAccess.open(into_path, FileAccess.WRITE)
 		into_file.store_string(json_contents)
 		into_file.close()
-	print(into_path + " does not exist")
+ 
 	
 func switch_scene(path: String):
 	get_tree().change_scene_to_file(path)
 	
 func _ready() ->void:
 	 
- 
+	var dir = DirAccess.open("user://")
+	 
 	if not FileAccess.file_exists(Constants.EMPTY_GAME_SAVE_PATH):
 		print("Loading Empty Game Save File")
 		load_file("res://save_file_templates/empty_game_save_file.json", Constants.EMPTY_GAME_SAVE_PATH)
@@ -31,7 +32,6 @@ func _ready() ->void:
 		load_file("res://save_file_templates/best_times.json", Constants.BEST_TIMES_SAVE_PATH)
 		print("loading best times json")
 	DialogueManager.load_dialogue_from_file()
-	
 	
 func _on_new_game_button_pressed() -> void:
 	GameData.reset_game()
