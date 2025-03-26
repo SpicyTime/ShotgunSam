@@ -147,13 +147,21 @@ func _unhandled_input(event: InputEvent) -> void:
 		#Resets the x when it is not in the pan bounds
 		if mouse_global_pos.x > pan_bounds[1] && mouse_global_pos.x < pan_bounds[0] && camera.is_panned_hor:
 			camera.is_panned_hor = false
-			camera.global_position.x = 0
 			camera.lerp_pos.x = camera.prev_lerp_pos.x
+			if camera.player_charging_gun:
+				camera.global_position.x = camera.lerp_pos.x
+			else:
+				camera.global_position.x = 0
+			
 		#Resets the y when it is not in the pan bounds
 		if mouse_global_pos.y > pan_bounds[2] && mouse_global_pos.y < pan_bounds[3] && camera.is_panned_vert:
 			camera.is_panned_vert = false
-			camera.global_position.y = 0
 			camera.lerp_pos.y = camera.prev_lerp_pos.y
+			if camera.player_charging_gun:
+				camera.global_position.y = camera.lerp_pos.y
+			else:
+				camera.global_position.y = 0
+			
 		
 func _unhandled_key_input(event: InputEvent) -> void:
 	if event.is_action_pressed("reload"):

@@ -1,6 +1,6 @@
 [gd_resource type="Theme" load_steps=6 format=3 uid="uid://dule66g8xd2qn"]
 
-[ext_resource type="FontFile" uid="uid://cebrmguk7oa5" path="res://assets/fonts/ThaleahFat.ttf" id="1_a86mj"]
+[ext_resource type="FontFile" uid="uid://dhryg8gq62mtr" path="res://assets/fonts/ThaleahFat.ttf" id="1_a86mj"]
 
 [sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_4fcox"]
 
