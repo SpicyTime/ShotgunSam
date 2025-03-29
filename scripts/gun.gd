@@ -9,7 +9,6 @@ extends AnimatedSprite2D
 @onready var marker_2d: Marker2D = $Marker2D
 @onready var blast_particles = preload("res://particles/gun_blast_particles.tscn")
 @onready var bullet_particles = preload("res://particles/shotgun_bullet_particles.tscn")
-@onready var reload_time: Timer = $ReloadTime
 @onready var charge_stopwatch: Stopwatch = $ChargeStopwatch
 var bullet_count: int = Constants.MAX_BULLET_COUNT: set = _on_bullets_set
 var charge_power: int = 0
@@ -68,8 +67,10 @@ func cancel_charge():
 func reload():
 	$ReloadSound.play()
 	is_reloading = true
-	reload_time.start()
+	
 	play("reload")
+	await get_tree().create_timer(reload_speed).timeout
+	add_bullets(2)
 func add_bullets(value: int):
 	is_reloading = false
 	bullet_count += value
@@ -87,8 +88,7 @@ func save() ->Dictionary:
 func load(data: Dictionary):
 	if data.has("bullet_count"):
 		bullet_count = data.get("bullet_count");
-func _process(_delta: float):
-	reload_time.wait_time = reload_speed
+ 
 #Not a signal
 func _on_particles_finished(particles):
 	particles.queue_free()
@@ -102,8 +102,7 @@ func _on_charge_delay_timeout() -> void:
 		return
 	#print("Charging")
 	charge()
-func _on_reload_time_timeout() -> void:
-	add_bullets(2)
+ 
 func _on_bullets_set(new_value: int):
 	bullet_count = new_value
 	if is_empty() and SettingsData.auto_reload:

@@ -1,12 +1,11 @@
-[gd_scene load_steps=13 format=3 uid="uid://bwhbrw2cdw27s"]
+[gd_scene load_steps=11 format=3 uid="uid://bwhbrw2cdw27s"]
 
-[ext_resource type="Script" path="res://scripts/hitbox.gd" id="1_l84ci"]
-[ext_resource type="Texture2D" uid="uid://ddom8gslu6i0y" path="res://assets/art/GunReloadAnim.png" id="1_rcxs2"]
+[ext_resource type="Texture2D" uid="uid://dirfwe16a0da4" path="res://assets/art/GunReloadAnim.png" id="1_rcxs2"]
 [ext_resource type="Script" path="res://scripts/gun.gd" id="1_rd3yr"]
-[ext_resource type="AudioStream" uid="uid://ccq320qxngfwk" path="res://assets/SFX/shotgun-firing-4-6746.mp3" id="4_t1eof"]
+[ext_resource type="AudioStream" uid="uid://d0iqxk5xdp3a" path="res://assets/SFX/shotgun-firing-4-6746.mp3" id="4_t1eof"]
 [ext_resource type="Script" path="res://scripts/stopwatch.gd" id="5_ra8c7"]
-[ext_resource type="AudioStream" uid="uid://bx8dkxg5nju0h" path="res://assets/SFX/Pump Reload Full MP3.mp3" id="6_1nn3b"]
-[ext_resource type="AudioStream" uid="uid://cg7qbrx6gl0b0" path="res://assets/SFX/EmptyGunSound.mp3" id="7_ut8ba"]
+[ext_resource type="AudioStream" uid="uid://8bjcvp3hr0v6" path="res://assets/SFX/Pump Reload Full MP3.mp3" id="6_1nn3b"]
+[ext_resource type="AudioStream" uid="uid://dj7x5a4cbcsl6" path="res://assets/SFX/EmptyGunSound.mp3" id="7_ut8ba"]
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_4438o"]
 atlas = ExtResource("1_rcxs2")
@@ -42,9 +41,6 @@ animations = [{
 "speed": 5.0
 }]
 
-[sub_resource type="RectangleShape2D" id="RectangleShape2D_g7edj"]
-size = Vector2(53, 20)
-
 [node name="Gun" type="AnimatedSprite2D" groups=["game_savables"]]
 sprite_frames = SubResource("SpriteFrames_vaab5")
 animation = &"idle"
@@ -55,13 +51,6 @@ charge_cap = 315
 reload_speed = 1.0
 charge_mult = 100.0
 
-[node name="HitBox" type="Area2D" parent="."]
-script = ExtResource("1_l84ci")
-
-[node name="CollisionShape2D" type="CollisionShape2D" parent="HitBox"]
-position = Vector2(71.5, -8)
-shape = SubResource("RectangleShape2D_g7edj")
-
 [node name="Marker2D" type="Marker2D" parent="."]
 position = Vector2(45, -7)
 
@@ -71,9 +60,6 @@ bus = &"SFX"
 
 [node name="ChargeDelay" type="Timer" parent="."]
 wait_time = 0.25
-one_shot = true
-
-[node name="ReloadTime" type="Timer" parent="."]
 one_shot = true
 
 [node name="ChargeStopwatch" type="Node" parent="."]
@@ -89,4 +75,3 @@ bus = &"SFX"
 
 [connection signal="animation_finished" from="." to="." method="_on_animation_finished"]
 [connection signal="timeout" from="ChargeDelay" to="." method="_on_charge_delay_timeout"]
-[connection signal="timeout" from="ReloadTime" to="." method="_on_reload_time_timeout"]
