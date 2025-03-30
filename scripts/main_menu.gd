@@ -6,9 +6,11 @@ func load_file(from_path: String, into_path: String) ->void:
 	from_file.close()
 	var json = JSON.new()
 	var parse_result = json.parse(json_contents)
+	 
 	if parse_result == OK:
 		var into_file = FileAccess.open(into_path, FileAccess.WRITE)
 		into_file.store_string(json_contents)
+		 
 		into_file.close()
  
 	
@@ -17,8 +19,7 @@ func switch_scene(path: String):
 	
 func _ready() ->void:
 	 
-	var dir = DirAccess.open("user://")
-	 
+ 	 
 	if not FileAccess.file_exists(Constants.EMPTY_GAME_SAVE_PATH):
 		print("Loading Empty Game Save File")
 		load_file("res://save_file_templates/empty_game_save_file.json", Constants.EMPTY_GAME_SAVE_PATH)
@@ -32,7 +33,7 @@ func _ready() ->void:
 		load_file("res://save_file_templates/best_times.json", Constants.BEST_TIMES_SAVE_PATH)
 		print("loading best times json")
 	DialogueManager.load_dialogue_from_file()
-	
+	 
 func _on_new_game_button_pressed() -> void:
 	GameData.reset_game()
 	call_deferred("switch_scene", "res://scenes/intro.tscn")

@@ -5,7 +5,7 @@
 [ext_resource type="PackedScene" uid="uid://cpx7u6i0j32a7" path="res://scenes/ui/hud.tscn" id="3_eayae"]
 [ext_resource type="Script" path="res://scripts/camera.gd" id="4_kgiod"]
 [ext_resource type="Script" path="res://scripts/stopwatch.gd" id="5_i3mmg"]
-[ext_resource type="AudioStream" uid="uid://3cx4sppgbhcg" path="res://assets/music/realmsong3.mp3" id="6_7yfax"]
+[ext_resource type="AudioStream" uid="uid://docc8ch5mgxc1" path="res://assets/music/realmsong3.mp3" id="6_7yfax"]
 
 [node name="Game" type="Node2D"]
 metadata/_edit_horizontal_guides_ = [1426.0]
@@ -29,7 +29,6 @@ script = ExtResource("5_i3mmg")
 
 [node name="Music" type="AudioStreamPlayer2D" parent="."]
 stream = ExtResource("6_7yfax")
-autoplay = true
 bus = &"Music"
 
 [connection signal="tree_exiting" from="Player" to="GameManager" method="_on_player_tree_exiting"]

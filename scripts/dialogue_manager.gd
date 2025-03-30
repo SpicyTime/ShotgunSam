@@ -56,9 +56,9 @@ func save()->Dictionary:
 func load(data: Dictionary):
 	if data.has("current_dialogue"):
 		var key = data.get("current_dialogue")
-		if key == "":
+		if key == "" or not key:
 			return	
-		load_dialogue(data.get("current_dialogue"))
+		load_dialogue(key)
 	if data.has("current_line"):
 		current_dialogue_index = data.get("current_line")
 func stop()->void:

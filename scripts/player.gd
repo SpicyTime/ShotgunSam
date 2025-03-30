@@ -105,9 +105,7 @@ func _physics_process(delta: float) -> void:
 	move_and_slide()
 	
 func _unhandled_input(event: InputEvent) -> void:
-	#print(event)
 	if event is InputEventMouseButton:
-		$Gun/HitBox/CollisionShape2D.disabled = true
 		if Input.is_action_just_released("shoot"):
 			if gun.is_empty():
 				gun.empty_gun_sound.play()

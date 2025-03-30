@@ -43,7 +43,7 @@ func shoot():
 	if charge_power > charge_cap:
 		charge_power = charge_cap
 	bullet_count -= 1
-	$HitBox/CollisionShape2D.disabled = false
+ 
 	shoot_sound.play()
 	var particles = blast_particles.instantiate()
 	var bullets = bullet_particles.instantiate()

@@ -4,6 +4,7 @@ var player_coin_count: int = 0
 var player_position: Vector2 = Vector2(0, 0)
 var current_level: String = "res://levels/l_1.tscn"
 var game_run_time: float = 0.0
+var saved_music_position = 0.0
 func save_game() -> void:
 	var savables  = get_tree().get_nodes_in_group("game_savables")
 	var save_data: Dictionary
@@ -39,6 +40,7 @@ func load_game():
 		var game_data = save_data.get("game", {})
 		current_level =  game_data.get("current_level")
 		game_run_time = game_data.get("game_run_time")
+		saved_music_position = game_data.get("current_music_place")
 		Signals.player_bullet_change.emit(player_bullet_count)
  
 	
@@ -46,13 +48,6 @@ func reset_game():
 	#print("Resetting game")
 	var empty_game_save_file = FileAccess.open(Constants.EMPTY_GAME_SAVE_PATH, FileAccess.READ)
 	var json_string = empty_game_save_file.get_as_text()
-	 
-	
-	
-	
-	
-	
-	
 	empty_game_save_file.close()
 	var game_save_file = FileAccess.open(Constants.GAME_SAVE_PATH, FileAccess.WRITE)
 	if game_save_file == null:

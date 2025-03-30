@@ -2,6 +2,7 @@ extends Node
 @onready var player : CharacterBody2D = %Player
 @onready var game : Node2D = $".."
 @onready var stopwatch: Stopwatch = $"../Stopwatch"
+@onready var music: AudioStreamPlayer2D = $"../Music"
 
 func remove_level(level_root):
 	 
@@ -40,7 +41,8 @@ func unload_level(path : String):
 func save() -> Dictionary:
 	var data = {
 		"current_level" : GameData.current_level,
-		"game_run_time" : GameData.game_run_time
+		"game_run_time" : GameData.game_run_time,
+		"current_music_place":  music.get_playback_position()
 	}
 	return data
 # Called when the node enters the scene tree for the first time.fd
@@ -56,7 +58,9 @@ func _ready() -> void:
 	stopwatch.start()
 	stopwatch.time = GameData.game_run_time
 	Signals.game_stopwatch_changed.emit(stopwatch.time)
-	 
+	music.play(GameData.saved_music_position)
+	
+	
 func _unhandled_key_input(event: InputEvent) -> void:
 	if event.is_action_pressed("mainmenu"):
 		DialogueManager.stop()
@@ -77,6 +81,5 @@ func _on_swap_level(next_level_scene_path):
 	GameData.current_level = next_level_scene_path
 	GameData.save_game()
 	
-func _on_slow_timer_timeout() -> void:
-	Engine.time_scale = 1
+ 
 	
