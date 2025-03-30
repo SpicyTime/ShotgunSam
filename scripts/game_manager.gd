@@ -60,7 +60,6 @@ func _ready() -> void:
 	Signals.game_stopwatch_changed.emit(stopwatch.time)
 	music.play(GameData.saved_music_position)
 	
-	
 func _unhandled_key_input(event: InputEvent) -> void:
 	if event.is_action_pressed("mainmenu"):
 		DialogueManager.stop()
