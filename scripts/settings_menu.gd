@@ -33,7 +33,7 @@ func _on_sfx_slider_value_changed(value: float) -> void:
 	var db_value = linear_to_db(value)
 
 	
-	AudioServer.set_bus_volume_db(bus_index, db_value - 20)
+	AudioServer.set_bus_volume_db(bus_index, db_value - 28)
 
 func _on_music_slider_value_changed(value: float) -> void:
 	SettingsData.music_slider_val = value
@@ -41,7 +41,7 @@ func _on_music_slider_value_changed(value: float) -> void:
 	var db_value = linear_to_db(value)
 
 	print(db_value)
-	AudioServer.set_bus_volume_db(bus_index, db_value - 20 )
+	AudioServer.set_bus_volume_db(bus_index, db_value - 45 )
 	
 func _on_back_to_menu_button_pressed() -> void:
 	SettingsData.save_settings()

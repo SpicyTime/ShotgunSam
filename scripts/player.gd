@@ -15,7 +15,7 @@ var has_shot: bool = false
 var coin_count: int = 0: set = _on_coins_set
 var node_name: String = "player"
 var distance_to_mouse: float
-
+var was_in_air: bool =false
 func get_node_name() -> String:
 	return node_name
 	
@@ -96,6 +96,13 @@ func _physics_process(delta: float) -> void:
 	# Add the gravity.
 	if not is_on_floor():
 		velocity += get_gravity() * delta
+		was_in_air = true
+	else:
+		if was_in_air:
+			$LandingSFX.play(0.18)
+			
+			was_in_air = false
+	
 	#rotate_gun()
 	if is_on_floor() and not has_shot:
 		velocity.x = move_toward(velocity.x, 0, SPEED)

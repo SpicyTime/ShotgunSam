@@ -217,5 +217,3 @@ the mouse
 label_settings = SubResource("LabelSettings_mn4ie")
 horizontal_alignment = 1
 vertical_alignment = 1
-
-[connection signal="body_entered" from="Coins/Coin" to="Coins/Coin" method="_on_body_entered"]
