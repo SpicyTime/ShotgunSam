@@ -2,14 +2,18 @@ extends Node
 var player_bullet_count: int = 2
 var player_coin_count: int = 0
 var player_position: Vector2 = Vector2(0, 0)
-var current_level: String = "res://levels/l_1.tscn"
+var current_level: String = "res://levels/l_11.tscn"
 var game_run_time: float = 0.0
 var saved_music_position = 0.0
+var game_won: bool = false
+
 func save_game() -> void:
 	var savables  = get_tree().get_nodes_in_group("game_savables")
 	var save_data: Dictionary
 	for savable in savables:
+		print(savable)
 		if not savable.has_method("save"):
+			
 			continue
 		if not savable.has_method("get_node_name"):
 			continue
@@ -41,15 +45,47 @@ func load_game():
 		current_level =  game_data.get("current_level")
 		game_run_time = game_data.get("game_run_time")
 		saved_music_position = game_data.get("current_music_place")
+		print(save_data)
+		game_won = game_data.get("game_won")
+		print("GAME", game_won)
 		Signals.player_bullet_change.emit(player_bullet_count)
- 
+func save_single_data(section_key: String, key: String, value) -> void:
+	var file_path = Constants.GAME_SAVE_PATH
+
+	# Load existing save data if the file exists
+	var save_data: Dictionary = {}
+	if FileAccess.file_exists(file_path):
+		var file = FileAccess.open(file_path, FileAccess.READ)
+		var json_string = file.get_as_text()
+		file.close()
+
+		var json = JSON.new()
+		if json.parse(json_string) == OK:
+			save_data = json.get_data()
+
+	# Update only the specified key
+	var section_data = save_data[section_key]
+	section_data[key] = value
+
+	# Save the updated data back to the file
+	var file = FileAccess.open(file_path, FileAccess.WRITE)
+	if not file:
+		print("Failed to open", file_path)
+		return
+
+	file.store_string(JSON.stringify(save_data, "\t"))
+	file.close()
+	print("Saved", key, ":", value)
+
 	
 func reset_game():
 	#print("Resetting game")
+	game_won = false
 	var empty_game_save_file = FileAccess.open(Constants.EMPTY_GAME_SAVE_PATH, FileAccess.READ)
 	var json_string = empty_game_save_file.get_as_text()
 	empty_game_save_file.close()
 	var game_save_file = FileAccess.open(Constants.GAME_SAVE_PATH, FileAccess.WRITE)
+	current_level = "res://levels/l_1.tscn"
 	if game_save_file == null:
 		print("Failed to open", Constants.GAME_SAVE_PATH)
 		return

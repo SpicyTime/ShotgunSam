@@ -34,3 +34,4 @@ func load_settings():
 		print(music_slider_val)
 		var gameplay_settings = save_data.get("gameplay_settings")
 		auto_reload = gameplay_settings.get("auto_reload")
+		

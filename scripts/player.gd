@@ -199,7 +199,6 @@ func _on_coins_set(new_value: int):
 	Signals.player_coin_change.emit(coin_count)
 	GameData.player_coin_count = new_value
 func _on_health_depleted(sender) -> void:
-	 
 	if sender.get_parent() != self:
 		return
 	call_deferred("reset")

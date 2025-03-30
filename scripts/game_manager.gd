@@ -42,7 +42,8 @@ func save() -> Dictionary:
 	var data = {
 		"current_level" : GameData.current_level,
 		"game_run_time" : GameData.game_run_time,
-		"current_music_place":  music.get_playback_position()
+		"current_music_place":  music.get_playback_position(),
+		"game_won": GameData.game_won
 	}
 	return data
 # Called when the node enters the scene tree for the first time.fd
@@ -52,6 +53,10 @@ func get_node_name() -> String:
 	
 func _ready() -> void:
 	GameData.load_game()
+	if "11" in GameData.current_level && GameData.game_won:
+		GameData.reset_game()
+		print("Resettgin win condition")
+	
 	load_level(GameData.current_level)
 	#load_level("res://levels/test_scene.tscn")
 	Signals.swap_level.connect(_on_swap_level)
@@ -76,6 +81,7 @@ func _process(_delta: float) -> void:
 func _on_swap_level(next_level_scene_path):
 	var tree = get_tree()
 	unload_level(tree.get_first_node_in_group("Level").get_path())
+	next_level_scene_path = "res://levels/l_11.tscn"
 	load_level(next_level_scene_path)
 	GameData.current_level = next_level_scene_path
 	GameData.save_game()
