@@ -126,6 +126,7 @@ func _unhandled_input(event: InputEvent) -> void:
 			else:
 				velocity = -new_velocity
 			camera.reset_zoom()
+			 
 			camera.reset_position()
 		elif Input.is_action_just_pressed("shoot"):
 			gun.begin_shoot() 
@@ -157,8 +158,10 @@ func _unhandled_input(event: InputEvent) -> void:
 			camera.lerp_pos.y = camera.prev_lerp_pos.y
 			if camera.player_charging_gun:
 				camera.global_position.y = camera.lerp_pos.y
+				print("")
 			else:
 				camera.global_position.y = 0
+				print("Zeroing")
 			
 		
 func _unhandled_key_input(event: InputEvent) -> void:
