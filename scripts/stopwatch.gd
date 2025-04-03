@@ -7,11 +7,11 @@ func _process(delta: float) -> void:
 		return
 	time += delta
 func reset():
-	#print("Resetting stopwatch")
+	 
 	time = 0.0
 func start():
-	#print("Starting stopwatch")
+ 
 	stopped = false
 func stop():
-	#print("Stopping stopwatch")
+	 
 	stopped = true

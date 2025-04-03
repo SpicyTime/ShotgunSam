@@ -87,11 +87,10 @@ func load(data: Dictionary):
 		pass
 func reset() -> void:
 	GameData.player_bullet_count = 2
-	GameData.save_game()
-	var tree = get_tree()
-	if tree:
-		tree.reload_current_scene()
-	 
+	$Health.health = 1
+	velocity *= 0
+	Signals.reset_level.emit()
+	
 func _physics_process(delta: float) -> void:
 	# Add the gravity.
 	if not is_on_floor():
@@ -100,10 +99,8 @@ func _physics_process(delta: float) -> void:
 	else:
 		if was_in_air:
 			$LandingSFX.play(0.18)
-			
 			was_in_air = false
 	
-	#rotate_gun()
 	if is_on_floor() and not has_shot:
 		velocity.x = move_toward(velocity.x, 0, SPEED)
 	else:
@@ -144,12 +141,9 @@ func _unhandled_input(event: InputEvent) -> void:
 		#Signals.mouse_on_edge.emit()
 		var pan_bounds = camera.get_pan_bounds()
 		var mouse_global_pos = get_global_mouse_position()
-		#print(pan_bounds)
- 
-		 
 		if mouse_global_pos.x < pan_bounds[1] or mouse_global_pos.x >  pan_bounds[0] or mouse_global_pos.y < pan_bounds[2] or  mouse_global_pos.y  > pan_bounds[3]  :
 			Signals.mouse_on_edge.emit()
-			#print("Mouse on edge")
+
 		#Resets the x when it is not in the pan bounds
 		if mouse_global_pos.x > pan_bounds[1] && mouse_global_pos.x < pan_bounds[0] && camera.is_panned_hor:
 			camera.is_panned_hor = false
@@ -202,7 +196,7 @@ func _on_health_depleted(sender) -> void:
 	if sender.get_parent() != self:
 		return
 	call_deferred("reset")
-
+	
 func _on_gun_charge(sender) -> void:
 	if sender != gun:
 		return

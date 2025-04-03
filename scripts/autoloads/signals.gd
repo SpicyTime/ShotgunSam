@@ -41,3 +41,5 @@ signal dialogue_toggled(is_displaying: bool)
 signal player_bullet_change(new_value: int)
 @warning_ignore("unused_signal")
 signal mouse_on_edge
+@warning_ignore("unused_signal")
+signal reset_level

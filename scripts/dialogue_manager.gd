@@ -45,7 +45,7 @@ func swap_text_box():
 		is_dialogue_active = false
 		Signals.dialogue_toggled.emit(false)
 		current_dialogue_index = 0
-		print("Dialogue unactive")
+		
 		return
 	show_text_box()
 func save()->Dictionary:
@@ -66,7 +66,7 @@ func stop()->void:
 	is_dialogue_active = false
 	if is_instance_valid(text_box):
 		text_box.queue_free()
-	print("freeing")
+	 
 	
 func load_dialogue(dialogue_key: String):
 	current_dialogue_key = dialogue_key

@@ -31,7 +31,7 @@ func load_settings():
 		sfx_slider_val = audio_settings.get("sfx_slider_val")
 		 
 		music_slider_val = audio_settings.get("music_slider_val", -80)
-		print(music_slider_val)
+		 
 		var gameplay_settings = save_data.get("gameplay_settings")
 		auto_reload = gameplay_settings.get("auto_reload")
 		

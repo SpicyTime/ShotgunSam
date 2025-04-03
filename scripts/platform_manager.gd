@@ -8,7 +8,7 @@ func initialize_moving_platform_textures():
 	var tilemap  = get_parent().find_child("Platforms")
 	
 	if children.size() != platform_areas.size():
-		print("Sizes are not the same")
+		 
 		return
 	for i in range(children.size()):
 		load_platform_texture(children[i], tilemap, platform_areas[i])

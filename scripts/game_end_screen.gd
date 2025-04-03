@@ -2,7 +2,7 @@ extends Control
 func load_best_time():
 	var file = FileAccess.open(Constants.BEST_TIMES_SAVE_PATH, FileAccess.READ)
 	if not file:
-		print("file does not exist")
+		return
 	var json = JSON.new()
 	var json_string = file.get_as_text()
 	file.close()
@@ -10,12 +10,11 @@ func load_best_time():
 	if parse_result == OK:
 		var data = json.get_data()
 		var best_time_data = data.get("best_time")
-		
 		return best_time_data
 func save_best_time(time: float):
 	var file = FileAccess.open(Constants.BEST_TIMES_SAVE_PATH, FileAccess.WRITE)
 	if not file:
-		print("file does not exist")
+		return
 	var data = {}
 	data["best_time"] = time
 	file.store_string(JSON.stringify(data, "\t"))

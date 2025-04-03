@@ -6,12 +6,16 @@ var current_level: String = "res://levels/l_11.tscn"
 var game_run_time: float = 0.0
 var saved_music_position = 0.0
 var game_won: bool = false
-
+var coin_picked_up: bool = false
+var coin_positions: Dictionary = {"res://levels/l_1.tscn": Vector2(0, 85), "res://levels/l_2.tscn" : Vector2(24.21513, -172.0905),
+"res://levels/l_3.tscn" : Vector2(24, 200), "res://levels/l_4.tscn" : Vector2(-395., -162), "res://levels/l_5.tscn" : Vector2(25, 171),
+"res://levels/l_6.tscn": Vector2(24, 192),  "res://levels/l_7.tscn": Vector2(241, -54), "res://levels/l_8.tscn": Vector2(-84, -220), "res://levels/l_9.tscn" : Vector2(70, -174),
+"res://levels/l_10.tscn" : Vector2(458, 28)
+}
 func save_game() -> void:
 	var savables  = get_tree().get_nodes_in_group("game_savables")
 	var save_data: Dictionary
 	for savable in savables:
-		print(savable)
 		if not savable.has_method("save"):
 			
 			continue
@@ -20,7 +24,6 @@ func save_game() -> void:
 		save_data[savable.get_node_name()] = savable.save()
 	var file = FileAccess.open(Constants.GAME_SAVE_PATH, FileAccess.WRITE)
 	if not file:
-		print("Failed to save")
 		return
 	var json_string = JSON.stringify(save_data, "\t")
 	file.store_string(json_string)
@@ -36,7 +39,7 @@ func load_game():
 	var parse_result = json.parse(json_string)
 	if parse_result == OK:
 		var save_data = json.get_data()
-		print(save_data)
+		 
 		var player_data = save_data.get("player", {})
 		for node in get_tree().get_nodes_in_group("game_savables"):
 			if node.has_method("load"):
@@ -45,9 +48,7 @@ func load_game():
 		current_level =  game_data.get("current_level")
 		game_run_time = game_data.get("game_run_time")
 		saved_music_position = game_data.get("current_music_place")
-		print(save_data)
 		game_won = game_data.get("game_won")
-		print("GAME", game_won)
 		Signals.player_bullet_change.emit(player_bullet_count)
 func save_single_data(section_key: String, key: String, value) -> void:
 	var file_path = Constants.GAME_SAVE_PATH
@@ -70,12 +71,9 @@ func save_single_data(section_key: String, key: String, value) -> void:
 	# Save the updated data back to the file
 	var file = FileAccess.open(file_path, FileAccess.WRITE)
 	if not file:
-		print("Failed to open", file_path)
 		return
-
 	file.store_string(JSON.stringify(save_data, "\t"))
 	file.close()
-	print("Saved", key, ":", value)
 
 	
 func reset_game():
@@ -87,7 +85,6 @@ func reset_game():
 	var game_save_file = FileAccess.open(Constants.GAME_SAVE_PATH, FileAccess.WRITE)
 	current_level = "res://levels/l_1.tscn"
 	if game_save_file == null:
-		print("Failed to open", Constants.GAME_SAVE_PATH)
 		return
 	game_save_file.store_string(json_string)
 	game_save_file.close()

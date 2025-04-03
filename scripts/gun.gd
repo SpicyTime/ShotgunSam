@@ -32,7 +32,7 @@ func shoot():
 	 
 		 
 		return
-	print("Shot")
+	 
 	var time = charge_stopwatch.time
 	var extra: int = 1
 	var parent = get_parent()
@@ -94,13 +94,13 @@ func _on_particles_finished(particles):
 	particles.queue_free()
 func begin_shoot():
 	stop_charge = false
-	#print("Begin Shoot")
+	 
 	$ChargeDelay.start()
 	
 func _on_charge_delay_timeout() -> void:
 	if stop_charge:
 		return
-	#print("Charging")
+	 
 	charge()
  
 func _on_bullets_set(new_value: int):
