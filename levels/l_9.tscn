@@ -1,8 +1,7 @@
-[gd_scene load_steps=14 format=4 uid="uid://b31qx2l3ufj1r"]
+[gd_scene load_steps=13 format=4 uid="uid://b31qx2l3ufj1r"]
 
 [ext_resource type="Texture2D" uid="uid://cfhc4260uxjp6" path="res://assets/art/WallTile.png" id="1_ffpf1"]
 [ext_resource type="Texture2D" uid="uid://blunpk5ws2r67" path="res://assets/art/TerrainTileset.png" id="2_ma0f7"]
-[ext_resource type="PackedScene" uid="uid://cfc30wcm4wluh" path="res://scenes/coin.tscn" id="3_25aaa"]
 [ext_resource type="PackedScene" uid="uid://l5enih3umcew" path="res://scenes/spikes.tscn" id="3_ui4a3"]
 [ext_resource type="PackedScene" uid="uid://bfsw1vy5loxmt" path="res://scenes/next_level.tscn" id="4_xpr1e"]
 
@@ -180,6 +179,3 @@ position = Vector2(-552, -144)
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="StaticBody2D"]
 shape = SubResource("RectangleShape2D_yiq7t")
-
-[node name="Coin" parent="." instance=ExtResource("3_25aaa")]
-position = Vector2(70, -174)

@@ -49,6 +49,7 @@ func load_game():
 		game_run_time = game_data.get("game_run_time")
 		saved_music_position = game_data.get("current_music_place")
 		game_won = game_data.get("game_won")
+		coin_picked_up = game_data.get("coin_picked_up")
 		Signals.player_bullet_change.emit(player_bullet_count)
 func save_single_data(section_key: String, key: String, value) -> void:
 	var file_path = Constants.GAME_SAVE_PATH

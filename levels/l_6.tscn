@@ -1,10 +1,9 @@
-[gd_scene load_steps=14 format=4 uid="uid://ba3n2ic4gbe5r"]
+[gd_scene load_steps=13 format=4 uid="uid://ba3n2ic4gbe5r"]
 
 [ext_resource type="Texture2D" uid="uid://cfhc4260uxjp6" path="res://assets/art/WallTile.png" id="1_55k4x"]
 [ext_resource type="Texture2D" uid="uid://blunpk5ws2r67" path="res://assets/art/TerrainTileset.png" id="1_j4gp2"]
 [ext_resource type="PackedScene" uid="uid://l5enih3umcew" path="res://scenes/spikes.tscn" id="2_f6v5r"]
 [ext_resource type="PackedScene" uid="uid://bfsw1vy5loxmt" path="res://scenes/next_level.tscn" id="3_btcw1"]
-[ext_resource type="PackedScene" uid="uid://cfc30wcm4wluh" path="res://scenes/coin.tscn" id="3_l6glk"]
 
 [sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_jrbnc"]
 texture = ExtResource("1_55k4x")
@@ -180,6 +179,3 @@ position = Vector2(-552, -48)
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="StaticBody2D"]
 shape = SubResource("RectangleShape2D_6c2bv")
-
-[node name="Coin" parent="." instance=ExtResource("3_l6glk")]
-position = Vector2(24, 192)

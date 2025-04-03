@@ -3,7 +3,8 @@
 		"current_level" : "res://levels/l_1.tscn",
 		"game_run_time" : 0.0,
 		"current_music_place": 0.0,
-		"game_won": false
+		"game_won": false,
+		"coin_picked_up": false
 	},
 	"dialogue" : {
 		"current_line" : 0,

@@ -1,9 +1,8 @@
-[gd_scene load_steps=16 format=4 uid="uid://bmhljl4g2v83n"]
+[gd_scene load_steps=15 format=4 uid="uid://bmhljl4g2v83n"]
 
 [ext_resource type="Texture2D" uid="uid://cfhc4260uxjp6" path="res://assets/art/WallTile.png" id="1_men5o"]
 [ext_resource type="PackedScene" uid="uid://l5enih3umcew" path="res://scenes/spikes.tscn" id="1_ofeih"]
 [ext_resource type="Texture2D" uid="uid://blunpk5ws2r67" path="res://assets/art/TerrainTileset.png" id="2_pvy4m"]
-[ext_resource type="PackedScene" uid="uid://cfc30wcm4wluh" path="res://scenes/coin.tscn" id="5_gk07y"]
 [ext_resource type="Theme" uid="uid://uqij1mue7qu1" path="res://themes/font_theme.tres" id="6_5onrc"]
 [ext_resource type="PackedScene" uid="uid://bfsw1vy5loxmt" path="res://scenes/next_level.tscn" id="6_8tq5q"]
 
@@ -205,6 +204,3 @@ the mouse
 label_settings = SubResource("LabelSettings_mn4ie")
 horizontal_alignment = 1
 vertical_alignment = 1
-
-[node name="Coin" parent="." instance=ExtResource("5_gk07y")]
-position = Vector2(24, -171)

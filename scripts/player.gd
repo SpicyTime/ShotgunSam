@@ -3,6 +3,7 @@ extends CharacterBody2D
 @onready var gun: AnimatedSprite2D = $Gun
 @onready var screen_size = get_viewport().size
 @onready var CAMERA_SIZE = camera.get_viewport_rect().size
+
 @onready var player_sprite: Sprite2D = $PlayerSprite
 @export var gun_radius := 50
 @export var max_y_velocity := 600
@@ -195,6 +196,7 @@ func _on_coins_set(new_value: int):
 func _on_health_depleted(sender) -> void:
 	if sender.get_parent() != self:
 		return
+	$DeathSFX.play()
 	call_deferred("reset")
 	
 func _on_gun_charge(sender) -> void:

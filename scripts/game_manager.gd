@@ -20,15 +20,20 @@ func spawn_player(level_root):
 func add_level(level_root):
 	get_tree().root.add_child(level_root)
 	
+	
 func load_level(path : String):
 	while get_tree().get_node_count_in_group("Level") > 0:
 		unload_level(get_tree().get_first_node_in_group("Level").get_path())
 	var packed_level = load(path)
 	var level_root = packed_level.instantiate()
+	if not GameData.coin_picked_up:
+		var coin: Area2D = load("res://scenes/coin.tscn").instantiate()
+		coin.global_position = GameData.coin_positions[path]
+		level_root.add_child(coin)
 	level_root.add_to_group("Level")
-	print(typeof(level_root))
 	DialogueManager.start_dialogue(level_root.name)
 	spawn_player(level_root)
+	
 	call_deferred("add_level", level_root)
 	 
 func unload_level(path : String):
@@ -43,7 +48,8 @@ func save() -> Dictionary:
 		"current_level" : GameData.current_level,
 		"game_run_time" : GameData.game_run_time,
 		"current_music_place":  music.get_playback_position(),
-		"game_won": GameData.game_won
+		"game_won": GameData.game_won,
+		"coin_picked_up": GameData.coin_picked_up
 	}
 	return data
 # Called when the node enters the scene tree for the first time.fd
@@ -65,7 +71,6 @@ func _ready() -> void:
 	Signals.reset_level.connect(_on_reset_level)
 	music.play(GameData.saved_music_position)
 	
-	
 func _unhandled_key_input(event: InputEvent) -> void:
 	if event.is_action_pressed("mainmenu"):
 		DialogueManager.stop()
@@ -86,9 +91,6 @@ func _on_swap_level(next_level_scene_path):
 	GameData.save_game()
 
 func _on_reset_level():
-	 
-	var packed_level = load(GameData.current_level)
-	var level_root = packed_level.instantiate()
 	var current_level = get_tree().get_first_node_in_group("Level")
 	var level_coin =  current_level.find_child("Coin") 
 	
@@ -104,7 +106,3 @@ func _on_reset_level():
 		GameData.player_coin_count -= 1
 		player.coin_count -= 1
 		GameData.coin_picked_up = false
-	 
-	 
- 
-	
