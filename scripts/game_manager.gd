@@ -26,7 +26,8 @@ func load_level(path : String):
 		unload_level(get_tree().get_first_node_in_group("Level").get_path())
 	var packed_level = load(path)
 	var level_root = packed_level.instantiate()
-	if not GameData.coin_picked_up:
+	print( GameData.coin_positions.has(path))
+	if not GameData.coin_picked_up and GameData.coin_positions.has(path):
 		var coin: Area2D = load("res://scenes/coin.tscn").instantiate()
 		coin.global_position = GameData.coin_positions[path]
 		level_root.add_child(coin)
@@ -88,6 +89,7 @@ func _on_swap_level(next_level_scene_path):
 	unload_level(tree.get_first_node_in_group("Level").get_path())
 	load_level(next_level_scene_path)
 	GameData.current_level = next_level_scene_path
+	GameData.coin_picked_up = false
 	GameData.save_game()
 
 func _on_reset_level():
@@ -96,7 +98,9 @@ func _on_reset_level():
 	
 	spawn_player(current_level)
 	await get_tree().create_timer(0.001).timeout
-	if level_coin == null or GameData.coin_picked_up:
+	print(level_coin == null)
+	print(GameData.coin_picked_up)
+	if 	GameData.coin_picked_up:
 		var packed_coin = load("res://scenes/coin.tscn")
 		var coin = packed_coin.instantiate()
 		coin.position = GameData.coin_positions[GameData.current_level]
