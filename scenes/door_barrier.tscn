@@ -1,0 +1,15 @@
+[gd_scene load_steps=3 format=3 uid="uid://dm11mradofvf7"]
+
+[ext_resource type="Texture2D" uid="uid://c1omdjlpoj7ma" path="res://assets/art/DoorBarrier.png" id="1_ljqkw"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_haero"]
+size = Vector2(50, 340)
+
+[node name="DoorBarrier" type="AnimatableBody2D"]
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+position = Vector2(0, 74)
+shape = SubResource("RectangleShape2D_haero")
+
+[node name="Sprite2D" type="Sprite2D" parent="."]
+texture = ExtResource("1_ljqkw")

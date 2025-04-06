@@ -32,8 +32,13 @@ grow_vertical = 2
 theme = SubResource("Theme_vomi6")
 script = ExtResource("1_eeq4y")
 
-[node name="TileMapLayer" type="TileMapLayer" parent="."]
-scale = Vector2(5, 5)
+[node name="Control" type="Control" parent="."]
+anchors_preset = 0
+offset_right = 40.0
+offset_bottom = 40.0
+
+[node name="TileMapLayer" type="TileMapLayer" parent="Control"]
+scale = Vector2(5.35, 5)
 tile_map_data = PackedByteArray("AAAAAAAAAQAAAAAAAAAAAAEAAQAAAAAAAAAAAAIAAQAAAAAAAAABAAAAAQAAAAAAAAABAAEAAQAAAAAAAAABAAIAAQAAAAAAAAACAAAAAQAAAAAAAAACAAEAAQAAAAAAAAACAAIAAQAAAAAAAAADAAAAAQAAAAAAAAADAAEAAQAAAAAAAAADAAIAAQAAAAAAAAAEAAAAAQAAAAAAAAAEAAEAAQAAAAAAAAAEAAIAAQAAAAAAAAA=")
 tile_set = SubResource("TileSet_mmxxk")
 

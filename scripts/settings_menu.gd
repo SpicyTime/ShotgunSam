@@ -1,7 +1,7 @@
 extends Control
 @onready var music_slider: HSlider = $Sliders/Music/MusicSlider
 @onready var sfx_slider: HSlider = $Sliders/SFX/SFXSlider
-@onready var check_button: CheckButton = $AutoReload/CheckButton
+@onready var check_button: CheckButton = $CheckBox/AutoReload/CheckButton
 
 func save() -> Dictionary:
 	var audio_settings = {

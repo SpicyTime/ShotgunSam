@@ -3,7 +3,7 @@ extends Node
 @onready var game : Node2D = $".."
 @onready var stopwatch: Stopwatch = $"../Stopwatch"
 @onready var music: AudioStreamPlayer2D = $"../Music"
-
+var swapped: bool = false
 func remove_level(level_root):
 	var tree = get_tree()
 	if not tree:
@@ -27,6 +27,7 @@ func load_level(path : String):
 	var packed_level = load(path)
 	var level_root = packed_level.instantiate()
 	print( GameData.coin_positions.has(path))
+	print(GameData.coin_picked_up)
 	if not GameData.coin_picked_up and GameData.coin_positions.has(path):
 		var coin: Area2D = load("res://scenes/coin.tscn").instantiate()
 		coin.global_position = GameData.coin_positions[path]
@@ -34,9 +35,17 @@ func load_level(path : String):
 	level_root.add_to_group("Level")
 	DialogueManager.start_dialogue(level_root.name)
 	spawn_player(level_root)
-	
 	call_deferred("add_level", level_root)
-	 
+	if swapped:
+		var anim_player = level_root.find_child("AnimationPlayer")
+		if anim_player:
+			anim_player.play("move")
+	else:
+		var anim_player:AnimationPlayer = level_root.find_child("AnimationPlayer")
+		if anim_player: 
+			anim_player.play("move")
+			anim_player.seek(anim_player.current_animation_length, true)
+			anim_player.stop(true)  # Freeze at the end frame
 func unload_level(path : String):
 	player.global_position = Vector2(0, 0)
 	 
@@ -85,21 +94,20 @@ func _process(_delta: float) -> void:
 	Signals.game_stopwatch_changed.emit(stopwatch.time)
 	
 func _on_swap_level(next_level_scene_path):
+	swapped = true
+	GameData.coin_picked_up = false
 	var tree = get_tree()
 	unload_level(tree.get_first_node_in_group("Level").get_path())
 	load_level(next_level_scene_path)
 	GameData.current_level = next_level_scene_path
-	GameData.coin_picked_up = false
 	GameData.save_game()
+	
 
 func _on_reset_level():
 	var current_level = get_tree().get_first_node_in_group("Level")
-	var level_coin =  current_level.find_child("Coin") 
-	
 	spawn_player(current_level)
 	await get_tree().create_timer(0.001).timeout
-	print(level_coin == null)
-	print(GameData.coin_picked_up)
+	 
 	if 	GameData.coin_picked_up:
 		var packed_coin = load("res://scenes/coin.tscn")
 		var coin = packed_coin.instantiate()

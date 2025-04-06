@@ -100,6 +100,7 @@ func _physics_process(delta: float) -> void:
 	else:
 		if was_in_air:
 			$LandingSFX.play(0.18)
+			$LandingDust.emitting = true
 			was_in_air = false
 	
 	if is_on_floor() and not has_shot:

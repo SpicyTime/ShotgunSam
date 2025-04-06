@@ -1,11 +1,10 @@
 {
-	"Intro": ["Where the hell am I?", "How did I get here?", "My gun.", "Falling...", "The ground!", "I'm not going to survive this, am I?"],
-	"L1" : ["My legs!!!", "They're gone, replaced with bandages!", "Must have lost them in the fall.",
-	 "But then who patched them up, and how the hell am I still alive?","Questions that can be answered later, right now I need to find a way out",
-	"It's a good thing that I have my gun." ],
-	"L11" : ["Shoot, a dead end.", "**OH, YOU SURVIVED**", "What? Who are you. Are you speaking through that camera?",
-	 "**THAT IS IRRELEVANT, HOWEVER WHAT IS RELEVANT IS YOUR SURVIVAL**", "**YOU ARE NOT SUPPOSED TO BE HERE**", "Are
-	you the one that bandaged me?", "**ALSO IRRELEVANT, IT IS A SURPRISE THAT YOU HAVE SURVIVED THIS LONG, NOT TOO MENTION THE FALL**",
-	"**YOU ARE AN INTERESTING ONE, WITH THAT SHOTGUN OF YOURS**", "**I WOULD KILL YOU...**", "**BUT I HAVE OTHER PLANS**",
-	"**UNTIL NEXT TIME, SAM**"]
+	"Intro": ["Sam: Where the hell am I?", "Sam: How did I get here?", "Sam: My gun.", "Sam: Falling...", "Sam: The ground!", "Sam: I'm not going to survive this, am I?"],
+	"L1" : ["Sam: My legs!!!", "Sam: They're gone, replaced with bandages!", "Sam: Must have lost them in the fall.",
+	 "Sam: But then who patched them up, and how the hell am I still alive?","Sam: Questions that can be answered later, right now I need to find a way out",
+	"Sam: It's a good thing that I have my gun." ],
+	"L11" : ["Sam: Shoot, a dead end.", "Camera: Oh, you survived", "Sam: What? Who are you. Are you speaking through that camera?",
+	 "Camera: That is irrelavent", "Camera: It is a marvel that you survived**", "Camera: You are not supposed be here", "Sam: Are
+	you the one that bandaged me?", "Camera: Also irrelevant", "Camera: I would kill you...", 
+	"Camera: But I have other plans", "Camera: Until next time, Sam"]
 }

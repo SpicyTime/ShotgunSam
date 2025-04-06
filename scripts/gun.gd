@@ -29,8 +29,6 @@ func handle_flip(right: bool):
 	marker_2d.position.y = -marker_2d.position.y
 func shoot():
 	if is_empty():
-	 
-		 
 		return
 	 
 	var time = charge_stopwatch.time
@@ -92,6 +90,7 @@ func load(data: Dictionary):
 #Not a signal
 func _on_particles_finished(particles):
 	particles.queue_free()
+	
 func begin_shoot():
 	stop_charge = false
 	 

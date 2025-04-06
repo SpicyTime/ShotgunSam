@@ -1,4 +1,4 @@
-[gd_scene load_steps=15 format=3 uid="uid://c2wa1ek2hr3xe"]
+[gd_scene load_steps=17 format=3 uid="uid://c2wa1ek2hr3xe"]
 
 [ext_resource type="Script" path="res://scripts/player.gd" id="1_tcq6q"]
 [ext_resource type="Texture2D" uid="uid://bx4u00dgopx4q" path="res://assets/art/Player.png" id="2_cn3vu"]
@@ -8,6 +8,7 @@
 [ext_resource type="Texture2D" uid="uid://dq5tjmg8jibl4" path="res://assets/art/PlayerReloadAnim.png" id="6_ikxi2"]
 [ext_resource type="AudioStream" uid="uid://dbo3uaopb0umm" path="res://assets/SFX/loud-thud-45719.mp3" id="7_3mo2r"]
 [ext_resource type="AudioStream" uid="uid://lr2fypud8wag" path="res://assets/SFX/male-death-sound-128357.mp3" id="8_xbagu"]
+[ext_resource type="Texture2D" uid="uid://bekrum73qe4vu" path="res://assets/art/SmokeParticle.png" id="9_t16k1"]
 
 [sub_resource type="CapsuleShape2D" id="CapsuleShape2D_hatjo"]
 radius = 19.0
@@ -50,6 +51,10 @@ animations = [{
 "speed": 5.0
 }]
 
+[sub_resource type="Curve" id="Curve_fajsq"]
+_data = [Vector2(0.0234043, 0.969811), 0.0, 0.0, 0, 0, Vector2(0.448936, 0.667924), 0.0, 0.0, 0, 0, Vector2(0.976596, 0.426415), 0.0, 0.0, 0, 0]
+point_count = 3
+
 [node name="Player" type="CharacterBody2D" groups=["savables"]]
 z_index = 10
 script = ExtResource("1_tcq6q")
@@ -85,11 +90,31 @@ autoplay = "idle"
 
 [node name="LandingSFX" type="AudioStreamPlayer2D" parent="."]
 stream = ExtResource("7_3mo2r")
-volume_db = 7.0
+volume_db = 6.5
 bus = &"SFX"
 
 [node name="DeathSFX" type="AudioStreamPlayer2D" parent="."]
 stream = ExtResource("8_xbagu")
 bus = &"SFX"
+
+[node name="LandingDust" type="CPUParticles2D" parent="."]
+position = Vector2(-1, 39)
+emitting = false
+amount = 20
+lifetime = 1.1
+one_shot = true
+explosiveness = 1.0
+lifetime_randomness = 1.0
+texture = ExtResource("9_t16k1")
+emission_shape = 3
+emission_rect_extents = Vector2(10, 1)
+direction = Vector2(1, 1)
+spread = 180.0
+gravity = Vector2(0, 0)
+initial_velocity_min = 8.0
+initial_velocity_max = 20.0
+scale_amount_min = 0.1
+scale_amount_max = 0.25
+scale_amount_curve = SubResource("Curve_fajsq")
 
 [connection signal="animation_finished" from="Arms" to="." method="_on_arms_animation_finished"]

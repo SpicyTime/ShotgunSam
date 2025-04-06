@@ -10,10 +10,10 @@ func _ready() -> void:
 	
 	for i in sounds.keys():
 		sounds[i].stream = load("res://assets/SFX/" + str(i) + ".mp3")
-		sounds[i].bus = &"Master"
+		sounds[i].bus = &"SFX"
 		add_child(sounds[i])
 		if sounds[i].has_method("add_to_group"):
-			
+		
 			sounds[i].add_to_group("UI_SFX")
 	install_sounds(get_node(root_path))
 	
