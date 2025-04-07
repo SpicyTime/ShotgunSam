@@ -13,13 +13,12 @@ func load_file(from_path: String, into_path: String) ->void:
 		 
 		into_file.close()
  
-	
+
 func switch_scene(path: String):
 	get_tree().change_scene_to_file(path)
 	
 func _ready() ->void:
 	var dir = DirAccess.open("user://")
-	 
 	if not FileAccess.file_exists(Constants.EMPTY_GAME_SAVE_PATH):
 		load_file("res://save_file_templates/empty_game_save_file.json", Constants.EMPTY_GAME_SAVE_PATH)
 	if not FileAccess.file_exists(Constants.GAME_SAVE_PATH):

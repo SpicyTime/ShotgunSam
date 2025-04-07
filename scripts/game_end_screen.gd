@@ -22,9 +22,10 @@ func update_best_time() ->float:
 	var best_time = load_best_time()
 	var rounded = round(best_time * 100) / 100.0
 	var rounded_game_time = round(GameData.game_run_time * 100) / 100.0
-	if  rounded_game_time < best_time:
+	if  rounded_game_time < rounded:
 		save_best_time(rounded_game_time)
-	return rounded
+		best_time= rounded_game_time
+	return best_time
 func _ready():
 	var rounded_time = round(GameData.game_run_time * 100) / 100.0
 	GameData.game_won = true
