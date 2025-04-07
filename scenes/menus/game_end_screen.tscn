@@ -1,9 +1,9 @@
-[gd_scene load_steps=8 format=4 uid="uid://dh513uenuxaej"]
+[gd_scene load_steps=7 format=4 uid="uid://dh513uenuxaej"]
 
 [ext_resource type="Script" path="res://scripts/game_end_screen.gd" id="1_gnhdq"]
 [ext_resource type="Theme" uid="uid://dule66g8xd2qn" path="res://themes/buttontheme.tres" id="2_ce8xx"]
 [ext_resource type="Texture2D" uid="uid://cfhc4260uxjp6" path="res://assets/art/WallTile.png" id="2_clfqj"]
-[ext_resource type="FontFile" uid="uid://dhryg8gq62mtr" path="res://assets/fonts/ThaleahFat.ttf" id="4_srikm"]
+[ext_resource type="Theme" uid="uid://uqij1mue7qu1" path="res://themes/font_theme.tres" id="4_ry3b7"]
 
 [sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_sfov6"]
 texture = ExtResource("2_clfqj")
@@ -13,10 +13,6 @@ texture_region_size = Vector2i(48, 48)
 [sub_resource type="TileSet" id="TileSet_7xtp5"]
 tile_size = Vector2i(48, 48)
 sources/1 = SubResource("TileSetAtlasSource_sfov6")
-
-[sub_resource type="Theme" id="Theme_56dk6"]
-default_font = ExtResource("4_srikm")
-default_font_size = 50
 
 [node name="GameEndScreen" type="Control"]
 layout_mode = 3
@@ -77,7 +73,7 @@ offset_left = 344.0
 offset_top = 48.0
 offset_right = 384.0
 offset_bottom = 88.0
-theme = SubResource("Theme_56dk6")
+theme = ExtResource("4_ry3b7")
 
 [node name="VBoxContainer" type="VBoxContainer" parent="Labels"]
 layout_mode = 0
@@ -86,15 +82,31 @@ offset_bottom = 40.0
 
 [node name="TimeLabel" type="Label" parent="Labels/VBoxContainer"]
 layout_mode = 2
+theme_override_font_sizes/font_size = 0
 text = "Your Time:"
 
 [node name="BestTimeLabel" type="Label" parent="Labels/VBoxContainer"]
 layout_mode = 2
+theme_override_font_sizes/font_size = 0
 text = "Best Time:"
 
 [node name="CoinsCollectedLabel" type="Label" parent="Labels/VBoxContainer"]
 layout_mode = 2
+theme_override_font_sizes/font_size = 0
 text = "Coins Collected:"
+
+[node name="Label" type="Label" parent="Labels"]
+layout_mode = 0
+offset_left = -191.0
+offset_top = 450.0
+offset_right = 906.0
+offset_bottom = 597.0
+theme_override_font_sizes/font_size = 50
+text = "If you liked the game or would like to see further
+development  of this game consider donating.
+Anything would help a great deal."
+horizontal_alignment = 1
+vertical_alignment = 1
 
 [connection signal="pressed" from="Buttons/VBoxContainer/ExitToMenuButton" to="." method="_on_exit_to_menu_button_pressed"]
 [connection signal="pressed" from="Buttons/VBoxContainer/RestartButton" to="." method="_on_restart_button_pressed"]

@@ -8,7 +8,7 @@ func remove_level(level_root):
 	var tree = get_tree()
 	if not tree:
 		return
-	#print("removing level")
+	 
 	tree.root.remove_child(level_root)
 	level_root.queue_free()
 	
@@ -26,8 +26,8 @@ func load_level(path : String):
 		unload_level(get_tree().get_first_node_in_group("Level").get_path())
 	var packed_level = load(path)
 	var level_root = packed_level.instantiate()
-	print( GameData.coin_positions.has(path))
-	print(GameData.coin_picked_up)
+	 
+	 
 	if not GameData.coin_picked_up and GameData.coin_positions.has(path):
 		var coin: Area2D = load("res://scenes/coin.tscn").instantiate()
 		coin.global_position = GameData.coin_positions[path]

@@ -1,9 +1,8 @@
-[gd_scene load_steps=7 format=3 uid="uid://bfaaj7vkg65bt"]
+[gd_scene load_steps=6 format=3 uid="uid://bfaaj7vkg65bt"]
 
 [ext_resource type="Script" path="res://scripts/game_manager.gd" id="1_a6aoq"]
 [ext_resource type="PackedScene" uid="uid://c2wa1ek2hr3xe" path="res://scenes/player.tscn" id="1_no7uu"]
 [ext_resource type="PackedScene" uid="uid://cpx7u6i0j32a7" path="res://scenes/ui/hud.tscn" id="3_eayae"]
-[ext_resource type="Script" path="res://scripts/camera.gd" id="4_kgiod"]
 [ext_resource type="Script" path="res://scripts/stopwatch.gd" id="5_i3mmg"]
 [ext_resource type="AudioStream" uid="uid://docc8ch5mgxc1" path="res://assets/music/realmsong3.mp3" id="6_7yfax"]
 
@@ -17,8 +16,8 @@ script = ExtResource("1_a6aoq")
 
 [node name="Camera" type="Camera2D" parent="."]
 unique_name_in_owner = true
+offset = Vector2(0, 16)
 position_smoothing_enabled = true
-script = ExtResource("4_kgiod")
 
 [node name="Player" parent="." groups=["game_savables"] instance=ExtResource("1_no7uu")]
 unique_name_in_owner = true

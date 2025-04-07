@@ -18,7 +18,7 @@ signal max_health_changed(diff : int)
 @warning_ignore("unused_signal")
 signal player_shot()
 @warning_ignore("unused_signal")
-signal player_gun_charge
+signal player_gun_charge(stopwatch: Stopwatch)
 @warning_ignore("unused_signal")
 signal gun_reload
 @warning_ignore("unused_signal")

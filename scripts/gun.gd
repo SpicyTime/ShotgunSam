@@ -3,7 +3,7 @@ extends AnimatedSprite2D
 @export var power: int = 500
 @export var charge_cap: int = 350
 @export var reload_speed: float = 1.5
-@export var charge_mult: float = 75
+@export var charge_mult: float = 100
 @onready var shoot_sound: AudioStreamPlayer2D = $ShootSound
 @onready var empty_gun_sound: AudioStreamPlayer2D = $EmptyGunSound
 @onready var marker_2d: Marker2D = $Marker2D
@@ -32,16 +32,19 @@ func shoot():
 		return
 	 
 	var time = charge_stopwatch.time
+	 
 	var extra: int = 1
 	var parent = get_parent()
 	if parent.has_method("is_on_floor"):
 		if not parent.is_on_floor():
 			extra = 3
 	charge_power = time * charge_mult * extra
+	
 	if charge_power > charge_cap:
 		charge_power = charge_cap
+	 
 	bullet_count -= 1
- 
+ 	
 	shoot_sound.play()
 	var particles = blast_particles.instantiate()
 	var bullets = bullet_particles.instantiate()
@@ -59,6 +62,7 @@ func charge():
 	if bullet_count > 0:
 		Signals.gun_charge.emit(self)
 		charge_stopwatch.start()
+		$GunChargeStartSound.play()
 func cancel_charge():
 	stop_charge = true
 	
@@ -99,7 +103,6 @@ func begin_shoot():
 func _on_charge_delay_timeout() -> void:
 	if stop_charge:
 		return
-	 
 	charge()
  
 func _on_bullets_set(new_value: int):

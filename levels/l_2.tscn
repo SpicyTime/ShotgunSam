@@ -1,4 +1,4 @@
-[gd_scene load_steps=18 format=4 uid="uid://bmhljl4g2v83n"]
+[gd_scene load_steps=17 format=4 uid="uid://bmhljl4g2v83n"]
 
 [ext_resource type="Texture2D" uid="uid://cfhc4260uxjp6" path="res://assets/art/WallTile.png" id="1_men5o"]
 [ext_resource type="PackedScene" uid="uid://l5enih3umcew" path="res://scenes/spikes.tscn" id="1_ofeih"]
@@ -169,11 +169,6 @@ sources/0 = SubResource("TileSetScenesCollectionSource_44ns2")
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_wi7q6"]
 size = Vector2(52, 189)
 
-[sub_resource type="LabelSettings" id="LabelSettings_mn4ie"]
-font_size = 30
-outline_size = 2
-outline_color = Color(0, 0, 0, 1)
-
 [node name="L2" type="Node2D"]
 
 [node name="Background" type="TileMapLayer" parent="."]
@@ -234,10 +229,10 @@ layout_mode = 0
 offset_right = 488.0
 offset_bottom = 126.0
 theme = ExtResource("6_5onrc")
+theme_override_font_sizes/font_size = 30
 text = "Two shots won't be enough.
 Charge the gun by holding
 the mouse
 "
-label_settings = SubResource("LabelSettings_mn4ie")
 horizontal_alignment = 1
 vertical_alignment = 1

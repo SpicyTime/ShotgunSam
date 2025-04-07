@@ -1,9 +1,11 @@
 [gd_resource type="Theme" load_steps=2 format=3 uid="uid://uqij1mue7qu1"]
 
-[ext_resource type="FontFile" uid="uid://cebrmguk7oa5" path="res://assets/fonts/ThaleahFat.ttf" id="1_bh6j5"]
+[ext_resource type="FontFile" uid="uid://dhryg8gq62mtr" path="res://assets/fonts/ThaleahFat.ttf" id="1_bh6j5"]
 
 [resource]
 default_font_size = 40
 Label/colors/font_color = Color(1, 1, 1, 1)
+Label/colors/font_outline_color = Color(0, 0, 0, 1)
+Label/constants/outline_size = 9
 Label/font_sizes/font_size = 40
 Label/fonts/font = ExtResource("1_bh6j5")

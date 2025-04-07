@@ -2,7 +2,7 @@ extends Control
 func load_file(from_path: String, into_path: String) ->void:
 	var from_file = FileAccess.open(from_path, FileAccess.READ)
 	var json_contents = from_file.get_as_text()
-	print(json_contents)
+	 
 	from_file.close()
 	var json = JSON.new()
 	var parse_result = json.parse(json_contents)
@@ -30,7 +30,6 @@ func _ready() ->void:
 		load_file("res://save_file_templates/settings_save_file.json", Constants.SETTINGS_SAVE_PATH)
 	if not FileAccess.file_exists(Constants.BEST_TIMES_SAVE_PATH):
 		load_file("res://save_file_templates/best_times.json", Constants.BEST_TIMES_SAVE_PATH)
-		print("loading best times json")
 	DialogueManager.load_dialogue_from_file()
 	 
 func _on_new_game_button_pressed() -> void:

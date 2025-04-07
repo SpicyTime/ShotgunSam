@@ -8,7 +8,7 @@ var saved_music_position = 0.0
 var game_won: bool = false
 var coin_picked_up: bool = false
 var coin_positions: Dictionary = {"res://levels/l_1.tscn": Vector2(0, 85), "res://levels/l_2.tscn" : Vector2(24.21513, -172.0905),
-"res://levels/l_3.tscn" : Vector2(24, 200), "res://levels/l_4.tscn" : Vector2(-395., -162), "res://levels/l_5.tscn" : Vector2(25, 125),
+"res://levels/l_3.tscn" : Vector2(24, 170), "res://levels/l_4.tscn" : Vector2(-395., -162), "res://levels/l_5.tscn" : Vector2(25, 110),
 "res://levels/l_6.tscn": Vector2(24, 192),  "res://levels/l_7.tscn": Vector2(241, -54), "res://levels/l_8.tscn": Vector2(-84, -220), "res://levels/l_9.tscn" : Vector2(70, -174),
 "res://levels/l_10.tscn" : Vector2(458, 28)
 }
@@ -78,7 +78,6 @@ func save_single_data(section_key: String, key: String, value) -> void:
 
 	
 func reset_game():
-	#print("Resetting game")
 	game_won = false
 	var empty_game_save_file = FileAccess.open(Constants.EMPTY_GAME_SAVE_PATH, FileAccess.READ)
 	var json_string = empty_game_save_file.get_as_text()

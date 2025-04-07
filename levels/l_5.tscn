@@ -185,6 +185,7 @@ tile_set = SubResource("TileSet_ncxrx")
 position = Vector2(-496, -16)
 
 [node name="kill_zone" parent="." instance=ExtResource("2_no6wv")]
+position = Vector2(0, 88)
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="kill_zone"]
 position = Vector2(15, 315)

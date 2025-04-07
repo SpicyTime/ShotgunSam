@@ -42,24 +42,7 @@ func _process(delta: float) -> void:
 	if trauma:
 		trauma = max(trauma - decay * delta, 0)
 		shake()
-	if  player_charging_gun :
-		
-		lerp_zoom(Vector2(1.06, 1.06))
-		lerp_position(lerp_pos)
-
-		
-func calc_lerp_pos(pos1: Vector2, pos2: Vector2)->Vector2:
-	
-	return Vector2((pos1.x + pos2.x) / 4, (pos1.y + pos2.y) / 4)
-func lerp_zoom(target_zoom: Vector2):
-	var new_zoom: Vector2 = lerp(zoom, target_zoom, lerp_speed) 
-	zoom = new_zoom 
-func lerp_position( target_position: Vector2):
-	var new_position = lerp(transform.origin, target_position, lerp_speed)
-	var int_new_position_x: int = new_position.x
-	var int_new_position_y: int = new_position.y
-	global_translate(Vector2(int_new_position_x, int_new_position_y) - transform.origin)
-	 
+ 
 func reset_zoom():
 	zoom = Vector2(1, 1)
  
@@ -68,13 +51,7 @@ func reset_position():
  
 func _on_camera_shake(trauma: float):
 	add_trauma(trauma)
-
-func _on_player_gun_charge():
-	player_charging_gun = true
-	prezoom_position = Vector2(0, 0)
-	 
-	lerp_pos = calc_lerp_pos(prezoom_position, player.global_position)
-	prev_lerp_pos = lerp_pos
+ 
 func _on_player_shoot():
 	player_charging_gun = false
 	 

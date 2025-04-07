@@ -1,8 +1,7 @@
 extends CharacterBody2D
-@onready var camera: Camera2D = %Camera
 @onready var gun: AnimatedSprite2D = $Gun
 @onready var screen_size = get_viewport().size
-@onready var CAMERA_SIZE = camera.get_viewport_rect().size
+ 
 
 @onready var player_sprite: Sprite2D = $PlayerSprite
 @export var gun_radius := 50
@@ -51,7 +50,6 @@ func rotate_node_around_player(node: Node2D, offset: Vector2 = Vector2(0, 0))-> 
 	# Set the child's position relative to the parent
 	node.position = new_position + offset 
 	if node is AnimatedSprite2D or node is Sprite2D:
-		#print(typeof(node))
 		pass
 	else:
 		return
@@ -131,9 +129,7 @@ func _unhandled_input(event: InputEvent) -> void:
 				velocity = new_velocity
 			else:
 				velocity = -new_velocity
-			camera.reset_zoom()
 			 
-			camera.reset_position()
 		elif Input.is_action_just_pressed("shoot"):
 			gun.begin_shoot() 
 			 
@@ -141,38 +137,14 @@ func _unhandled_input(event: InputEvent) -> void:
 		rotate_gun()
 		rotate_arms()
 		#Signals.mouse_on_edge.emit()
-		var pan_bounds = camera.get_pan_bounds()
-		var mouse_global_pos = get_global_mouse_position()
-		if mouse_global_pos.x < pan_bounds[1] or mouse_global_pos.x >  pan_bounds[0] or mouse_global_pos.y < pan_bounds[2] or  mouse_global_pos.y  > pan_bounds[3]  :
-			Signals.mouse_on_edge.emit()
-
-		#Resets the x when it is not in the pan bounds
-		if mouse_global_pos.x > pan_bounds[1] && mouse_global_pos.x < pan_bounds[0] && camera.is_panned_hor:
-			camera.is_panned_hor = false
-			camera.lerp_pos.x = camera.prev_lerp_pos.x
-			if camera.player_charging_gun:
-				camera.global_position.x = camera.lerp_pos.x
-			else:
-				camera.global_position.x = 0
-			
-		#Resets the y when it is not in the pan bounds
-		if mouse_global_pos.y > pan_bounds[2] && mouse_global_pos.y < pan_bounds[3] && camera.is_panned_vert:
-			camera.is_panned_vert = false
-			camera.lerp_pos.y = camera.prev_lerp_pos.y
-			if camera.player_charging_gun:
-				camera.global_position.y = camera.lerp_pos.y
-				print("")
-			else:
-				camera.global_position.y = 0
-				print("Zeroing")
-			
+		 
 		
 func _unhandled_key_input(event: InputEvent) -> void:
 	if event.is_action_pressed("reload"):
 		gun.reload()
 		$Arms.play("reload")
 	 
-		#print("Escaping to main menu")
+		 
 func _ready() -> void:
 	#Connect Signals
 	Signals.player_coin_change.emit(0)
@@ -201,9 +173,10 @@ func _on_health_depleted(sender) -> void:
 	call_deferred("reset")
 	
 func _on_gun_charge(sender) -> void:
+	 
 	if sender != gun:
 		return
-	Signals.player_gun_charge.emit()
+	Signals.player_gun_charge.emit(sender.charge_stopwatch)
 	
 func _on_arms_animation_finished() -> void:
 	$Arms.play("idle")

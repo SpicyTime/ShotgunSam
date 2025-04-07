@@ -28,7 +28,7 @@ func update_best_time() ->float:
 func _ready():
 	var rounded_time = round(GameData.game_run_time * 100) / 100.0
 	GameData.game_won = true
-	print(GameData.game_won)
+	 
 	GameData.save_single_data("game",  "game_won", true)
 	$Labels/VBoxContainer/TimeLabel.text = "Your Time: " + str(rounded_time)
 	$Labels/VBoxContainer/BestTimeLabel.text = "Best Time: " + str(update_best_time())

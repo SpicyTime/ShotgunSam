@@ -1,8 +1,60 @@
-[gd_scene load_steps=4 format=3 uid="uid://cpx7u6i0j32a7"]
+[gd_scene load_steps=12 format=3 uid="uid://cpx7u6i0j32a7"]
 
 [ext_resource type="Script" path="res://scripts/hud.gd" id="1_h6fgk"]
-[ext_resource type="Texture2D" uid="uid://spnwdbt6rard" path="res://assets/art/OutlinedThinGoldCoin.png" id="2_adpr3"]
-[ext_resource type="Texture2D" uid="uid://7ppg2gvdikmw" path="res://assets/art/ShotgunShell-1.png.png" id="3_5octp"]
+[ext_resource type="Texture2D" uid="uid://dmkcccyf6nrxr" path="res://assets/art/OutlinedThinGoldCoin.png" id="2_adpr3"]
+[ext_resource type="Texture2D" uid="uid://dngsqt2okpliv" path="res://assets/art/MenuBulletReloadAnim.png" id="3_pg1te"]
+[ext_resource type="Texture2D" uid="uid://duogas304befd" path="res://assets/art/MenuGunReloadAnim.png" id="4_i1ljq"]
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_m15yp"]
+atlas = ExtResource("3_pg1te")
+region = Rect2(60, 0, 30, 18)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_rfnnl"]
+atlas = ExtResource("3_pg1te")
+region = Rect2(30, 0, 30, 18)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_brcy6"]
+atlas = ExtResource("3_pg1te")
+region = Rect2(0, 0, 30, 18)
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_nwhcj"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_m15yp")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_rfnnl")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_brcy6")
+}],
+"loop": false,
+"name": &"change",
+"speed": 0.0
+}]
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_ne8kh"]
+atlas = ExtResource("4_i1ljq")
+region = Rect2(0, 0, 180, 66)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_mi7vf"]
+atlas = ExtResource("4_i1ljq")
+region = Rect2(180, 0, 180, 66)
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_iva1c"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_ne8kh")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_mi7vf")
+}],
+"loop": true,
+"name": &"reload",
+"speed": 5.0
+}]
 
 [node name="Hud" type="Control"]
 layout_mode = 3
@@ -38,19 +90,26 @@ offset_right = 62.0
 offset_bottom = 15.0
 metadata/_edit_lock_ = true
 
-[node name="BulletDisplay" type="Control" parent="HudCanvas"]
+[node name="GunDisplay" type="Control" parent="HudCanvas"]
 layout_mode = 3
 anchors_preset = 0
 offset_right = 40.0
 offset_bottom = 40.0
 
-[node name="Bullet1" type="Sprite2D" parent="HudCanvas/BulletDisplay"]
-position = Vector2(15, 77)
-texture = ExtResource("3_5octp")
+[node name="BulletHolder" type="AnimatedSprite2D" parent="HudCanvas/GunDisplay"]
+z_index = 2
+position = Vector2(16, 143)
+rotation = -1.5708
+sprite_frames = SubResource("SpriteFrames_nwhcj")
+animation = &"change"
+autoplay = "change"
 
-[node name="Bullet2" type="Sprite2D" parent="HudCanvas/BulletDisplay"]
-position = Vector2(49, 77)
-texture = ExtResource("3_5octp")
+[node name="GunBody" type="AnimatedSprite2D" parent="HudCanvas/GunDisplay"]
+z_index = 2
+position = Vector2(34, 140)
+rotation = -1.5708
+sprite_frames = SubResource("SpriteFrames_iva1c")
+animation = &"reload"
 
 [node name="LevelStopwatchDisplay" type="Control" parent="HudCanvas"]
 layout_mode = 3
@@ -65,3 +124,35 @@ grow_horizontal = 0
 layout_mode = 0
 offset_right = 40.0
 offset_bottom = 23.0
+
+[node name="ChargeEffect" type="Control" parent="HudCanvas"]
+layout_mode = 3
+anchors_preset = 0
+offset_right = 40.0
+offset_bottom = 40.0
+
+[node name="ColorRect" type="ColorRect" parent="HudCanvas/ChargeEffect"]
+z_as_relative = false
+offset_left = 13.0
+offset_top = 126.0
+offset_right = 84.0
+offset_bottom = 135.0
+rotation = -1.5708
+color = Color(0.414704, 0.414704, 0.414704, 1)
+
+[node name="ChargeRect" type="ColorRect" parent="HudCanvas/ChargeEffect"]
+z_index = 1
+z_as_relative = false
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -7.0
+offset_top = 168.0
+offset_right = 59.0
+offset_bottom = 174.0
+grow_horizontal = 2
+grow_vertical = 2
+rotation = -1.5708
