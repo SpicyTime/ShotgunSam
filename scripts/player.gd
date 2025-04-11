@@ -16,6 +16,10 @@ var coin_count: int = 0: set = _on_coins_set
 var node_name: String = "player"
 var distance_to_mouse: float
 var was_in_air: bool =false
+var prev_mouse_pos: Vector2 = Vector2(0, 0)
+var mouse_motion = Vector2(0, 0)
+var pseudo_mouse_pos = Vector2(0, 0)
+var max_radius: int = 40
 func get_node_name() -> String:
 	return node_name
 	
@@ -34,13 +38,11 @@ func rotate_node_around_player(node: Node2D, offset: Vector2 = Vector2(0, 0))-> 
 	# Get the global position of the mouse
 	var mouse_global_pos = get_global_mouse_position()
  	# Get the parent's global position
-	 
-	distance_to_mouse = sqrt(pow((global_position.x - mouse_global_pos.x), 2) + 
-	pow((global_position.y - mouse_global_pos.y), 2))
-
 	# Calculate the direction vector from the parent to the mouse
-	var direction = mouse_global_pos - global_position
-		 
+
+	
+	var direction =  pseudo_mouse_pos
+	 
 	var angle = direction.angle()
 	# Rotates the sprite to face the mouse
 	node.rotation = angle
@@ -109,6 +111,8 @@ func _physics_process(delta: float) -> void:
 	move_and_slide()
 	
 func _unhandled_input(event: InputEvent) -> void:
+	if event is InputEventMouseButton and event.pressed and Input.mouse_mode != Input.MOUSE_MODE_CAPTURED:
+		Input.set_mouse_mode(Input.MOUSE_MODE_CAPTURED)
 	if event is InputEventMouseButton:
 		if Input.is_action_just_released("shoot"):
 			if gun.is_empty():
@@ -122,20 +126,26 @@ func _unhandled_input(event: InputEvent) -> void:
 			Signals.player_bullet_change.emit(gun.bullet_count)
 			has_shot = true
 			var gun_position = gun.global_position
-			var direction_to_mouse = (get_global_mouse_position()  - gun_position).normalized() 
+			var direction_to_mouse = (pseudo_mouse_pos  ).normalized() 
 			var recoil = gun.get_recoil()
 			var new_velocity =  direction_to_mouse * recoil
-			if distance_to_mouse <= gun_radius:
-				velocity = new_velocity
-			else:
-				velocity = -new_velocity
+			velocity = -new_velocity
 			 
 		elif Input.is_action_just_pressed("shoot"):
 			gun.begin_shoot() 
 			 
 	elif event is InputEventMouseMotion:
+		mouse_motion = event.relative
+		pseudo_mouse_pos += mouse_motion
+		var offset = pseudo_mouse_pos - Vector2(0, 0)
+		if offset.length() > max_radius:
+			offset = offset.normalized() * max_radius
+			pseudo_mouse_pos =  offset
+		
+		 
 		rotate_gun()
 		rotate_arms()
+		  
 		#Signals.mouse_on_edge.emit()
 		 
 		
@@ -153,9 +163,11 @@ func _ready() -> void:
 	Signals.gun_charge.connect(_on_gun_charge)
 	coin_count = GameData.player_coin_count
 	gun.bullet_count = GameData.player_bullet_count
+	prev_mouse_pos = get_global_mouse_position()
 	rotate_gun()
 	rotate_arms()
-	
+
+
 func _on_gun_reload(sender) -> void:
 	 
 	if sender != gun:

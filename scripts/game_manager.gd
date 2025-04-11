@@ -71,7 +71,7 @@ func _ready() -> void:
 	GameData.load_game()
 	if "11" in GameData.current_level && GameData.game_won:
 		GameData.reset_game()
-		
+	Input.warp_mouse(Vector2(0, 0))
 	load_level(GameData.current_level)
 	#load_level("res://levels/test_scene.tscn")
 	Signals.swap_level.connect(_on_swap_level)
@@ -80,15 +80,16 @@ func _ready() -> void:
 	Signals.game_stopwatch_changed.emit(stopwatch.time)
 	Signals.reset_level.connect(_on_reset_level)
 	music.play(GameData.saved_music_position)
-	
-func _unhandled_key_input(event: InputEvent) -> void:
+ 
+func _input(event: InputEvent) -> void:
 	if event.is_action_pressed("mainmenu"):
 		DialogueManager.stop()
 		GameData.save_game()
 		var tree = get_tree()
 		unload_level(tree.get_first_node_in_group("Level").get_path())
 		tree.call_deferred("change_scene_to_file", "res://scenes/menus/main_menu.tscn")
-	 
+ 
+		 
 func _process(_delta: float) -> void:
 	GameData.game_run_time = stopwatch.time
 	Signals.game_stopwatch_changed.emit(stopwatch.time)

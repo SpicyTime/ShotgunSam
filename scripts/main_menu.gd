@@ -30,13 +30,16 @@ func _ready() ->void:
 	if not FileAccess.file_exists(Constants.BEST_TIMES_SAVE_PATH):
 		load_file("res://save_file_templates/best_times.json", Constants.BEST_TIMES_SAVE_PATH)
 	DialogueManager.load_dialogue_from_file()
-	 
+	Input.set_mouse_mode(Input.MOUSE_MODE_VISIBLE)
 func _on_new_game_button_pressed() -> void:
 	GameData.reset_game()
+	Input.set_mouse_mode(Input.MOUSE_MODE_CAPTURED)
 	call_deferred("switch_scene", "res://scenes/intro.tscn")
 	
 func _on_load_game_button_pressed() -> void:
+	Input.set_mouse_mode(Input.MOUSE_MODE_CAPTURED)
 	call_deferred("switch_scene", "res://scenes/game.tscn")
+	
 func _on_exit_button_pressed() -> void:
 	get_tree().quit()
 

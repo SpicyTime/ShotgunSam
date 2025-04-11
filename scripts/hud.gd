@@ -55,3 +55,7 @@ func _on_game_stopwatch_changed(new_value: float):
 
 
  
+
+
+func _on_mouse_movement_area_area_exited(area: Area2D) -> void:
+	Input.warp_mouse(Vector2(0, 0))

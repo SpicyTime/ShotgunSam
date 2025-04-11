@@ -152,19 +152,23 @@ offset_right = -440.0
 offset_bottom = 80.0
 theme = ExtResource("5_ryxa1")
 
-[node name="Label" type="Label" parent="TutorialText"]
+[node name="VBoxContainer" type="VBoxContainer" parent="TutorialText"]
 layout_mode = 0
-offset_right = 369.0
-offset_bottom = 42.0
+offset_right = 40.0
+offset_bottom = 40.0
+
+[node name="Label" type="Label" parent="TutorialText/VBoxContainer"]
+layout_mode = 2
 theme_override_font_sizes/font_size = 30
 text = "Click The Mouse To Shoot"
 
-[node name="ReloadInst" type="Label" parent="TutorialText"]
-layout_mode = 0
-offset_left = -3.0
-offset_top = 50.0
-offset_right = 227.0
-offset_bottom = 87.0
+[node name="ReloadInst" type="Label" parent="TutorialText/VBoxContainer"]
+layout_mode = 2
 theme_override_colors/font_outline_color = Color(0, 0, 0, 1)
 theme_override_font_sizes/font_size = 30
 text = "Reload with R"
+
+[node name="Label2" type="Label" parent="TutorialText/VBoxContainer"]
+layout_mode = 2
+theme_override_font_sizes/font_size = 30
+text = "M for main menu"
