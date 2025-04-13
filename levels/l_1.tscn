@@ -162,12 +162,6 @@ layout_mode = 2
 theme_override_font_sizes/font_size = 30
 text = "Click The Mouse To Shoot"
 
-[node name="ReloadInst" type="Label" parent="TutorialText/VBoxContainer"]
-layout_mode = 2
-theme_override_colors/font_outline_color = Color(0, 0, 0, 1)
-theme_override_font_sizes/font_size = 30
-text = "Reload with R"
-
 [node name="Label2" type="Label" parent="TutorialText/VBoxContainer"]
 layout_mode = 2
 theme_override_font_sizes/font_size = 30

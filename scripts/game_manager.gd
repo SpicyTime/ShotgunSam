@@ -1,8 +1,10 @@
 extends Node
 @onready var player : CharacterBody2D = %Player
-@onready var game : Node2D = $".."
 @onready var stopwatch: Stopwatch = $"../Stopwatch"
 @onready var music: AudioStreamPlayer2D = $"../Music"
+@onready var hud : Control = %Hud
+var meter: Control 
+var meter_bar: ColorRect
 var swapped: bool = false
 func remove_level(level_root):
 	var tree = get_tree()
@@ -62,7 +64,7 @@ func save() -> Dictionary:
 		"coin_picked_up": GameData.coin_picked_up
 	}
 	return data
-# Called when the node enters the scene tree for the first time.fd
+# Called when the node enters the scene tree for the first time.
 
 func get_node_name() -> String:
 	return "game"
@@ -77,10 +79,12 @@ func _ready() -> void:
 	Signals.swap_level.connect(_on_swap_level)
 	stopwatch.start()
 	stopwatch.time = GameData.game_run_time
+	print(stopwatch.time)
 	Signals.game_stopwatch_changed.emit(stopwatch.time)
 	Signals.reset_level.connect(_on_reset_level)
 	music.play(GameData.saved_music_position)
- 
+	meter = hud.get_charge_meter()
+	meter_bar = hud.get_charge_bar()
 func _input(event: InputEvent) -> void:
 	if event.is_action_pressed("mainmenu"):
 		DialogueManager.stop()
@@ -89,11 +93,17 @@ func _input(event: InputEvent) -> void:
 		unload_level(tree.get_first_node_in_group("Level").get_path())
 		tree.call_deferred("change_scene_to_file", "res://scenes/menus/main_menu.tscn")
  
-		 
 func _process(_delta: float) -> void:
 	GameData.game_run_time = stopwatch.time
 	Signals.game_stopwatch_changed.emit(stopwatch.time)
-	
+	if  player.gun_charging:
+		meter.visible = true
+		meter.position = Vector2(player.global_position.x + get_viewport().size.x / 2 - 60, player.global_position.y + get_viewport().size.y / 2 - 100 )
+		meter_bar.size.x = min(player.gun.current_charge_power / 7.16, 40)
+
+	else:
+		meter.visible = false
+		
 func _on_swap_level(next_level_scene_path):
 	swapped = true
 	GameData.coin_picked_up = false

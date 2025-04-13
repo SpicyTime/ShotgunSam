@@ -1,61 +1,31 @@
 extends Control
-@onready var coin_label: Label = $HudCanvas/CoinDisplay/CoinLabel
-@onready var gun_display: Control = $HudCanvas/GunDisplay
-@onready var level_stopwatch_label: Label = $HudCanvas/LevelStopwatchDisplay/LevelStopwatchLabel
-@onready var charge_rect: ColorRect = $HudCanvas/ChargeEffect/ChargeRect
-@onready var bullet_holder: AnimatedSprite2D = $HudCanvas/GunDisplay/BulletHolder
-@onready var gun_body: AnimatedSprite2D = $HudCanvas/GunDisplay/GunBody
+@onready var label: Label = $CanvasLayer/Timer/Label
+@export var distance: float = 15
+var max_digit_count := 0
+func get_charge_meter() -> Control:
+	return $CanvasLayer/ChargeMeter
+func get_charge_bar() -> ColorRect:
+	return $CanvasLayer/ChargeMeter/Meter
+func get_total_digits(value: float) -> int:
+	var str_val = str(value)
+	str_val = str_val.replace(".", "") # remove decimal point
+	
+	return str_val.length()
 
-
- 
-var stopwatch: Stopwatch
-var charge_start_pos  
-var move_charge_rect: bool = false
- 
-func charge_rect_move():
-	var offset: float = (stopwatch.time ) * 100 / 3 
-	 
-	if offset >= 66:
-		charge_rect.global_position =  Vector2(charge_start_pos.x, charge_start_pos.y - 66)
-		return
-	 
-	charge_rect.global_position = Vector2(charge_start_pos.x, charge_start_pos.y - offset)
-	 
 func _ready():
-	Signals.player_coin_change.connect(_on_player_coin_change)
-	Signals.player_bullet_change.connect(_on_player_bullet_change)
 	Signals.game_stopwatch_changed.connect(_on_game_stopwatch_changed)
-	Signals.player_gun_charge.connect(_on_player_charge)
-	charge_rect.global_position = Vector2(13, 188)
-	charge_start_pos = charge_rect.global_position
 	
-func _process(delta: float) -> void:
-	if move_charge_rect:
-		charge_rect_move()
-	else:
-		charge_rect.position = charge_start_pos
-		
-func _on_player_coin_change(new_value: int):
-	coin_label.text = str(new_value)
+func _on_game_stopwatch_changed(time):
+	var cont_node = $CanvasLayer/Timer
+	var time_string: String
+	time = round(time * 100) / 100.0
+	time_string = str(time)
+	var current_digit_count = get_total_digits(time)
+	while current_digit_count < max_digit_count:
+		current_digit_count += 1
+		time_string += "0"
+	if current_digit_count > max_digit_count:
+		max_digit_count = current_digit_count
+	cont_node.global_position.x = get_viewport().size.x - distance * current_digit_count
 	
-func _on_player_bullet_change(player_bullets: int):
-	move_charge_rect = false
-	 
-	bullet_holder.animation = "change"
-	bullet_holder.frame = player_bullets
-	bullet_holder.play("change")
-	
-func _on_player_charge(charge_stopwatch: Stopwatch):
-	move_charge_rect = true
-	stopwatch = charge_stopwatch
-	 
-	 
-func _on_game_stopwatch_changed(new_value: float):
-	level_stopwatch_label.text = str(new_value)
-
-
- 
-
-
-func _on_mouse_movement_area_area_exited(area: Area2D) -> void:
-	Input.warp_mouse(Vector2(0, 0))
+	label.text = time_string

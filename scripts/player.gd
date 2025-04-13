@@ -1,8 +1,6 @@
 extends CharacterBody2D
 @onready var gun: AnimatedSprite2D = $Gun
 @onready var screen_size = get_viewport().size
- 
-
 @onready var player_sprite: Sprite2D = $PlayerSprite
 @export var gun_radius := 50
 @export var max_y_velocity := 600
@@ -15,32 +13,30 @@ var has_shot: bool = false
 var coin_count: int = 0: set = _on_coins_set
 var node_name: String = "player"
 var distance_to_mouse: float
-var was_in_air: bool =false
-var prev_mouse_pos: Vector2 = Vector2(0, 0)
-var mouse_motion = Vector2(0, 0)
+var was_in_air: bool = false
 var pseudo_mouse_pos = Vector2(0, 0)
-var max_radius: int = 40
+var max_radius: int = 100
+var min_radius: int = 65
+var charge_threshold := 0.5
+var mouse_held_duration := 0.0
+var charge_gun: bool = false
+var gun_charging: bool = false
 func get_node_name() -> String:
 	return node_name
 	
 func add_coins(amount: int) -> void:
 	coin_count += amount
 	
-func reload(value: int) -> void: 
-	gun.add_bullets(value)
-
 func handle_flip() -> void:
 	if direction == 1:
 		player_sprite.flip_h = false
 	elif direction == -1:
 		player_sprite.flip_h = true
+		
 func rotate_node_around_player(node: Node2D, offset: Vector2 = Vector2(0, 0))-> void:
 	# Get the global position of the mouse
 	var mouse_global_pos = get_global_mouse_position()
- 	# Get the parent's global position
-	# Calculate the direction vector from the parent to the mouse
-
-	
+   
 	var direction =  pseudo_mouse_pos
 	 
 	var angle = direction.angle()
@@ -87,22 +83,30 @@ func load(data: Dictionary):
 		#global_position = data.get("player_position")
 		pass
 func reset() -> void:
-	GameData.player_bullet_count = 2
 	$Health.health = 1
 	velocity *= 0
 	Signals.reset_level.emit()
-	
+func _process(delta: float) -> void:
+	if charge_gun:
+		mouse_held_duration += delta
+		if mouse_held_duration >= charge_threshold:
+			gun.charge()
+			charge_gun = false
+			mouse_held_duration = 0.0
+			gun_charging = true
 func _physics_process(delta: float) -> void:
 	# Add the gravity.
 	if not is_on_floor():
 		velocity += get_gravity() * delta
 		was_in_air = true
+		
 	else:
 		if was_in_air:
 			$LandingSFX.play(0.18)
 			$LandingDust.emitting = true
 			was_in_air = false
-	
+			$Arms.play("idle")
+			gun.reload()
 	if is_on_floor() and not has_shot:
 		velocity.x = move_toward(velocity.x, 0, SPEED)
 	else:
@@ -110,69 +114,48 @@ func _physics_process(delta: float) -> void:
 	
 	move_and_slide()
 	
+ 	  
+func _ready() -> void:
+	#Connect Signals
+	Signals.player_coin_change.emit(0)
+	Signals.health_depleted.connect(_on_health_depleted)
+	coin_count = GameData.player_coin_count
+	  
+	 
+	rotate_gun()
+	rotate_arms()
+
 func _unhandled_input(event: InputEvent) -> void:
-	if event is InputEventMouseButton and event.pressed and Input.mouse_mode != Input.MOUSE_MODE_CAPTURED:
-		Input.set_mouse_mode(Input.MOUSE_MODE_CAPTURED)
-	if event is InputEventMouseButton:
-		if Input.is_action_just_released("shoot"):
-			if gun.is_empty():
-				gun.empty_gun_sound.play()
-				return
-			gun.cancel_charge()
-			gun.shoot()
-			 
-			GameData.player_bullet_count = gun.bullet_count
-			Signals.player_shot.emit()
-			Signals.player_bullet_change.emit(gun.bullet_count)
-			has_shot = true
-			var gun_position = gun.global_position
-			var direction_to_mouse = (pseudo_mouse_pos  ).normalized() 
-			var recoil = gun.get_recoil()
-			var new_velocity =  direction_to_mouse * recoil
-			velocity = -new_velocity
-			 
-		elif Input.is_action_just_pressed("shoot"):
-			gun.begin_shoot() 
-			 
-	elif event is InputEventMouseMotion:
-		mouse_motion = event.relative
+	if event is InputEventMouseMotion:
+		var mouse_motion = event.relative
 		pseudo_mouse_pos += mouse_motion
 		var offset = pseudo_mouse_pos - Vector2(0, 0)
 		if offset.length() > max_radius:
 			offset = offset.normalized() * max_radius
 			pseudo_mouse_pos =  offset
-		
-		 
-		rotate_gun()
+		if offset.length() < min_radius:
+			offset = offset.normalized() * min_radius
+			pseudo_mouse_pos =  offset
 		rotate_arms()
-		  
-		#Signals.mouse_on_edge.emit()
-		 
-		
-func _unhandled_key_input(event: InputEvent) -> void:
-	if event.is_action_pressed("reload"):
-		gun.reload()
-		$Arms.play("reload")
-	 
-		 
-func _ready() -> void:
-	#Connect Signals
-	Signals.player_coin_change.emit(0)
-	Signals.health_depleted.connect(_on_health_depleted)
-	Signals.gun_reload.connect(_on_gun_reload)
-	Signals.gun_charge.connect(_on_gun_charge)
-	coin_count = GameData.player_coin_count
-	gun.bullet_count = GameData.player_bullet_count
-	prev_mouse_pos = get_global_mouse_position()
-	rotate_gun()
-	rotate_arms()
+		rotate_gun()
+	if Input.is_action_just_pressed("shoot"):
+		mouse_held_duration = 0.0
+		charge_gun = true
+	if Input.is_action_just_released("shoot"):
+		if not is_on_floor():
+			if not gun.can_shoot():
+				return
+			else:
+				$Arms.play("idle_red")
+		var recoil = gun.get_recoil()
+		velocity = -pseudo_mouse_pos.normalized() * recoil
+		has_shot = true
+		gun_charging = false
+		gun.shoot(is_on_floor())
+		charge_gun = false
+		mouse_held_duration = 0.0
+	
 
-
-func _on_gun_reload(sender) -> void:
-	 
-	if sender != gun:
-		return
-	Signals.player_bullet_change.emit(gun.bullet_count)
 	
 func _on_coins_set(new_value: int):
 	coin_count = new_value
@@ -184,13 +167,10 @@ func _on_health_depleted(sender) -> void:
 	$DeathSFX.play()
 	call_deferred("reset")
 	
-func _on_gun_charge(sender) -> void:
-	 
-	if sender != gun:
-		return
-	Signals.player_gun_charge.emit(sender.charge_stopwatch)
+ 
 	
 func _on_arms_animation_finished() -> void:
-	$Arms.play("idle")
+	if $Arms.animation == "reload":
+		$Arms.play("idle")
  
 	

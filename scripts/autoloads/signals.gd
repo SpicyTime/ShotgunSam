@@ -1,7 +1,5 @@
 extends Node
 @warning_ignore("unused_signal")
-signal begin_shoot
-@warning_ignore("unused_signal")
 signal swap_level(next_level_scene_path)
 @warning_ignore("unused_signal")
 signal swap_scene
@@ -18,10 +16,6 @@ signal max_health_changed(diff : int)
 @warning_ignore("unused_signal")
 signal player_shot()
 @warning_ignore("unused_signal")
-signal player_gun_charge(stopwatch: Stopwatch)
-@warning_ignore("unused_signal")
-signal gun_reload
-@warning_ignore("unused_signal")
 signal gun_shot
 @warning_ignore("unused_signal")
 signal gun_charge
@@ -37,9 +31,5 @@ signal button_press()
 signal text_display_finished()
 @warning_ignore("unused_signal")
 signal dialogue_toggled(is_displaying: bool)
-@warning_ignore("unused_signal")
-signal player_bullet_change(new_value: int)
-@warning_ignore("unused_signal")
-signal mouse_on_edge
 @warning_ignore("unused_signal")
 signal reset_level

@@ -1,40 +1,25 @@
 extends Camera2D
 @export var decay : float  = 0.8
 @export var max_offset : Vector2 = Vector2(100, 75)
+
 @export var max_roll : float = 0.1
-@export var lerp_speed: float = 0.1
-@onready var player: CharacterBody2D = %Player
-#Right, Left, Bottom, Top
-#@onready var pan_bounds = [  get_tree().root.get_visible_rect().size.y / 2 - Constants.TILE_SIZE /2,   -get_tree().root.get_visible_rect().size.y / 2 + Constants.TILE_SIZE /2 ]
-const TILE_SIZE = 48
 var trauma : float = 0.0
 var trauma_power : int = 2
-var player_charging_gun: bool = false
-var prezoom_position: Vector2  
-var lerp_pos: Vector2
-var prev_lerp_pos = Vector2(0, 0)
-var is_panned_hor: bool = false
-var is_panned_vert: bool = false
-func get_pan_bounds()->Array[int]:
-	return [get_tree().root.get_visible_rect().size.x / 2 - Constants.TILE_SIZE / 1.25, -get_tree().root.get_visible_rect().size.x / 2 + Constants.TILE_SIZE / 1.25, -get_tree().root.get_visible_rect().size.y / 2 + Constants.TILE_SIZE / 1.25, get_tree().root.get_visible_rect().size.y / 2 - Constants.TILE_SIZE /1.25]
+ 
 func shake()->void:
 	var amount = pow(trauma, trauma_power)
 	rotation = max_roll * amount * randf_range(-1, 1)
 	offset.x = max_offset.x * amount * randf_range(-1, 1)
-	offset.y = max_offset.y * amount * randf_range(-1, 1)
+	offset.y = max_offset.y * amount * randf_range(-1, 1) + 16
 # Called when the node enters the scene tree for the first time
 func add_trauma(amount: float)-> void:
 	trauma = min(trauma + amount, 1.0)
-	
-func pan_camera_on_edge(target)->void:
-	lerp_position(target)
-	
 func _ready() -> void:
 	randomize()
 	Signals.shake_camera.connect(_on_camera_shake)
-	Signals.player_gun_charge.connect(_on_player_gun_charge)
-	Signals.player_shot.connect(_on_player_shoot)
-	Signals.mouse_on_edge.connect(_on_mouse_on_edge)
+	 
+	 
+	 
 	 
 # Called every frame. 'delta' is the elapsed time since the previous frame.
 func _process(delta: float) -> void:
@@ -42,50 +27,8 @@ func _process(delta: float) -> void:
 	if trauma:
 		trauma = max(trauma - decay * delta, 0)
 		shake()
- 
-func reset_zoom():
-	zoom = Vector2(1, 1)
- 
-func reset_position():
-	global_position = prezoom_position 
+	else:
+		offset.y = 16
  
 func _on_camera_shake(trauma: float):
 	add_trauma(trauma)
- 
-func _on_player_shoot():
-	player_charging_gun = false
-	 
-func _on_mouse_on_edge():
-	var mouse_pos = get_global_mouse_position()
-	 
-	var pan_bounds = get_pan_bounds()
-	var v_to_mouse: Vector2 = mouse_pos - player.global_position
-	var min_dis = Constants.TILE_SIZE * 2
-	#Pan Right
-	if mouse_pos.x > pan_bounds[0] && not is_panned_hor  && v_to_mouse.x <  min_dis:
-		 
-		global_position.x += Constants.TILE_SIZE * 1.25
-		if lerp_pos:
-			lerp_pos.x += Constants.TILE_SIZE * 1.25
-		is_panned_hor = true
-	#Pan Left
-	elif mouse_pos.x < pan_bounds[1] && not is_panned_hor && abs(v_to_mouse.x )< min_dis :
-		global_position.x -= Constants.TILE_SIZE * 1.25
-		if lerp_pos:
-			lerp_pos.x -= Constants.TILE_SIZE * 1.25
-		is_panned_hor = true
-		 
-	#Panning Down
-	if mouse_pos.y  > pan_bounds[3] && not is_panned_vert && v_to_mouse.y < min_dis :
-		 
-		global_position.y += Constants.TILE_SIZE * 1.25
-		if lerp_pos:
-			lerp_pos.y += Constants.TILE_SIZE * 1.25
-		is_panned_vert = true
-	 
-	elif mouse_pos.y < pan_bounds[2] && not is_panned_vert && abs(v_to_mouse.y )< min_dis :
-		 
-		is_panned_vert = true
-		global_position.y -= Constants.TILE_SIZE * 1.25
-		if lerp_pos:
-			lerp_pos.y -= Constants.TILE_SIZE * 1.25

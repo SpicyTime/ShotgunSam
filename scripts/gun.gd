@@ -1,113 +1,69 @@
 extends AnimatedSprite2D
-@export var shake_power: float = 0.3
-@export var power: int = 500
-@export var charge_cap: int = 350
-@export var reload_speed: float = 1.5
-@export var charge_mult: float = 100
-@onready var shoot_sound: AudioStreamPlayer2D = $ShootSound
-@onready var empty_gun_sound: AudioStreamPlayer2D = $EmptyGunSound
-@onready var marker_2d: Marker2D = $Marker2D
-@onready var blast_particles = preload("res://particles/gun_blast_particles.tscn")
-@onready var bullet_particles = preload("res://particles/shotgun_bullet_particles.tscn")
-@onready var charge_stopwatch: Stopwatch = $ChargeStopwatch
-var bullet_count: int = Constants.MAX_BULLET_COUNT: set = _on_bullets_set
-var charge_power: int = 0
-var stop_charge: bool = false
-var is_reloading: bool = false
-var distance: float
-var node_name: String = "gun"
-
-func get_node_name():
-	return node_name
-func get_recoil() -> int:
-	return power + charge_power
-	
-func is_empty() -> bool:
-	return bullet_count <= 0
+@onready var shoot_sound: AudioStreamPlayer2D = $Sounds/ShootSound
+@onready var bullet_particles: PackedScene = preload("res://scenes/gun_bullet_particles.tscn")
+@onready var blast_particles: PackedScene = preload("res://scenes/gun_blast_particles.tscn")
+var charge_cap: int = 350
+var power: int = 400
+var current_charge_power: float = 0
+var charging: bool = false
+var barrel_exit: Vector2 = Vector2(44, -7)
+var air_shots: int = 1
+# Called when the node enters the scene tree for the first time.
 func handle_flip(right: bool):
 	flip_v = right
-	marker_2d.position.y = -marker_2d.position.y
-func shoot():
-	if is_empty():
-		return
-	 
-	var time = charge_stopwatch.time
-	 
-	var extra: int = 1
-	var parent = get_parent()
-	if parent.has_method("is_on_floor"):
-		if not parent.is_on_floor():
-			extra = 3
-	charge_power = time * charge_mult * extra
+	barrel_exit.y = -barrel_exit.y
+func get_recoil() -> float:
+	if current_charge_power > charge_cap:
+		current_charge_power = charge_cap
+	return power + current_charge_power
 	
-	if charge_power > charge_cap:
-		charge_power = charge_cap
+func charge() -> void:
+	$Sounds/GunChargeStartSound.play()
+	charging = true
+func reload() -> void:
+	air_shots = 1
+	
+func stop_charge() -> void:
+	charging = false
+	current_charge_power = 0
+
+func add_particle(particle) -> void:
+	particle = particle.instantiate()
 	 
-	bullet_count -= 1
- 	
-	shoot_sound.play()
-	var particles = blast_particles.instantiate()
-	var bullets = bullet_particles.instantiate()
-	bullets.emitting = true
-	particles.emitting = true
-	particles.finished.connect(func(): _on_particles_finished(particles))
-	bullets.finished.connect(func(): _on_particles_finished(bullets))
-	marker_2d.add_child(particles)
-	marker_2d.add_child(bullets)
-	Signals.shake_camera.emit(shake_power)
-	if not charge_stopwatch.stopped:
-		charge_stopwatch.reset()
-		charge_stopwatch.stop()
-func charge():
-	if bullet_count > 0:
-		Signals.gun_charge.emit(self)
-		charge_stopwatch.start()
-		$GunChargeStartSound.play()
-func cancel_charge():
-	stop_charge = true
-	
-func reload():
-	$ReloadSound.play()
-	is_reloading = true
-	
-	play("reload")
-	await get_tree().create_timer(reload_speed).timeout
-	add_bullets(2)
-func add_bullets(value: int):
-	is_reloading = false
-	bullet_count += value
-	Signals.gun_reload.emit(self)
-	if bullet_count > Constants.MAX_BULLET_COUNT:
-		bullet_count = Constants.MAX_BULLET_COUNT
-func fast_reload():
-	$ReloadSound.play()
-	get_tree().create_timer(0.25).timeout
-	add_bullets(2)
-func save() ->Dictionary:
-	var data: Dictionary
-	data["bullet_count"] = bullet_count
-	return data
-func load(data: Dictionary):
-	if data.has("bullet_count"):
-		bullet_count = data.get("bullet_count");
- 
-#Not a signal
+	particle.emitting = true
+	 
+	particle.finished.connect(func(): _on_particles_finished(particle))
+	 
+	particle.position = barrel_exit
+	 
+	add_child(particle)
+	 
+func can_shoot() -> bool:
+	return air_shots > 0
+func shoot(on_ground: bool):
+	if not on_ground:
+		if air_shots <= 0:
+			$Sounds/EmptyGunSound.play()
+			return
+		else:
+			air_shots -= 1
+	$Sounds/ShootSound.play()
+	add_particle(blast_particles)
+	add_particle(bullet_particles)
+	Signals.shake_camera.emit(0.3)
+	stop_charge()
+func _ready() -> void:
+	pass # Replace with function body.
+
+
+# Called every frame. 'delta' is the elapsed time since the previous frame.
+func _process(delta: float) -> void:
+	if charging:
+		current_charge_power += delta * 100
+		if current_charge_power > charge_cap:
+			current_charge_power = charge_cap
 func _on_particles_finished(particles):
 	particles.queue_free()
-	
-func begin_shoot():
-	stop_charge = false
-	 
-	$ChargeDelay.start()
-	
-func _on_charge_delay_timeout() -> void:
-	if stop_charge:
-		return
-	charge()
- 
-func _on_bullets_set(new_value: int):
-	bullet_count = new_value
-	if is_empty() and SettingsData.auto_reload:
-		reload()
+
 func _on_animation_finished() -> void:
 	play("idle")

@@ -1,10 +1,11 @@
-[gd_scene load_steps=17 format=3 uid="uid://c2wa1ek2hr3xe"]
+[gd_scene load_steps=19 format=3 uid="uid://c2wa1ek2hr3xe"]
 
 [ext_resource type="Script" path="res://scripts/player.gd" id="1_tcq6q"]
 [ext_resource type="Texture2D" uid="uid://bx4u00dgopx4q" path="res://assets/art/Player.png" id="2_cn3vu"]
 [ext_resource type="Script" path="res://scripts/hurtbox.gd" id="4_8w6kp"]
 [ext_resource type="Script" path="res://scripts/health.gd" id="5_6acjd"]
 [ext_resource type="PackedScene" uid="uid://bwhbrw2cdw27s" path="res://scenes/gun.tscn" id="5_md848"]
+[ext_resource type="Texture2D" uid="uid://kdaws4yncvob" path="res://assets/art/PlayerReloadAnimRed.png" id="6_f3eu1"]
 [ext_resource type="Texture2D" uid="uid://dq5tjmg8jibl4" path="res://assets/art/PlayerReloadAnim.png" id="6_ikxi2"]
 [ext_resource type="AudioStream" uid="uid://dbo3uaopb0umm" path="res://assets/SFX/loud-thud-45719.mp3" id="7_3mo2r"]
 [ext_resource type="AudioStream" uid="uid://lr2fypud8wag" path="res://assets/SFX/male-death-sound-128357.mp3" id="8_xbagu"]
@@ -21,6 +22,10 @@ load_path = "res://.godot/imported/PlayerReloadAnim.png-0f7dd60870dc8553724af50b
 atlas = SubResource("CompressedTexture2D_18sar")
 region = Rect2(0, 0, 54, 20)
 
+[sub_resource type="AtlasTexture" id="AtlasTexture_fqceq"]
+atlas = ExtResource("6_f3eu1")
+region = Rect2(0, 0, 54, 18)
+
 [sub_resource type="AtlasTexture" id="AtlasTexture_dowd2"]
 atlas = ExtResource("6_ikxi2")
 region = Rect2(0, 0, 54, 20)
@@ -35,8 +40,16 @@ animations = [{
 "duration": 1.0,
 "texture": SubResource("AtlasTexture_178ci")
 }],
-"loop": true,
+"loop": false,
 "name": &"idle",
+"speed": 5.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_fqceq")
+}],
+"loop": false,
+"name": &"idle_red",
 "speed": 5.0
 }, {
 "frames": [{
@@ -85,8 +98,7 @@ health = 1
 [node name="Arms" type="AnimatedSprite2D" parent="."]
 position = Vector2(0, 6)
 sprite_frames = SubResource("SpriteFrames_gk6xv")
-animation = &"reload"
-autoplay = "idle"
+animation = &"idle"
 
 [node name="LandingSFX" type="AudioStreamPlayer2D" parent="."]
 stream = ExtResource("7_3mo2r")

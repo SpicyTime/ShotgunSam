@@ -1,8 +1,9 @@
-[gd_scene load_steps=7 format=3 uid="uid://bfaaj7vkg65bt"]
+[gd_scene load_steps=8 format=3 uid="uid://bfaaj7vkg65bt"]
 
 [ext_resource type="Script" path="res://scripts/game_manager.gd" id="1_a6aoq"]
+[ext_resource type="PackedScene" uid="uid://c484w6alc8aud" path="res://scenes/hud.tscn" id="1_itwjx"]
 [ext_resource type="PackedScene" uid="uid://c2wa1ek2hr3xe" path="res://scenes/player.tscn" id="1_no7uu"]
-[ext_resource type="PackedScene" uid="uid://cpx7u6i0j32a7" path="res://scenes/ui/hud.tscn" id="3_eayae"]
+[ext_resource type="Script" path="res://scripts/camera.gd" id="3_jbb4a"]
 [ext_resource type="Script" path="res://scripts/stopwatch.gd" id="5_i3mmg"]
 [ext_resource type="AudioStream" uid="uid://docc8ch5mgxc1" path="res://assets/music/realmsong3.mp3" id="6_7yfax"]
 
@@ -11,7 +12,8 @@
 [node name="Game" type="Node2D"]
 metadata/_edit_horizontal_guides_ = [1426.0]
 
-[node name="Hud" parent="." instance=ExtResource("3_eayae")]
+[node name="Hud" parent="." instance=ExtResource("1_itwjx")]
+unique_name_in_owner = true
 
 [node name="GameManager" type="Node" parent="." groups=["game_savables"]]
 script = ExtResource("1_a6aoq")
@@ -20,6 +22,7 @@ script = ExtResource("1_a6aoq")
 unique_name_in_owner = true
 offset = Vector2(0, 16)
 position_smoothing_enabled = true
+script = ExtResource("3_jbb4a")
 
 [node name="Player" parent="." groups=["game_savables"] instance=ExtResource("1_no7uu")]
 unique_name_in_owner = true
