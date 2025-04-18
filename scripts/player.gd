@@ -87,13 +87,15 @@ func reset() -> void:
 	velocity *= 0
 	Signals.reset_level.emit()
 func _process(delta: float) -> void:
-	if charge_gun:
+	if charge_gun and gun.air_shots > 0:
 		mouse_held_duration += delta
-		if mouse_held_duration >= charge_threshold:
+		if mouse_held_duration >= charge_threshold   :
 			gun.charge()
 			charge_gun = false
 			mouse_held_duration = 0.0
 			gun_charging = true
+	else:
+		charge_gun = false
 func _physics_process(delta: float) -> void:
 	# Add the gravity.
 	if not is_on_floor():

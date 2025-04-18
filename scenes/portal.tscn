@@ -1,0 +1,19 @@
+[gd_scene load_steps=4 format=3 uid="uid://bd6m5xdkmr5y2"]
+
+[ext_resource type="Script" path="res://scripts/portal.gd" id="1_mbgyc"]
+[ext_resource type="Texture2D" uid="uid://cirhvjdtmanlm" path="res://assets/art/BluePortal.png" id="2_6xn6x"]
+
+[sub_resource type="CapsuleShape2D" id="CapsuleShape2D_t2coo"]
+radius = 23.0
+height = 80.0
+
+[node name="Portal" type="Area2D"]
+script = ExtResource("1_mbgyc")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+shape = SubResource("CapsuleShape2D_t2coo")
+
+[node name="Sprite2D" type="Sprite2D" parent="."]
+texture = ExtResource("2_6xn6x")
+
+[connection signal="body_entered" from="." to="." method="_on_body_entered"]

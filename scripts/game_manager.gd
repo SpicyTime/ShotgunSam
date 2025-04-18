@@ -73,9 +73,9 @@ func _ready() -> void:
 	GameData.load_game()
 	if "11" in GameData.current_level && GameData.game_won:
 		GameData.reset_game()
-	Input.warp_mouse(Vector2(0, 0))
-	load_level(GameData.current_level)
-	#load_level("res://levels/test_scene.tscn")
+	 
+	#load_level(GameData.current_level)
+	load_level("res://levels/test_scene.tscn")
 	Signals.swap_level.connect(_on_swap_level)
 	stopwatch.start()
 	stopwatch.time = GameData.game_run_time
