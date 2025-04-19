@@ -22,8 +22,12 @@ func _ready():
 func _on_body_entered(body: Node2D) -> void:
 	print((body.global_position - global_position).normalized().x)
 	var body_direction = body.global_position - global_position
+	#Horizontal Portals
 	if (flip_sprite and body_direction.x <= 0) or (not flip_sprite and body_direction.x > 0):
 		return
+	if (rotation == 90 and body_direction.y < 0) or  (rotation == -90 and body_direction.y >= 0):
+		return
+	#timer cooldown
 	if not can_teleport  :
 		return
 	start_immunity()

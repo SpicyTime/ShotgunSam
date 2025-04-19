@@ -125,3 +125,13 @@ linked_portal = NodePath("../Portal2")
 position = Vector2(-319, 185)
 flip_sprite = true
 linked_portal = NodePath("../Portal")
+
+[node name="Portal3" parent="." node_paths=PackedStringArray("linked_portal") instance=ExtResource("2_a1um0")]
+position = Vector2(400, 62)
+rotation = -1.5708
+linked_portal = NodePath("../Portal4")
+
+[node name="Portal4" parent="." node_paths=PackedStringArray("linked_portal") instance=ExtResource("2_a1um0")]
+position = Vector2(-438, 249)
+rotation = 1.5708
+linked_portal = NodePath("../Portal3")
