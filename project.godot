@@ -27,6 +27,11 @@ GameData="*res://scripts/autoloads/game_data.gd"
 SettingsData="*res://scripts/autoloads/settings_data.gd"
 DialogueManager="*res://scripts/dialogue_manager.gd"
 
+[debug]
+
+gdscript/warnings/unused_parameter=0
+gdscript/warnings/unused_signal=0
+
 [display]
 
 window/size/viewport_width=1280

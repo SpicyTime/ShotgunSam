@@ -1,0 +1,11 @@
+[gd_scene load_steps=4 format=3 uid="uid://borl23bwvo33f"]
+
+[ext_resource type="Texture2D" uid="uid://cbbv541o2g833" path="res://assets/art/LaserEmitter.png" id="1_ksye6"]
+[ext_resource type="Script" path="res://scripts/laser_box.gd" id="1_xpgwl"]
+[ext_resource type="PackedScene" uid="uid://dx577meuybnbw" path="res://scenes/laser.tscn" id="2_f7j34"]
+
+[node name="LaserBox" type="Sprite2D"]
+texture = ExtResource("1_ksye6")
+script = ExtResource("1_xpgwl")
+
+[node name="Laser" parent="." instance=ExtResource("2_f7j34")]
