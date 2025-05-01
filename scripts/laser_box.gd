@@ -17,4 +17,8 @@ func _ready() -> void:
 	emit_laser()
 func _process(delta: float) -> void:
 	if is_emitting:
+		if laser.is_colliding_with_map():
+			is_emitting = false
+			return
 		laser.extend( -delta * 100)
+		
