@@ -5,7 +5,7 @@
 [ext_resource type="Script" path="res://scripts/hitbox.gd" id="3_kcqee"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_x7ki3"]
-size = Vector2(4, 1)
+size = Vector2(4, 2)
 
 [node name="Laser" type="Node2D"]
 script = ExtResource("1_xfe3e")

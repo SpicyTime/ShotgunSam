@@ -1,8 +1,12 @@
+class_name LaserBox
 extends Sprite2D
 @export var receiver: bool = false
+@export var id: int = 0
+@export var flip_sprite: bool = false
 @onready var laser: Node2D = $Laser
+@export var paired_laser_box: LaserBox = null
 var is_emitting: bool = false
-
+ 
 func start_laser():
 	is_emitting = true
 func emit_laser() -> void:
@@ -11,14 +15,30 @@ func emit_laser() -> void:
 		laser.start()
 func stop_emitting() -> void:
 	if not receiver: 
+	 
 		is_emitting = false
 
 func _ready() -> void:
-	emit_laser()
+	if not receiver:
+		
+		emit_laser()
+	else:
+		remove_child(get_node("Laser"))
+	Signals.laser_receiver_hit.connect(_on_receiver_hit)
+	if flip_sprite:
+		flip_h = true
 func _process(delta: float) -> void:
 	if is_emitting:
 		if laser.is_colliding_with_map():
 			is_emitting = false
 			return
 		laser.extend( -delta * 100)
-		
+func _on_receiver_hit(id: int):
+	print("rec")
+	pass
+func _on_area_2d_area_entered(area: Area2D) -> void:
+	
+	if area is HitBox and receiver and area != self:
+		print("Receiver hit")
+		Signals.laser_receiver_hit.emit(id) 
+		stop_emitting()

@@ -10,18 +10,23 @@ func start():
 func remove_laser() -> void:
 	line_2d.clear_points()
 	collision_shape_2d.shape.extents.x = 0
+func sync_collision_with_line():
+	var shape := collision_shape_2d.shape as RectangleShape2D
+	var width := line_2d.points[1].x
+	var half_width: float= abs(width) / 2.0
+	
+	shape.extents = Vector2(half_width, shape.extents.y)  # Always positive size
+
+	# Center the collision shape between the two points
+	collision_shape_2d.position.x = width / 2.0
 	
 func extend(amount: float) -> void:
-	 
 	# Extend the line visually
 	line_2d.points[1].x += amount
-
-	# Update the collision shape
-	var shape := collision_shape_2d.shape as RectangleShape2D
-	shape.extents.x += abs(amount)
-
-	# Move the shape forward to match visual extension
-	collision_shape_2d.position.x = shape.extents.x
+	sync_collision_with_line()
+ 
+	
+	 
 func get_line() -> Line2D:
 	return line_2d
 	 
@@ -34,10 +39,9 @@ func is_colliding_with_map() -> bool:
 	var global_pos = to_global(tip)
 	var x: int = global_pos.x / Constants.TILE_SIZE
 	var y: int = round(global_pos.y / Constants.TILE_SIZE)
-	print("X: ", x)
-	print("Y: ", y)
+	 
 	var source_id = terrain.get_cell_source_id(Vector2i(x, y))
-	print(source_id)
+	 
 	return source_id != -1
 	 
 	 
