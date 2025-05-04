@@ -40,7 +40,7 @@ func load_game():
 	if parse_result == OK:
 		var save_data = json.get_data()
 		 
-		var player_data = save_data.get("player", {})
+		 
 		for node in get_tree().get_nodes_in_group("game_savables"):
 			if node.has_method("load"):
 				node.load(save_data.get(node.get_node_name().to_lower()))
@@ -70,11 +70,11 @@ func save_single_data(section_key: String, key: String, value) -> void:
 	section_data[key] = value
 
 	# Save the updated data back to the file
-	var file = FileAccess.open(file_path, FileAccess.WRITE)
-	if not file:
+	var new_file = FileAccess.open(file_path, FileAccess.WRITE)
+	if not new_file:
 		return
-	file.store_string(JSON.stringify(save_data, "\t"))
-	file.close()
+	new_file.store_string(JSON.stringify(save_data, "\t"))
+	new_file.close()
 
 	
 func reset_game():

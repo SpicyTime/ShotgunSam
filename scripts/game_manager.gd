@@ -98,7 +98,7 @@ func _process(_delta: float) -> void:
 	Signals.game_stopwatch_changed.emit(stopwatch.time)
 	if  player.gun_charging:
 		meter.visible = true
-		meter.position = Vector2(player.global_position.x + get_viewport().size.x / 2 - 60, player.global_position.y + get_viewport().size.y / 2 - 100 )
+		meter.position = Vector2(player.global_position.x + get_viewport().size.x / 2 - 15, player.global_position.y + get_viewport().size.y / 2 - 100 )
 		meter_bar.size.x = min(player.gun.current_charge_power / 7.16, 40)
 
 	else:

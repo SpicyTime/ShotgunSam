@@ -4,12 +4,13 @@ extends Control
 var max_digit_count := 0
 func get_charge_meter() -> Control:
 	return $CanvasLayer/ChargeMeter
+	
 func get_charge_bar() -> ColorRect:
 	return $CanvasLayer/ChargeMeter/Meter
+	
 func get_total_digits(value: float) -> int:
 	var str_val = str(value)
-	str_val = str_val.replace(".", "") # remove decimal point
-	
+	str_val = str_val.replace(".", "") # Removes decimal point
 	return str_val.length()
 
 func _ready():

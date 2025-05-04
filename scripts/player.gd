@@ -34,9 +34,6 @@ func handle_flip() -> void:
 		player_sprite.flip_h = true
 		
 func rotate_node_around_player(node: Node2D, offset: Vector2 = Vector2(0, 0))-> void:
-	# Get the global position of the mouse
-	var mouse_global_pos = get_global_mouse_position()
-   
 	var direction =  pseudo_mouse_pos
 	 
 	var angle = direction.angle()
