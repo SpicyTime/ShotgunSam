@@ -1,12 +1,13 @@
 extends Node2D
 @onready var line_2d: Line2D = $Line2D
 @onready var collision_shape_2d: CollisionShape2D = $Hitbox/CollisionShape2D
-
+@onready var ray: RayCast2D = $RayCast2D
+var stop: bool = false
 func start():
 	
 	line_2d.add_point(Vector2(0, 0))
 	line_2d.add_point(Vector2(0, 0))
- 	
+	stop = false
 func remove_laser() -> void:
 	line_2d.clear_points()
 	collision_shape_2d.shape.extents.x = 0
@@ -21,17 +22,25 @@ func sync_collision_with_line():
 	collision_shape_2d.position.x = width / 2.0
 	
 func extend(amount: float) -> void:
+	var tip = get_tip()
+	ray.target_position.x = tip.x + amount
+	if ray.is_colliding():
+		 
+		line_2d.points[1] = to_local(ray.get_collision_point())
+		stop = true
+		return
+		
 	# Extend the line visually
 	line_2d.points[1].x += amount
 	sync_collision_with_line()
- 
-	
 	 
+	
 func get_line() -> Line2D:
 	return line_2d
 	 
-func get_tip():
+func get_tip() -> Vector2:
 	return line_2d.points[1]
+
 func is_colliding_with_map() -> bool:
 	var terrain: TileMapLayer = get_tree().get_first_node_in_group("Level").find_child("Terrain")
 	

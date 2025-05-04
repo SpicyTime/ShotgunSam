@@ -3,8 +3,7 @@ extends AnimatedSprite2D
 @onready var bullet_particles: PackedScene = preload("res://scenes/gun_bullet_particles.tscn")
 @onready var blast_particles: PackedScene = preload("res://scenes/gun_blast_particles.tscn")
 @onready var collision_shape_2d: CollisionShape2D = $HitBox/CollisionShape2D
-@onready var sprite_2d: Sprite2D = $Sprite2D
-
+ 
 var charge_cap: int = 350
 var power: int = 400
 var current_charge_power: float = 0
@@ -65,7 +64,7 @@ func _process(delta: float) -> void:
 		current_charge_power += delta * 100
 		if current_charge_power > charge_cap:
 			current_charge_power = charge_cap
-	sprite_2d.position = collision_shape_2d.position
+	 
 func _on_particles_finished(particles):
 	particles.queue_free()
 

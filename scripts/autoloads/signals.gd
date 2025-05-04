@@ -1,19 +1,29 @@
 extends Node
-signal swap_level(next_level_scene_path)
-signal swap_scene
+#Player
 signal player_coin_change(new_value: int)
+signal player_shot()
+#Gun
+signal gun_shot
+signal gun_charge
+#Camera
 signal shake_camera(trauma_amount: float)
-signal received_damage(damage: int)
+#Dialogue
+signal text_display_finished()
+signal dialogue_toggled(is_displaying: bool)
+#Health
 signal health_changed(diff : int)
 signal health_depleted
 signal max_health_changed(diff : int)
-signal player_shot()
-signal gun_shot
-signal gun_charge
-signal game_stopwatch_changed(new_value: float)
+signal received_damage(damage: int)
+#Laser
+signal laser_receiver_hit(id: int)
+signal laser_receiver_unhit(id: int)
+#Button 
 signal button_hover
 signal button_press()
-signal text_display_finished()
-signal dialogue_toggled(is_displaying: bool)
+#Level
+signal swap_level(next_level_scene_path)
+signal swap_scene
 signal reset_level
-signal laser_receiver_hit(id: int)
+#Game
+signal game_stopwatch_changed(new_value: float)
