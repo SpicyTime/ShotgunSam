@@ -2,6 +2,9 @@ extends AnimatedSprite2D
 @onready var shoot_sound: AudioStreamPlayer2D = $Sounds/ShootSound
 @onready var bullet_particles: PackedScene = preload("res://scenes/gun_bullet_particles.tscn")
 @onready var blast_particles: PackedScene = preload("res://scenes/gun_blast_particles.tscn")
+@onready var collision_shape_2d: CollisionShape2D = $HitBox/CollisionShape2D
+@onready var sprite_2d: Sprite2D = $Sprite2D
+
 var charge_cap: int = 350
 var power: int = 400
 var current_charge_power: float = 0
@@ -47,21 +50,22 @@ func shoot(on_ground: bool):
 			return
 		else:
 			air_shots -= 1
+	collision_shape_2d.disabled = false
 	$Sounds/ShootSound.play()
 	add_particle(blast_particles)
 	add_particle(bullet_particles)
 	Signals.shake_camera.emit(0.3)
 	stop_charge()
-func _ready() -> void:
-	pass # Replace with function body.
-
-
+	
 # Called every frame. 'delta' is the elapsed time since the previous frame.
 func _process(delta: float) -> void:
+	if collision_shape_2d.disabled == false:
+		collision_shape_2d.disabled = true
 	if charging:
 		current_charge_power += delta * 100
 		if current_charge_power > charge_cap:
 			current_charge_power = charge_cap
+	sprite_2d.position = collision_shape_2d.position
 func _on_particles_finished(particles):
 	particles.queue_free()
 

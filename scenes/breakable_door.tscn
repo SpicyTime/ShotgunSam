@@ -1,0 +1,63 @@
+[gd_scene load_steps=11 format=3 uid="uid://cf4c6sr81qukp"]
+
+[ext_resource type="Script" path="res://scripts/breakable_door.gd" id="1_s4xuk"]
+[ext_resource type="Texture2D" uid="uid://bhqd24vqsjqh7" path="res://assets/art/DoorBarrier.png" id="2_75v3j"]
+[ext_resource type="Script" path="res://scripts/hurtbox.gd" id="3_mml76"]
+[ext_resource type="Script" path="res://scripts/health.gd" id="4_imbtx"]
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_vfsri"]
+atlas = ExtResource("2_75v3j")
+region = Rect2(0, 0, 48, 192)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_lyxs3"]
+atlas = ExtResource("2_75v3j")
+region = Rect2(48, 0, 48, 192)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_arh88"]
+atlas = ExtResource("2_75v3j")
+region = Rect2(96, 0, 48, 192)
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_7gd81"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_vfsri")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_lyxs3")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_arh88")
+}],
+"loop": false,
+"name": &"crack",
+"speed": 0.0
+}]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_o8n6d"]
+size = Vector2(48, 192)
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_l6jvi"]
+size = Vector2(48, 192)
+
+[node name="BreakableDoor" type="StaticBody2D"]
+script = ExtResource("1_s4xuk")
+
+[node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="."]
+sprite_frames = SubResource("SpriteFrames_7gd81")
+animation = &"crack"
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+shape = SubResource("RectangleShape2D_o8n6d")
+
+[node name="HurtBox" type="Area2D" parent="." node_paths=PackedStringArray("health")]
+script = ExtResource("3_mml76")
+health = NodePath("../Health")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="HurtBox"]
+shape = SubResource("RectangleShape2D_l6jvi")
+
+[node name="Health" type="Node" parent="."]
+script = ExtResource("4_imbtx")
+health = 3
+max_health = 3

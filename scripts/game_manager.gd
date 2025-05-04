@@ -79,7 +79,7 @@ func _ready() -> void:
 	Signals.swap_level.connect(_on_swap_level)
 	stopwatch.start()
 	stopwatch.time = GameData.game_run_time
-	print(stopwatch.time)
+	 
 	Signals.game_stopwatch_changed.emit(stopwatch.time)
 	Signals.reset_level.connect(_on_reset_level)
 	music.play(GameData.saved_music_position)

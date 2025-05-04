@@ -2,16 +2,16 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://bhqd24vqsjqh7"
-path="res://.godot/imported/DoorBarrier.png-e1c6db14110e00f9c542a4495babcaba.ctex"
+uid="uid://c8ugkn2fhmx8t"
+path="res://.godot/imported/DoorBarrierELocked.png-44a4e7bc214754eac1af0ebc77e50ace.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://assets/art/DoorBarrier.png"
-dest_files=["res://.godot/imported/DoorBarrier.png-e1c6db14110e00f9c542a4495babcaba.ctex"]
+source_file="res://assets/art/DoorBarrierELocked.png"
+dest_files=["res://.godot/imported/DoorBarrierELocked.png-44a4e7bc214754eac1af0ebc77e50ace.ctex"]
 
 [params]
 

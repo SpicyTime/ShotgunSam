@@ -4,7 +4,7 @@ extends Node
 @export var max_health: int = 10 : set = set_max_health, get = get_max_health
 func set_health(value : int):
 	health = value
-	Signals.health_changed.emit(health)
+	Signals.health_changed.emit(health, self)
 	if health == 0:
 		Signals.health_depleted.emit(self)
 func set_max_health(value : int):

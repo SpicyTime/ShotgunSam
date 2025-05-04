@@ -18,9 +18,9 @@ func teleport(body, position):
 		
 func _ready():
 	$Sprite2D.flip_h = flip_sprite
-	print(flip_sprite)
+	 
 func _on_body_entered(body: Node2D) -> void:
-	print((body.global_position - global_position).normalized().x)
+	 
 	var body_direction = body.global_position - global_position
 	#Horizontal Portals
 	if (flip_sprite and body_direction.x <= 0) or (not flip_sprite and body_direction.x > 0):
