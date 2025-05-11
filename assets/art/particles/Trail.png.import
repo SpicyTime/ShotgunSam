@@ -2,16 +2,16 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://bx4u00dgopx4q"
-path="res://.godot/imported/Player.png-70cf79e85f2b37b2d80c5c6f55c2686d.ctex"
+uid="uid://cynxftqwwmren"
+path="res://.godot/imported/Trail.png-739e3a6093d64a810c83533a3e9036eb.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://assets/art/Player.png"
-dest_files=["res://.godot/imported/Player.png-70cf79e85f2b37b2d80c5c6f55c2686d.ctex"]
+source_file="res://assets/art/particles/Trail.png"
+dest_files=["res://.godot/imported/Trail.png-739e3a6093d64a810c83533a3e9036eb.ctex"]
 
 [params]
 

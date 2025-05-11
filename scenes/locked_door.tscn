@@ -1,6 +1,6 @@
 [gd_scene load_steps=7 format=3 uid="uid://cdug5nrm21eth"]
 
-[ext_resource type="Texture2D" uid="uid://c8ugkn2fhmx8t" path="res://assets/art/DoorBarrierELocked.png" id="1_dsu8t"]
+[ext_resource type="Texture2D" uid="uid://c8ugkn2fhmx8t" path="res://assets/art/doors/DoorBarrierELocked.png" id="1_dsu8t"]
 [ext_resource type="Script" path="res://scripts/locked_door.gd" id="1_swoh3"]
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_b0e1a"]

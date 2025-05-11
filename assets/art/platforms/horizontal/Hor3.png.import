@@ -2,16 +2,16 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://btws3gvuen415"
-path="res://.godot/imported/AmmoBox.png-e046145871d2937718718408d2e4c1f9.ctex"
+uid="uid://brq7e0nxr5ooc"
+path="res://.godot/imported/Hor3.png-dff0c1434ef1ec02cbf89813f21b52f8.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://assets/art/AmmoBox.png"
-dest_files=["res://.godot/imported/AmmoBox.png-e046145871d2937718718408d2e4c1f9.ctex"]
+source_file="res://assets/art/platforms/horizontal/Hor3.png"
+dest_files=["res://.godot/imported/Hor3.png-dff0c1434ef1ec02cbf89813f21b52f8.ctex"]
 
 [params]
 

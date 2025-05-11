@@ -2,16 +2,16 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://duogas304befd"
-path="res://.godot/imported/MenuGunReloadAnim.png-f494f109696ad3d0dc20fd0e9619a35c.ctex"
+uid="uid://bdkvfy56hbpt5"
+path="res://.godot/imported/Vert3.png-b61a87f9f65628a28d5f7ac1efeebee5.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://assets/art/MenuGunReloadAnim.png"
-dest_files=["res://.godot/imported/MenuGunReloadAnim.png-f494f109696ad3d0dc20fd0e9619a35c.ctex"]
+source_file="res://assets/art/platforms/vertical/Vert3.png"
+dest_files=["res://.godot/imported/Vert3.png-b61a87f9f65628a28d5f7ac1efeebee5.ctex"]
 
 [params]
 

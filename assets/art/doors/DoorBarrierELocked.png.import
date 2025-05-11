@@ -2,16 +2,16 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://ct32r5k7xnrss"
-path="res://.godot/imported/EndFlag.png-6870e575ace271525113d45d4e20e038.ctex"
+uid="uid://c8ugkn2fhmx8t"
+path="res://.godot/imported/DoorBarrierELocked.png-586d00deac46a27cc8d1059cfe72abc7.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://assets/art/EndFlag.png"
-dest_files=["res://.godot/imported/EndFlag.png-6870e575ace271525113d45d4e20e038.ctex"]
+source_file="res://assets/art/doors/DoorBarrierELocked.png"
+dest_files=["res://.godot/imported/DoorBarrierELocked.png-586d00deac46a27cc8d1059cfe72abc7.ctex"]
 
 [params]
 

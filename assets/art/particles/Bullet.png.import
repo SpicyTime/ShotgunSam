@@ -2,16 +2,16 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://dngsqt2okpliv"
-path="res://.godot/imported/MenuBulletReloadAnim.png-7b5da5fbf98803b7950aae70aeecbad3.ctex"
+uid="uid://baxe6tverdhlc"
+path="res://.godot/imported/Bullet.png-d26b617a00ab49095329c76f0bdb0bc5.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://assets/art/MenuBulletReloadAnim.png"
-dest_files=["res://.godot/imported/MenuBulletReloadAnim.png-7b5da5fbf98803b7950aae70aeecbad3.ctex"]
+source_file="res://assets/art/particles/Bullet.png"
+dest_files=["res://.godot/imported/Bullet.png-d26b617a00ab49095329c76f0bdb0bc5.ctex"]
 
 [params]
 

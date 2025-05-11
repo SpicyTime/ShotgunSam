@@ -11,7 +11,7 @@ func get_charge_bar() -> ColorRect:
 func get_total_digits(value: float) -> int:
 	var str_val = str(value)
 	str_val = str_val.replace(".", "") # Removes decimal point
-	return str_val.length()
+	return str_val.length()            
 
 func _ready():
 	Signals.game_stopwatch_changed.connect(_on_game_stopwatch_changed)

@@ -2,16 +2,16 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://dmkcccyf6nrxr"
-path="res://.godot/imported/OutlinedThinGoldCoin.png-0dee60863c480d4a7a1f81ae98eeef04.ctex"
+uid="uid://bhqd24vqsjqh7"
+path="res://.godot/imported/DoorBarrier.png-9514ed9e6a158c39e474b3a1b0d83c5e.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://assets/art/OutlinedThinGoldCoin.png"
-dest_files=["res://.godot/imported/OutlinedThinGoldCoin.png-0dee60863c480d4a7a1f81ae98eeef04.ctex"]
+source_file="res://assets/art/doors/DoorBarrier.png"
+dest_files=["res://.godot/imported/DoorBarrier.png-9514ed9e6a158c39e474b3a1b0d83c5e.ctex"]
 
 [params]
 

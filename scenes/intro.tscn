@@ -1,11 +1,11 @@
 [gd_scene load_steps=15 format=4 uid="uid://bhq3l1uk5ss8d"]
 
-[ext_resource type="Texture2D" uid="uid://cynxftqwwmren" path="res://assets/art/Trail.png" id="1_mttuh"]
+[ext_resource type="Texture2D" uid="uid://cynxftqwwmren" path="res://assets/art/particles/Trail.png" id="1_mttuh"]
 [ext_resource type="Script" path="res://scripts/intro.gd" id="1_t3rjy"]
 [ext_resource type="Texture2D" uid="uid://cfhc4260uxjp6" path="res://assets/art/WallTile.png" id="2_w82ie"]
-[ext_resource type="Texture2D" uid="uid://bgod2aqffbq7a" path="res://assets/art/PlayerFalling.png" id="3_y46gr"]
+[ext_resource type="Texture2D" uid="uid://bgod2aqffbq7a" path="res://assets/art/player/PlayerFalling.png" id="3_y46gr"]
 [ext_resource type="Texture2D" uid="uid://dxrqnb16cgq03" path="res://assets/art/ShotGun.png" id="4_nnu86"]
-[ext_resource type="Texture2D" uid="uid://dq5tjmg8jibl4" path="res://assets/art/PlayerReloadAnim.png" id="5_ok0vr"]
+[ext_resource type="Texture2D" uid="uid://dq5tjmg8jibl4" path="res://assets/art/player/PlayerReloadAnim.png" id="5_ok0vr"]
 [ext_resource type="AudioStream" uid="uid://d1nj451hpw2jg" path="res://assets/SFX/bone-break-6-218517.mp3" id="7_05qyh"]
 [ext_resource type="AudioStream" uid="uid://dbo3uaopb0umm" path="res://assets/SFX/loud-thud-45719.mp3" id="8_r208c"]
 

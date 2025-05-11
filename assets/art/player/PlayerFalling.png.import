@@ -2,16 +2,16 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://c8ugkn2fhmx8t"
-path="res://.godot/imported/DoorBarrierELocked.png-44a4e7bc214754eac1af0ebc77e50ace.ctex"
+uid="uid://bgod2aqffbq7a"
+path="res://.godot/imported/PlayerFalling.png-fe6201e62a6df29feddf06beedcb2d2c.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://assets/art/DoorBarrierELocked.png"
-dest_files=["res://.godot/imported/DoorBarrierELocked.png-44a4e7bc214754eac1af0ebc77e50ace.ctex"]
+source_file="res://assets/art/player/PlayerFalling.png"
+dest_files=["res://.godot/imported/PlayerFalling.png-fe6201e62a6df29feddf06beedcb2d2c.ctex"]
 
 [params]
 
