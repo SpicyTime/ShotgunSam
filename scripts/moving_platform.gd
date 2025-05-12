@@ -12,8 +12,10 @@ func _ready() -> void:
 		if texture != null:
 			sprite_2d.texture = texture
 		else:
+			print("Null")
 			return
 	if collision_shape_2d == null:
+		print("NUll")
 		return
 	#Adjusts the collision shape to match the texture
 	collision_shape_2d.shape.extents = sprite_2d.texture.get_size() / 2

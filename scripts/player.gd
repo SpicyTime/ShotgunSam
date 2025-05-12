@@ -34,9 +34,9 @@ func handle_flip() -> void:
 		player_sprite.flip_h = true
 		
 func rotate_node_around_player(node: Node2D, offset: Vector2 = Vector2(0, 0))-> void:
-	var direction =  pseudo_mouse_pos
+	var  direction_to_mouse =  pseudo_mouse_pos
 	 
-	var angle = direction.angle()
+	var angle = direction_to_mouse.angle()
 	# Rotates the sprite to face the mouse
 	node.rotation = angle
 	 

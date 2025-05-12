@@ -16,13 +16,13 @@ func emit_laser() -> void:
 		laser.start()
 func stop_emitting() -> void:
 	if not receiver: 
-	 
 		is_emitting = false
+		print("Stopped")
 func extend_laser(amount):
 	laser.extend(amount)
+	
 func _ready() -> void:
 	if not receiver:
-		
 		emit_laser()
 	else:
 		remove_child(get_node("Laser"))
@@ -32,12 +32,17 @@ func _ready() -> void:
  
 func _physics_process(delta: float) -> void:
 	if is_emitting:
-		if laser.is_colliding_with_map() or laser.stop:
-			is_emitting = false
-			return
-			
 		laser.extend( -delta * 1000)
+
 func _on_area_2d_area_entered(area: Area2D) -> void:
-	if area is HitBox and receiver and area != self:
-		Signals.laser_receiver_hit.emit(id) 
-		stop_emitting()
+	if area is HitBox and area.get_parent() is Laser  and receiver:
+		#stop_emitting()
+		print("Hit")
+		Signals.laser_receiver_hit.emit(id)
+		
+func _on_area_2d_area_exited(area: Area2D) -> void:
+	if area is HitBox and area.get_parent() is Laser and receiver:
+		print("Unhit")
+		Signals.laser_receiver_unhit.emit(id)
+		 
+		

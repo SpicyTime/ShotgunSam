@@ -3,12 +3,16 @@
 [ext_resource type="Script" path="res://scripts/platform_follow.gd" id="1_shffd"]
 
 [sub_resource type="Curve2D" id="Curve2D_oaveh"]
+_data = {
+"points": PackedVector2Array(0, 0, 0, 0, 408, -8, 0, 0, 0, 0, 408, -336)
+}
+point_count = 2
 
 [node name="PlatformTrack" type="Path2D"]
 curve = SubResource("Curve2D_oaveh")
 
 [node name="PlatformFollow" type="PathFollow2D" parent="."]
-position = Vector2(56, 48)
+position = Vector2(408, -8)
 rotates = false
 script = ExtResource("1_shffd")
 speed = 0.25

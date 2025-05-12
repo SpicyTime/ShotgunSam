@@ -3,37 +3,38 @@
 [ext_resource type="Texture2D" uid="uid://c8ugkn2fhmx8t" path="res://assets/art/doors/DoorBarrierELocked.png" id="1_dsu8t"]
 [ext_resource type="Script" path="res://scripts/locked_door.gd" id="1_swoh3"]
 
-[sub_resource type="AtlasTexture" id="AtlasTexture_b0e1a"]
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_4nu4w"]
+size = Vector2(48, 192)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_mxl4m"]
 atlas = ExtResource("1_dsu8t")
 region = Rect2(0, 0, 48, 192)
 
-[sub_resource type="AtlasTexture" id="AtlasTexture_bqqr8"]
+[sub_resource type="AtlasTexture" id="AtlasTexture_t8th2"]
 atlas = ExtResource("1_dsu8t")
 region = Rect2(48, 0, 48, 192)
 
-[sub_resource type="SpriteFrames" id="SpriteFrames_x1qii"]
+[sub_resource type="SpriteFrames" id="SpriteFrames_dfbag"]
 animations = [{
 "frames": [{
 "duration": 1.0,
-"texture": SubResource("AtlasTexture_b0e1a")
+"texture": SubResource("AtlasTexture_mxl4m")
 }, {
 "duration": 1.0,
-"texture": SubResource("AtlasTexture_bqqr8")
+"texture": SubResource("AtlasTexture_t8th2")
 }],
-"loop": true,
+"loop": false,
 "name": &"light",
 "speed": 5.0
 }]
 
-[sub_resource type="RectangleShape2D" id="RectangleShape2D_4nu4w"]
-size = Vector2(48, 192)
-
 [node name="LockedDoor" type="AnimatableBody2D"]
 script = ExtResource("1_swoh3")
-
-[node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="."]
-sprite_frames = SubResource("SpriteFrames_x1qii")
-animation = &"light"
+required_receivers = 1
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
 shape = SubResource("RectangleShape2D_4nu4w")
+
+[node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="."]
+sprite_frames = SubResource("SpriteFrames_dfbag")
+animation = &"light"
