@@ -25,7 +25,7 @@ Signals="*res://scripts/autoloads/signals.gd"
 Constants="*res://scripts/autoloads/constants.gd"
 GameData="*res://scripts/autoloads/game_data.gd"
 SettingsData="*res://scripts/autoloads/settings_data.gd"
-DialogueManager="*res://scripts/dialogue_manager.gd"
+DialogueManager="*res://scripts/manager_scripts/dialogue_manager.gd"
 
 [debug]
 

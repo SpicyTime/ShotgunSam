@@ -18,6 +18,7 @@ signal received_damage(damage: int)
 #Laser
 signal laser_receiver_hit(id: int)
 signal laser_receiver_unhit(id: int)
+signal mirror_hit(laser: Laser)
 #Button 
 signal button_hover
 signal button_press()

@@ -1,7 +1,7 @@
 [gd_scene load_steps=4 format=3 uid="uid://l5enih3umcew"]
 
-[ext_resource type="Texture2D" uid="uid://bqb44mlplaovi" path="res://assets/art/SpikesSet.png" id="1_fio10"]
-[ext_resource type="Script" path="res://scripts/hitbox.gd" id="2_x3ji4"]
+[ext_resource type="Texture2D" uid="uid://b7wlxu60oa8wm" path="res://assets/art/SpikesSet.png" id="1_fio10"]
+[ext_resource type="Script" path="res://scripts/health_system/hitbox.gd" id="2_x3ji4"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_20tgw"]
 size = Vector2(32, 13)

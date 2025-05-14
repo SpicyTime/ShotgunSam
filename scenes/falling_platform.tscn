@@ -1,6 +1,6 @@
 [gd_scene load_steps=4 format=3 uid="uid://b8kj7h1oagw8l"]
 
-[ext_resource type="Script" path="res://scripts/falling_platform.gd" id="1_sh4rj"]
+[ext_resource type="Script" path="res://scripts/platform_scripts/falling_platform.gd" id="1_sh4rj"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_teky8"]
 

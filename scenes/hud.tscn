@@ -1,6 +1,6 @@
 [gd_scene load_steps=3 format=3 uid="uid://c484w6alc8aud"]
 
-[ext_resource type="Script" path="res://scripts/hud.gd" id="1_fuqqp"]
+[ext_resource type="Script" path="res://scripts/UI/hud.gd" id="1_fuqqp"]
 [ext_resource type="Theme" uid="uid://uqij1mue7qu1" path="res://themes/font_theme.tres" id="2_4u5od"]
 
 [node name="Hud" type="Control"]

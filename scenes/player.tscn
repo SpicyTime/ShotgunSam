@@ -2,8 +2,8 @@
 
 [ext_resource type="Script" path="res://scripts/player.gd" id="1_tcq6q"]
 [ext_resource type="Texture2D" uid="uid://bx4u00dgopx4q" path="res://assets/art/player/Player.png" id="2_cn3vu"]
-[ext_resource type="Script" path="res://scripts/hurtbox.gd" id="4_8w6kp"]
-[ext_resource type="Script" path="res://scripts/health.gd" id="5_6acjd"]
+[ext_resource type="Script" path="res://scripts/health_system/hurtbox.gd" id="4_8w6kp"]
+[ext_resource type="Script" path="res://scripts/health_system/health.gd" id="5_6acjd"]
 [ext_resource type="PackedScene" uid="uid://bwhbrw2cdw27s" path="res://scenes/gun.tscn" id="5_md848"]
 [ext_resource type="Texture2D" uid="uid://kdaws4yncvob" path="res://assets/art/player/PlayerReloadAnimRed.png" id="6_f3eu1"]
 [ext_resource type="Texture2D" uid="uid://dq5tjmg8jibl4" path="res://assets/art/player/PlayerReloadAnim.png" id="6_ikxi2"]

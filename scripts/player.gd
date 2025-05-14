@@ -106,6 +106,7 @@ func _physics_process(delta: float) -> void:
 			was_in_air = false
 			$Arms.play("idle")
 			gun.reload()
+			
 	if is_on_floor() and not has_shot:
 		velocity.x = move_toward(velocity.x, 0, SPEED)
 	else:

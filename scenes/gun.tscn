@@ -4,7 +4,7 @@
 [ext_resource type="Script" path="res://scripts/gun.gd" id="1_rd3yr"]
 [ext_resource type="AudioStream" uid="uid://d0iqxk5xdp3a" path="res://assets/SFX/shotgun-firing-4-6746.mp3" id="4_t1eof"]
 [ext_resource type="AudioStream" uid="uid://8bjcvp3hr0v6" path="res://assets/SFX/Pump Reload Full MP3.mp3" id="6_1nn3b"]
-[ext_resource type="Script" path="res://scripts/hitbox.gd" id="6_23jr8"]
+[ext_resource type="Script" path="res://scripts/health_system/hitbox.gd" id="6_23jr8"]
 [ext_resource type="AudioStream" uid="uid://dj7x5a4cbcsl6" path="res://assets/SFX/EmptyGunSound.mp3" id="7_ut8ba"]
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_4438o"]

@@ -1,6 +1,6 @@
 [gd_scene load_steps=3 format=3 uid="uid://do6ii7r08dygn"]
 
-[ext_resource type="Script" path="res://scripts/platform_follow.gd" id="1_shffd"]
+[ext_resource type="Script" path="res://scripts/platform_scripts/platform_follow.gd" id="1_shffd"]
 
 [sub_resource type="Curve2D" id="Curve2D_oaveh"]
 _data = {

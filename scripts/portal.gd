@@ -13,6 +13,7 @@ func start_immunity():
 	linked_portal.can_teleport = false
 	await get_tree().create_timer(1).timeout
 	linked_portal.can_teleport = true
+	
 func teleport(body, position):
 	body.global_position = position 
 		

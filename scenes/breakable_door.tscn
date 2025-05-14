@@ -1,9 +1,9 @@
 [gd_scene load_steps=11 format=3 uid="uid://cf4c6sr81qukp"]
 
-[ext_resource type="Script" path="res://scripts/breakable_door.gd" id="1_s4xuk"]
+[ext_resource type="Script" path="res://scripts/door_scripts/breakable_door.gd" id="1_s4xuk"]
 [ext_resource type="Texture2D" uid="uid://bhqd24vqsjqh7" path="res://assets/art/doors/DoorBarrier.png" id="2_75v3j"]
-[ext_resource type="Script" path="res://scripts/hurtbox.gd" id="3_mml76"]
-[ext_resource type="Script" path="res://scripts/health.gd" id="4_imbtx"]
+[ext_resource type="Script" path="res://scripts/health_system/hurtbox.gd" id="3_mml76"]
+[ext_resource type="Script" path="res://scripts/health_system/health.gd" id="4_imbtx"]
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_vfsri"]
 atlas = ExtResource("2_75v3j")

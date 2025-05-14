@@ -1,13 +1,10 @@
-[gd_scene load_steps=14 format=4 uid="uid://dckv4vt06khov"]
+[gd_scene load_steps=11 format=4 uid="uid://dckv4vt06khov"]
 
 [ext_resource type="Texture2D" uid="uid://blunpk5ws2r67" path="res://assets/art/TerrainTileset.png" id="1_vk3vc"]
-[ext_resource type="PackedScene" uid="uid://bd6m5xdkmr5y2" path="res://scenes/portal.tscn" id="2_a1um0"]
 [ext_resource type="PackedScene" uid="uid://borl23bwvo33f" path="res://scenes/laser_box.tscn" id="3_16pjy"]
-[ext_resource type="PackedScene" uid="uid://cf4c6sr81qukp" path="res://scenes/breakable_door.tscn" id="4_t6aoi"]
 [ext_resource type="PackedScene" uid="uid://cdug5nrm21eth" path="res://scenes/locked_door.tscn" id="5_agahg"]
-[ext_resource type="PackedScene" uid="uid://do6ii7r08dygn" path="res://scenes/platform_track.tscn" id="7_3bkgn"]
 [ext_resource type="PackedScene" uid="uid://b8kj7h1oagw8l" path="res://scenes/falling_platform.tscn" id="7_sxye4"]
-[ext_resource type="PackedScene" uid="uid://bx14d0xhe044j" path="res://scenes/moving_platform.tscn" id="8_3an1j"]
+[ext_resource type="PackedScene" uid="uid://dvitbvc3voqj0" path="res://scenes/mirror.tscn" id="7_x3gu2"]
 
 [sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_xm7b4"]
 texture = ExtResource("1_vk3vc")
@@ -155,16 +152,6 @@ _data = {
 [node name="LevSpawnPos" type="Marker2D" parent="."]
 position = Vector2(-41, 219)
 
-[node name="Portal3" parent="." node_paths=PackedStringArray("linked_portal") instance=ExtResource("2_a1um0")]
-position = Vector2(360, -204)
-rotation = -1.5708
-linked_portal = NodePath("../Portal4")
-
-[node name="Portal4" parent="." node_paths=PackedStringArray("linked_portal") instance=ExtResource("2_a1um0")]
-position = Vector2(-305, 252)
-rotation = 1.5708
-linked_portal = NodePath("../Portal3")
-
 [node name="LaserBoxEmitter" parent="." node_paths=PackedStringArray("paired_laser_box") instance=ExtResource("3_16pjy")]
 position = Vector2(520, -80)
 paired_laser_box = NodePath("../LaserBoxReciever")
@@ -179,9 +166,6 @@ paired_laser_box = NodePath("../LaserBoxEmitter")
 tile_map_data = PackedByteArray("AAD0//n/AQAEAAEAAAD0//r/AQACAAEAAAD0//v/AQACAAEAAAD0//z/AQACAAEAAAD0//3/AQACAAEAAAD0//7/AQACAAEAAAD0////AQACAAEAAAD0/wAAAQACAAEAAAD0/wEAAQACAAEAAAD0/wIAAQACAAEAAAD0/wMAAQACAAEAAAD0/wQAAQACAAEAAAD0/wUAAQACAAEAAAD0/wYAAQAEAAIAAAD1//n/AQABAAIAAAD1/wYAAQABAAAAAAD2//n/AQABAAIAAAD2/wYAAQABAAAAAAD3//n/AQABAAIAAAD3/wYAAQABAAAAAAD4//n/AQABAAIAAAD4/wYAAQABAAAAAAD5//n/AQABAAIAAAD5/wYAAQABAAAAAAD6//n/AQABAAIAAAD7//n/AQABAAIAAAD8//n/AQABAAIAAAD9//n/AQABAAIAAAD+//n/AQABAAIAAAD///n/AQABAAIAAAAAAPn/AQABAAIAAAABAPn/AQABAAIAAAABAAYAAQABAAAAAAACAPn/AQABAAIAAAACAAYAAQABAAAAAAADAPn/AQABAAIAAAADAAYAAQABAAAAAAAEAPn/AQABAAIAAAAEAAYAAQABAAAAAAAFAPn/AQABAAIAAAAFAAYAAQABAAAAAAAGAPn/AQABAAIAAAAGAAYAAQABAAAAAAAHAPn/AQABAAIAAAAHAAYAAQABAAAAAAAIAPn/AQABAAIAAAAIAAYAAQABAAAAAAAJAPn/AQABAAIAAAAJAAYAAQABAAAAAAAKAPn/AQABAAIAAAAKAAYAAQABAAAAAAALAPn/AQAFAAEAAAALAPr/AQAAAAEAAAALAPv/AQAAAAEAAAALAPz/AQAAAAEAAAALAP3/AQAAAAEAAAALAP7/AQAAAAEAAAALAP//AQAAAAEAAAALAAAAAQAAAAEAAAALAAEAAQAAAAEAAAALAAIAAQAAAAEAAAALAAMAAQAAAAEAAAALAAQAAQAAAAEAAAALAAUAAQAAAAEAAAALAAYAAQAFAAIAAAAAAAYAAQABAAAAAAD6/wYAAQABAAAAAAD7/wYAAQABAAAAAAD8/wYAAQABAAAAAAD9/wYAAQABAAAAAAD+/wYAAQABAAAAAAD//wYAAQABAAAAAAD6//7/AQABAAEAAAA=")
 tile_set = SubResource("TileSet_2epuy")
 
-[node name="BreakableDoor" parent="." instance=ExtResource("4_t6aoi")]
-position = Vector2(88, -40)
-
 [node name="LockedDoor" parent="." instance=ExtResource("5_agahg")]
 position = Vector2(-424, 192)
 
@@ -193,8 +177,6 @@ libraries = {
 [node name="FallingPlatform" parent="." instance=ExtResource("7_sxye4")]
 position = Vector2(-160, 88)
 
-[node name="PlatformTrack" parent="." instance=ExtResource("7_3bkgn")]
-position = Vector2(24, 160)
-
-[node name="MovingPlatform" parent="PlatformTrack" instance=ExtResource("8_3an1j")]
-texture_name = "vertical/Vert3.png"
+[node name="Mirror" parent="." instance=ExtResource("7_x3gu2")]
+position = Vector2(57, -72)
+rotation = 1.8326

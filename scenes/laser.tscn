@@ -1,8 +1,8 @@
 [gd_scene load_steps=5 format=3 uid="uid://dx577meuybnbw"]
 
-[ext_resource type="Script" path="res://scripts/laser.gd" id="1_xfe3e"]
+[ext_resource type="Script" path="res://scripts/laser_scripts/laser.gd" id="1_xfe3e"]
 [ext_resource type="Texture2D" uid="uid://bd6qwlbqmtk3g" path="res://assets/art/Laser.png" id="2_0txut"]
-[ext_resource type="Script" path="res://scripts/hitbox.gd" id="3_kcqee"]
+[ext_resource type="Script" path="res://scripts/health_system/hitbox.gd" id="3_kcqee"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_x7ki3"]
 size = Vector2(4, 2)
