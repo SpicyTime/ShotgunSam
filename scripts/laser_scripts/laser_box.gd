@@ -40,7 +40,7 @@ func _ready() -> void:
 func _physics_process(delta: float) -> void:
 	if is_emitting:
 		for laser in lasers:
-			laser.extend( delta * 1000)
+			laser.extend( delta * 2000)
 
 func _on_area_2d_area_entered(area: Area2D) -> void:
 	if area is HitBox and area.get_parent() is Laser  and receiver:
@@ -51,14 +51,13 @@ func _on_area_2d_area_exited(area: Area2D) -> void:
 		Signals.laser_receiver_unhit.emit(id)
 		 
 func _on_mirror_hit(laser, mirror):
-	print(laser.id, id)
+	 
 	if laser.id != id:
 		return
 	mirror.hit = true
 	 
 	var surface_direction = Vector2(cos(mirror.rotation), sin(mirror.rotation))
 	var mirror_normal = surface_direction.rotated(PI / 2)
- 
 	 
 	var new_direction = laser.direction - 2 * laser.direction.dot(mirror_normal) * mirror_normal
 	var packed_laser_scene = load("res://scenes/laser.tscn")
@@ -67,6 +66,11 @@ func _on_mirror_hit(laser, mirror):
 	await get_tree().process_frame
 	add_child(new_laser)
 	new_laser.direction = new_direction
-	new_laser.start(Vector2(-100, 100))
+
+	var start_pos = laser.ray.get_collision_point() 
+	laser.line_2d.points[laser.tip_point] = to_local(laser.ray.get_collision_point())
+	start_pos = to_local(start_pos)
+	 
+	new_laser.start(start_pos)
 	
 	lasers.append(new_laser)
